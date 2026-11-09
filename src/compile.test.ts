@@ -15,6 +15,13 @@ import type { ResolvedElement } from "./element.ts";
 import { XML, markerOf, mixed, planOf, text } from "./plan.ts";
 import type { Plan } from "./plan.ts";
 
+/**
+ * The time budget of the 300,000-element stack-depth regressions. They guard against a call stack
+ * overflow, not a duration, and take about 1.3 s alone, so Vitest's 5 s default fails them when the
+ * full suite shares a loaded machine.
+ */
+const STACK_DEPTH_TIMEOUT_MS = 30_000;
+
 const plan: Plan = {
   attributes: [
     { key: "id", name: "id", schema: Schema.String },
@@ -342,13 +349,16 @@ describe("compile: elements content", () => {
     }),
   );
 
-  it.effect("encodes a many slot holding 300000 children", () =>
-    Effect.gen(function* encodesMany() {
-      const value = { leaf: Array.from({ length: 300_000 }, () => ({})) };
-      const encoded = yield* Schema.encodeUnknownEffect(bagCodec)(value);
+  it.effect(
+    "encodes a many slot holding 300000 children",
+    () =>
+      Effect.gen(function* encodesMany() {
+        const value = { leaf: Array.from({ length: 300_000 }, () => ({})) };
+        const encoded = yield* Schema.encodeUnknownEffect(bagCodec)(value);
 
-      expect(encoded.children.filter(isResolvedElement)).toHaveLength(300_000);
-    }),
+        expect(encoded.children.filter(isResolvedElement)).toHaveLength(300_000);
+      }),
+    STACK_DEPTH_TIMEOUT_MS,
   );
 });
 
@@ -898,14 +908,17 @@ describe("compile: open elements content", () => {
     }),
   );
 
-  it.effect("encodes a * slot holding 300000 elements", () =>
-    Effect.gen(function* encodesOpenMany() {
-      const encoded = yield* Schema.encodeUnknownEffect(openBag)({
-        "*": Array.from({ length: 300_000 }, () => y),
-      });
+  it.effect(
+    "encodes a * slot holding 300000 elements",
+    () =>
+      Effect.gen(function* encodesOpenMany() {
+        const encoded = yield* Schema.encodeUnknownEffect(openBag)({
+          "*": Array.from({ length: 300_000 }, () => y),
+        });
 
-      expect(encoded.children.filter(isResolvedElement)).toHaveLength(300_000);
-    }),
+        expect(encoded.children.filter(isResolvedElement)).toHaveLength(300_000);
+      }),
+    STACK_DEPTH_TIMEOUT_MS,
   );
 });
 
