@@ -31,4 +31,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: ./.github/actions/setup
-      - run: bun run changeset:check -- --base origin/${{ github.base_ref }}
+      - run: bun run changeset:check -- --base "origin/$BASE_REF"
+        env:
+          BASE_REF: ${{ github.base_ref }}
