@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      # Optional GitHub App token. A Version Packages PR opened with the default
+      # GITHUB_TOKEN triggers no workflows, so its required checks never run.
+      # See docs/releasing.md.
+      - id: app-token
+        if: vars.RELEASE_APP_CLIENT_ID != ''
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup
+
+      # Trusted publishing needs npm >= 11.5.1 and Node >= 22.14.0.
+      # Node 24.22.2 bundles npm 11.19.1. No registry-url: npm authenticates
+      # through OIDC, so no .npmrc token line is written.
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24.22.2
+          package-manager-cache: false
+
+      - name: Check, build and test
+        run: bun run check && bun run build && bun run test
+
+      - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
+        with:
+          github-token: ${{ steps.app-token.outputs.token || secrets.GITHUB_TOKEN }}
+          version-script: bunx changeset version
+          publish-script: bunx changeset publish
+          commit-message: "chore(release): version packages"
+          pr-title: "chore(release): version packages"
+        env:
+          NPM_CONFIG_PROVENANCE: "true"
