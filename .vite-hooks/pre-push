@@ -1,3 +1,6 @@
+# Refuse any pushed ref that carries private-history commits. Git writes the pushed refs
+# to stdin; this must run first so it reads them.
+bun tools/git/private-history.mjs
 # Block the push unless it would pass CI's checks: a changeset for release-relevant
 # changes since origin/main, formatting, lint and types with warnings treated as
 # errors, then tests and the production build.

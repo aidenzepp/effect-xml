@@ -56,4 +56,4 @@ Versioning and publishing are automated. Never edit `version` or `CHANGELOG.md` 
 
 This repository coordinates through Vivi (`.vivi/`, machine-local and never committed). Load the `vivi` skill, run `vivi boot --project <root>` first, and use the `vivi` CLI only; never edit `.vivi/` files directly.
 
-The local branch `private-history` holds the pre-public history and must never be pushed; `origin` is the public repository.
+The local branches `private-history`, `perf3-orc-cluster`, `perf3b-s1-passthrough` and `perf3b-s2-overlap` carry the pre-public history and must never be pushed; the pre-push hook refuses any ref that contains their commits. `origin` is the public repository.

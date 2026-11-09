@@ -39,10 +39,10 @@ export default defineConfig({
         rules: { "unicorn/throw-new-error": "off" },
       },
       {
-        // These tests import bun:test, and the changeset check imports node: modules, from plain
+        // These tests import bun:test, and the changeset and git checks import node: modules, from plain
         // JavaScript. The type-aware checker does not load those types for an .mjs file; the
         // tests still run under bun test.
-        files: ["tools/**/*.test.mjs", "tools/changeset/*.mjs"],
+        files: ["tools/**/*.test.mjs", "tools/changeset/*.mjs", "tools/git/*.mjs"],
         rules: {
           "typescript/no-unsafe-argument": "off",
           "typescript/no-unsafe-assignment": "off",
