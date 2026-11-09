@@ -2,6 +2,7 @@ import { expect, test } from "bun:test";
 import { evaluate, isDeletion, parseUpdates } from "./private-history.mjs";
 
 const zero = "0".repeat(40);
+
 const mainSha = "a".repeat(40);
 
 const privateSha = "b".repeat(40);
