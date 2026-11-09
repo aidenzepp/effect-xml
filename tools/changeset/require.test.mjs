@@ -1,10 +1,5 @@
 import { expect, test } from "bun:test";
-import {
-  changedReleaseFields,
-  declaredReleaseTypes,
-  evaluate,
-  parseNameStatus,
-} from "./require.mjs";
+import { changedReleaseFields, evaluate, parseNameStatus, readChangeset } from "./require.mjs";
 
 const name = "@aidenzepp/effect-xml";
 
@@ -19,6 +14,7 @@ const patchChangeset = `---\n"${name}": patch\n---\n\nFix a decode position.\n`;
  * @param {{
  *   changes: { path: string; status: string }[];
  *   changesets?: Record<string, string>;
+ *   pendingAtBase?: string[];
  *   basePackageJson?: string | null;
  *   headPackageJson?: string;
  *   version?: string;
@@ -29,10 +25,26 @@ const patchChangeset = `---\n"${name}": patch\n---\n\nFix a decode position.\n`;
 const verdict = ({
   changes,
   changesets = {},
+  pendingAtBase = [],
   basePackageJson = packageJson(),
   headPackageJson = packageJson(),
   version = "0.1.0",
-}) => evaluate({ basePackageJson, changes, changesets, headPackageJson, version });
+}) => evaluate({ basePackageJson, changes, changesets, headPackageJson, pendingAtBase, version });
+
+/**
+ * Evaluates a src change that adds one changeset with the given text.
+ *
+ * @param {string} text The changeset file text.
+ * @returns {{ ok: boolean; message?: string }} The verdict.
+ */
+const withChangeset = (text) =>
+  verdict({
+    changes: [
+      { path: "src/a.ts", status: "M" },
+      { path: ".changeset/c.md", status: "A" },
+    ],
+    changesets: { ".changeset/c.md": text },
+  });
 
 test("fails a src change without a changeset and names the fix", () => {
   const result = verdict({ changes: [{ path: "src/a.ts", status: "M" }] });
@@ -153,9 +165,73 @@ test("passes a Version Packages branch that only deletes changesets", () => {
 });
 
 test("reads release types from changeset frontmatter", () => {
-  expect(declaredReleaseTypes(patchChangeset)).toEqual(["patch"]);
-  expect(declaredReleaseTypes("---\n---\n")).toEqual([]);
-  expect(declaredReleaseTypes("no frontmatter: major\n")).toEqual([]);
+  expect(readChangeset(patchChangeset)).toEqual({ ok: true, releases: [{ name, type: "patch" }] });
+  expect(readChangeset("---\n---\n")).toEqual({ ok: true, releases: [] });
+  expect(readChangeset("no frontmatter: major\n").ok).toBe(false);
+});
+
+test("fails a changeset without frontmatter and names the file and the fix", () => {
+  const result = withChangeset("Fix a decode position.\n");
+
+  expect(result.ok).toBe(false);
+  expect(result.message).toContain(".changeset/c.md: could not parse changeset");
+  expect(result.message).toContain(`"${name}": patch`);
+});
+
+test("fails a changeset with unparseable frontmatter", () => {
+  const result = withChangeset(`---\n"${name}": [patch\n---\n`);
+
+  expect(result.ok).toBe(false);
+  expect(result.message).toContain(".changeset/c.md: could not parse changeset");
+});
+
+test("fails a changeset that names another package", () => {
+  const result = withChangeset(`---\n"effect-xml": patch\n---\n\nFix.\n`);
+
+  expect(result.ok).toBe(false);
+  expect(result.message).toContain(`.changeset/c.md: names "effect-xml"`);
+  expect(result.message).toContain(`Use "${name}"`);
+});
+
+test("fails a changeset that declares no bump type Changesets releases here", () => {
+  expect(withChangeset(`---\n"${name}": none\n---\n`).ok).toBe(false);
+  expect(withChangeset(`---\n"${name}": huge\n---\n`).ok).toBe(false);
+});
+
+test("fails a quoted major changeset while the version is 0.x", () => {
+  const result = withChangeset(`---\n"${name}": "major" # breaking\n---\n\nRemove decodeSync.\n`);
+
+  expect(result.ok).toBe(false);
+  expect(result.message).toContain("pre-1.0: a breaking change is a minor bump");
+});
+
+test("passes a quoted patch changeset", () => {
+  expect(withChangeset(`---\n"${name}": "patch"\n---\n\nFix.\n`)).toEqual({ ok: true });
+});
+
+test("does not count a changeset already pending at the merge base", () => {
+  const result = verdict({
+    changes: [
+      { path: "src/a.ts", status: "M" },
+      { path: ".changeset/old.md", status: "D" },
+      { path: ".changeset/renamed.md", status: "A" },
+    ],
+    changesets: { ".changeset/renamed.md": patchChangeset },
+    pendingAtBase: [".changeset/renamed.md"],
+  });
+
+  expect(result.ok).toBe(false);
+  expect(result.message).toContain("release-relevant changes without a changeset: src/a.ts");
+});
+
+test("fails a publishConfig change without a changeset", () => {
+  const result = verdict({
+    changes: [{ path: "package.json", status: "M" }],
+    headPackageJson: packageJson({ publishConfig: { access: "public" } }),
+  });
+
+  expect(result.ok).toBe(false);
+  expect(result.message).toContain("package.json (publishConfig)");
 });
 
 test("compares release fields deeply and treats a missing base as empty", () => {

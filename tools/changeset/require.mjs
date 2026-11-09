@@ -1,5 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { isDeepStrictEqual } from "node:util";
+import { parseChangesetFile } from "@changesets/parse";
+import { Effect } from "effect";
 
 /**
  * @typedef {{ path: string; status: string }} Change One line of `git diff --name-status`: the
@@ -12,9 +14,20 @@ import { isDeepStrictEqual } from "node:util";
  *   basePackageJson: string | null;
  *   headPackageJson: string;
  *   changesets: Record<string, string>;
+ *   pendingAtBase?: string[];
  *   version: string;
  * }} Inputs
  *   Everything the verdict depends on. `changesets` maps each added changeset path to its text.
+ *   `pendingAtBase` lists added changeset paths whose path or content already existed at the
+ *   merge base, such as a renamed pending changeset; they do not count.
+ */
+
+/**
+ * @typedef {{ name: string; type: string }} Release One package line of a changeset.
+ */
+
+/**
+ * @typedef {{ ok: true; releases: Release[] } | { ok: false; reason: string }} ParsedChangeset
  */
 
 /**
@@ -39,7 +52,14 @@ export const releaseFields = [
   "types",
   "bin",
   "engines",
+  "publishConfig",
 ];
+
+/**
+ * The bump types a changeset may declare. Changesets also parses `none`, which releases
+ * nothing and has no place in a single-package repository.
+ */
+export const releaseTypes = ["patch", "minor", "major"];
 
 /**
  * Reports whether a path is a changeset file: a Markdown file directly in `.changeset/`
@@ -84,25 +104,63 @@ export const changedReleaseFields = (baseText, headText) => {
 };
 
 /**
- * Reads the release types a changeset declares in its frontmatter.
+ * Parses a changeset with the parser `changeset version` uses, so a file that passes here
+ * also passes at release time.
  *
  * @param {string} text The changeset file text.
- * @returns {string[]} One release type per package line, e.g. `["patch"]`; empty for an empty
- *   changeset.
+ * @returns {ParsedChangeset} The declared releases, empty for an empty changeset, or the
+ *   parser's first error line.
  */
-export const declaredReleaseTypes = (text) => {
-  const lines = text.split(/\r?\n/u);
+export const readChangeset = (text) =>
+  Effect.runSync(
+    Effect.try({
+      catch: (error) => (error instanceof Error ? error.message : String(error)),
+      try: () => parseChangesetFile(text),
+    }).pipe(
+      Effect.match({
+        onFailure: (message) => ({ ok: false, reason: message.split("\n")[0] ?? message }),
+        onSuccess: (parsed) => ({ ok: true, releases: parsed.releases }),
+      }),
+    ),
+  );
 
-  if (lines[0]?.trim() !== "---") {
-    return [];
+/**
+ * Lists what is wrong with one added changeset.
+ *
+ * @param {string} path The changeset path.
+ * @param {string} text The changeset file text.
+ * @param {string} name The package name the changeset must release.
+ * @param {string} version The package version at HEAD.
+ * @returns {string[]} One message per problem, each naming the file and the fix.
+ */
+const changesetProblems = (path, text, name, version) => {
+  const parsed = readChangeset(text);
+
+  if (!parsed.ok) {
+    return [
+      `${path}: ${parsed.reason}. Start the file with frontmatter: ---, "${name}": patch, ---, then a summary.`,
+    ];
   }
 
-  const end = lines.indexOf("---", 1);
-  const frontmatter = lines.slice(1, end === -1 ? lines.length : end);
+  return parsed.releases.flatMap((release) => {
+    if (release.name !== name) {
+      return [`${path}: names "${release.name}", which is not this package. Use "${name}".`];
+    }
 
-  return frontmatter
-    .map((line) => /:\s*(?<type>[a-z]+)\s*$/u.exec(line)?.groups?.type)
-    .filter((type) => type !== undefined);
+    if (!releaseTypes.includes(release.type)) {
+      return [
+        `${path}: declares "${release.type}"; use patch, minor, or major. For no release: bunx changeset add --empty`,
+      ];
+    }
+
+    if (release.type === "major" && version.startsWith("0.")) {
+      return [
+        `${path}: declares a major bump at ${version}; pre-1.0: a breaking change is a minor bump. Change "major" to "minor".`,
+      ];
+    }
+
+    return [];
+  });
 };
 
 /**
@@ -131,22 +189,31 @@ const missingChangesetMessage = (reasons, name) =>
  * @param {Inputs} inputs The branch diff, package.json at both ends, and added changeset texts.
  * @returns {Verdict} `ok` when the branch passes; otherwise the message to print.
  */
-export const evaluate = ({ changes, basePackageJson, headPackageJson, changesets, version }) => {
+export const evaluate = ({
+  changes,
+  basePackageJson,
+  headPackageJson,
+  changesets,
+  pendingAtBase = [],
+  version,
+}) => {
+  /**
+   * @type {{ name?: string }}
+   */
+  const head = JSON.parse(headPackageJson);
+  const name = head.name ?? "<package>";
+
   const added = changes
     .filter((change) => change.status === "A" && isChangesetPath(change.path))
-    .map((change) => change.path);
+    .map((change) => change.path)
+    .filter((path) => !pendingAtBase.includes(path));
 
-  if (version.startsWith("0.")) {
-    const major = added.filter((path) =>
-      declaredReleaseTypes(changesets[path] ?? "").includes("major"),
-    );
+  const problems = added.flatMap((path) =>
+    changesetProblems(path, changesets[path] ?? "", name, version),
+  );
 
-    if (major.length > 0) {
-      return {
-        message: `${major.join(", ")} declares a major bump at ${version}; pre-1.0: a breaking change is a minor bump. Change "major" to "minor".`,
-        ok: false,
-      };
-    }
+  if (problems.length > 0) {
+    return { message: problems.join("\n"), ok: false };
   }
 
   if (added.length > 0) {
@@ -169,12 +236,7 @@ export const evaluate = ({ changes, basePackageJson, headPackageJson, changesets
     return { ok: true };
   }
 
-  /**
-   * @type {{ name?: string }}
-   */
-  const head = JSON.parse(headPackageJson);
-
-  return { message: missingChangesetMessage(reasons, head.name ?? "<package>"), ok: false };
+  return { message: missingChangesetMessage(reasons, name), ok: false };
 };
 
 /**
@@ -207,6 +269,24 @@ const git = (args) => {
   const result = spawnSync("git", args, { encoding: "utf-8" });
 
   return { ok: result.status === 0, stdout: result.stdout ?? "" };
+};
+
+/**
+ * Lists the blob ids of the changesets pending at a commit, so a renamed changeset can be
+ * recognized by its content.
+ *
+ * @param {string} rev The commit to read.
+ * @returns {Set<string>} The blob id of each changeset file at `rev`.
+ */
+const changesetBlobs = (rev) => {
+  const entries = git(["ls-tree", "-z", rev, ".changeset/"]).stdout.split("\0");
+
+  return new Set(
+    entries
+      .map((entry) => /^\S+ blob (?<blob>\S+)\t(?<path>.+)$/u.exec(entry)?.groups)
+      .filter((groups) => groups !== undefined && isChangesetPath(groups.path ?? ""))
+      .map((groups) => groups?.blob ?? ""),
+  );
 };
 
 /**
@@ -252,14 +332,25 @@ const main = (argv) => {
 
   const basePackage = git(["show", `${baseRev}:package.json`]);
   const headPackageJson = git(["show", "HEAD:package.json"]).stdout;
+  const baseBlobs = changesetBlobs(baseRev);
   /**
    * @type {Record<string, string>}
    */
   const changesets = {};
+  /**
+   * @type {string[]}
+   */
+  const pendingAtBase = [];
 
   for (const change of changes) {
     if (change.status === "A" && isChangesetPath(change.path)) {
       changesets[change.path] = git(["show", `HEAD:${change.path}`]).stdout;
+
+      const blob = git(["rev-parse", `HEAD:${change.path}`]).stdout.trim();
+
+      if (git(["cat-file", "-e", `${baseRev}:${change.path}`]).ok || baseBlobs.has(blob)) {
+        pendingAtBase.push(change.path);
+      }
     }
   }
 
@@ -273,6 +364,7 @@ const main = (argv) => {
     changes,
     changesets,
     headPackageJson,
+    pendingAtBase,
     version: head.version ?? "0.0.0",
   });
 
