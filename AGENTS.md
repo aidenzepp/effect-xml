@@ -32,6 +32,28 @@ Data models shape the rest of the library. Before changing a public schema or co
 
 Do not introduce nullable fields, legacy repair paths, transitional models, or compatibility layers merely because earlier development iterations used a different shape. Nullability must represent an actual optional value; backwards compatibility must serve an established requirement.
 
+## Releases and changesets
+
+A branch that changes published source (`src/`, excluding `*.test.*` files) or a consumer-facing `package.json` field (`exports`, `files`, `dependencies`, `peerDependencies`, `type`, `engines`, and the rest of `releaseFields` in `tools/changeset/require.mjs`) must add a `.changeset/*.md`. `bun run changeset:check` enforces this in the pre-push hook and in CI's `changeset` job.
+
+Pre-1.0 bump policy: a breaking change is `minor`; `feat` or `fix` is `patch`. Never declare `major` before 1.0; the check rejects it.
+
+Add one non-interactively with `bunx changeset add --patch @aidenzepp/effect-xml -m "<one-line summary>"` (`--minor` for a breaking change), or write `.changeset/<short-name>.md` by hand:
+
+```md
+---
+"@aidenzepp/effect-xml": patch
+---
+
+<one-line summary for the changelog>
+```
+
+Do not run bare `bunx changeset`; it is interactive. Test, docs, bench, spike, and tooling-only branches need nothing. If `src/` changed without a releasable effect, run `bunx changeset add --empty`.
+
+Versioning and publishing are automated. Never edit `version` or `CHANGELOG.md` by hand; see `docs/releasing.md`.
+
 ## Coordination
 
 This repository coordinates through Vivi (`.vivi/`, machine-local and never committed). Load the `vivi` skill, run `vivi boot --project <root>` first, and use the `vivi` CLI only; never edit `.vivi/` files directly.
+
+The local branch `private-history` holds the pre-public history and must never be pushed; `origin` is the public repository.

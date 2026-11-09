@@ -85,6 +85,14 @@ Add a body only when the commit needs context that is not obvious from the diff:
 - what migration or compatibility trade-off was chosen
 - what verification proves the change
 
+## Changesets
+
+Release rules live in `AGENTS.md` under "Releases and changesets". Commit the changeset with the change it describes, in the same commit or on the same branch. Commit types map to pre-1.0 bumps:
+
+- a breaking change (`!` or a `BREAKING CHANGE:` footer) is `minor`; never `major` before 1.0
+- `feat:` and `fix:` (and `perf:` or `refactor:` that reach published source) are `patch`
+- `test:`, `docs:`, `chore:`, and `ci:` need no changeset; if `src/` changed without a releasable effect, add `bunx changeset add --empty`
+
 ## Verify The Boundary
 
 Before committing, run the narrowest useful checks for the staged story. Prefer the repo's normal hygiene commands when relevant (format, lint, typecheck, test).
