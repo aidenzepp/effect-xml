@@ -1,14 +1,14 @@
 # Releasing
 
-Releases run from [`.github/workflows/release.yml`](../.github/workflows/release.yml) on every push to `main`. Nobody publishes from a laptop, and no npm token exists.
+Releases run from [`.github/workflows/release.yml`](../.github/workflows/release.yml) on every push to `main`. The owner published 0.1.0 by hand; every later version comes from the workflow, which uses npm trusted publishing and no npm token. After configuring the trusted publisher, the owner may disallow token publishing (see [npm settings](#npm-settings)).
 
 ## How a release happens
 
-1. A pull request that changes the published package adds a changeset (`bunx changeset`, or `bunx changeset add --empty` for a change that releases nothing). [`AGENTS.md`](../AGENTS.md) states when one is required.
+1. A pull request that changes the published package adds a changeset: `bunx changeset add --patch @aidenzepp/effect-xml -m "<summary>"` (`--minor` for a breaking change), or `bunx changeset add --empty` for a change that releases nothing. Humans may run bare `bunx changeset` interactively; agents never do. [`AGENTS.md`](../AGENTS.md) states when one is required.
 2. The pull request merges to `main`. The release workflow runs `bun run check`, `bun run build` and `bun run test`, then opens or updates a pull request titled `chore(release): version packages`. That pull request bumps the version, writes `CHANGELOG.md` and deletes the consumed changesets.
 3. The version pull request merges to `main`. The release workflow runs the same checks, then `bunx changeset publish` publishes every version that is not yet on npm, with provenance, through npm trusted publishing. It also pushes the git tag and creates the GitHub release.
 
-A push with no pending changesets and no unpublished version does nothing after the checks.
+A push with no pending changesets and no unpublished version does nothing after the checks. A merge whose pending changesets are all empty opens no version pull request and publishes nothing.
 
 ## GitHub settings
 

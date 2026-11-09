@@ -91,7 +91,8 @@ Release rules live in `AGENTS.md` under "Releases and changesets". Commit the ch
 
 - a breaking change (`!` or a `BREAKING CHANGE:` footer) is `minor`; never `major` before 1.0
 - `feat:` and `fix:` (and `perf:` or `refactor:` that reach published source) are `patch`
-- `test:`, `docs:`, `chore:`, and `ci:` need no changeset; if `src/` changed without a releasable effect, add `bunx changeset add --empty`
+- `chore:` (or `build:`) that touches a release field in `package.json`, such as a `dependencies` or `peerDependencies` bump, is `patch`
+- test-only, docs-only, and tooling-only changes need no changeset; if `src/` changed without a releasable effect, add `bunx changeset add --empty`
 
 ## Verify The Boundary
 
