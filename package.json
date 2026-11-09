@@ -44,6 +44,7 @@
     "test": "bun test tools && vp test",
     "bench": "bun bench/run.ts",
     "bench:node": "node bench/run.ts",
+    "changeset:check": "bun tools/changeset/require.mjs",
     "prepare": "vp config --no-agent",
     "prepublishOnly": "bun run check && bun run build && bun run test"
   },
