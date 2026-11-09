@@ -21,3 +21,14 @@ jobs:
       - run: bun run check
       - run: bun run build
       - run: bun run test
+
+  changeset:
+    name: changeset
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ./.github/actions/setup
+      - run: bun run changeset:check -- --base origin/${{ github.base_ref }}

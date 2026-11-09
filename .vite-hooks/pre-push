@@ -1,5 +1,7 @@
-# Block the push unless it would pass CI's checks: formatting, lint and types with
-# warnings treated as errors, then tests and the production build.
+# Block the push unless it would pass CI's checks: a changeset for release-relevant
+# changes since origin/main, formatting, lint and types with warnings treated as
+# errors, then tests and the production build.
+bun run changeset:check -- --base origin/main
 bun run check
 bun run test
 bun run build >/dev/null
