@@ -1,0 +1,5393 @@
+{
+  "block": {
+    "cases": [
+      "effect-xml/typed-decode",
+      "effect-xml/encode-typed",
+      "effect-xml/stream",
+      "computis-effect-xml/typed-decode",
+      "computis-effect-xml/encode-typed"
+    ],
+    "failures": [],
+    "input": "bank-64m",
+    "jit": "on",
+    "newCommit": "efea83e0b5858fd63088b6759a3c230f4cb184aa",
+    "newOnly": false,
+    "newTree": "work/perf3b-ab-new",
+    "oldCommit": "ee496cc3bfda5b8838db63de09dac63318b7aa5c",
+    "oldJit": "on",
+    "oldTree": "work/perf3b-ab-old",
+    "pairedRungs": true,
+    "policy": {
+      "maxMs": 60000,
+      "maxSamples": 200,
+      "minMs": 0,
+      "minSamples": 2,
+      "warmupIterations": 1,
+      "warmupMs": 0
+    },
+    "policyName": "large",
+    "rounds": 5,
+    "rungs": ["typed/decode-string", "typed/encode-string"]
+  },
+  "environment": {
+    "arch": "arm64",
+    "commit": "c6fc1005232e3bf799d4340ea1faf8bccabf6bb3",
+    "cores": 14,
+    "cpuModel": "Apple M4 Pro",
+    "dirty": true,
+    "os": "Darwin 27.2.0",
+    "packages": {
+      "effect": "4.1.2",
+      "fast-xml-parser": "5.12.0",
+      "saxes": "6.0.0",
+      "sax": "1.6.1",
+      "txml": "6.0.3",
+      "@rgrove/parse-xml": "5.1.0",
+      "libxml2-wasm": "0.7.2",
+      "@computis/effect-xml": "0.4.0"
+    },
+    "runtime": "bun",
+    "runtimeVersion": "1.4.2",
+    "totalMemoryBytes": 51539607552
+  },
+  "method": "Interleaved A/B: each round runs every unit once, each in a child process of its own on the driver's runtime, in the schedule order on even rounds and reversed on odd rounds. A child loads the case or rung from its tree, runs the check once, warms up under the policy, then meters process.resourceUsage over the sampling phase alone; cpuPerOpMs is user+system CPU of the whole process over that phase divided by the sample count. The 1-minute load average is read at the start and end of every round and at the start of every unit. A round is an outlier when max(load start, load end) exceeds 2x the block median of that value, when a unit failed, or when a unit's cpuPerOpMs lies beyond 3 x 1.4826 x MAD of that unit's block median; each outlier round is repeated once after the planned rounds, and the repeat replaces it in the summary (the original stays, marked superseded). Summary values are per-round values reduced to a median with a distribution-free order-statistic interval (95%, or the range below 6 rounds, with its coverage). New-side units run in block.jit and old-side units in block.oldJit; when both sides are one tree, newOverOld is the ratio of the two JIT modes.",
+  "repeated": 1,
+  "rounds": [
+    {
+      "index": 0,
+      "loadEnd": 87.248046875,
+      "loadStart": 74.455078125,
+      "measurements": [
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 798242749.491655
+              },
+              "cpuPerOpMs": 1622.482,
+              "cpuSystemMs": 223.017,
+              "cpuUserMs": 3021.947,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 774.926291720476
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1607737034
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4758487040
+              },
+              "samples": 2,
+              "wallMeanMs": 3265.368354,
+              "wallMs": {
+                "max": 3809.622625,
+                "median": 2721.0694590000003,
+                "min": 2721.0694590000003,
+                "p95": 3809.622625,
+                "p99": 3809.622625
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 723985715.2477973
+              },
+              "cpuPerOpMs": 1574.7225,
+              "cpuSystemMs": 137.29,
+              "cpuUserMs": 3012.155,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 954.4075832818635
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1759475755
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3905011712
+              },
+              "samples": 2,
+              "wallMeanMs": 3881.2221039999995,
+              "wallMs": {
+                "max": 4001.0189170000012,
+                "median": 3761.3737920000003,
+                "min": 3761.3737920000003,
+                "p95": 4001.0189170000012,
+                "p99": 4001.0189170000012
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 512044314.8143379
+              },
+              "cpuPerOpMs": 1009.4725,
+              "cpuSystemMs": 196.732,
+              "cpuUserMs": 1822.213,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 1009.156791609712
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1042996987
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3784441856
+              },
+              "samples": 2,
+              "wallMeanMs": 2585.0892915000004,
+              "wallMs": {
+                "max": 2870.9638750000013,
+                "median": 2299.162250000001,
+                "min": 2299.162250000001,
+                "p95": 2870.9638750000013,
+                "p99": 2870.9638750000013
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 391010769.90992606
+              },
+              "cpuPerOpMs": 715.2900000000001,
+              "cpuSystemMs": 103.987,
+              "cpuUserMs": 1326.593,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 148.57220830162987
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1159021970
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3916939264
+              },
+              "samples": 2,
+              "wallMeanMs": 2018.799521,
+              "wallMs": {
+                "max": 2404.201709000001,
+                "median": 1633.3509169999998,
+                "min": 1633.3509169999998,
+                "p95": 2404.201709000001,
+                "p99": 2404.201709000001
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 780101629.508652
+              },
+              "cpuPerOpMs": 995.6389999999999,
+              "cpuSystemMs": 44.139,
+              "cpuUserMs": 1947.139,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 40
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 1295.8825416280888
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 247610421
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 576733184
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 1.0226669999992737,
+                "median": 0.874708000001192,
+                "min": 0.874708000001192,
+                "p95": 1.0226669999992737,
+                "p99": 1.0226669999992737
+              },
+              "wallMeanMs": 3804.655312500001,
+              "wallMs": {
+                "max": 4215.849958000001,
+                "median": 3393.4115,
+                "min": 3393.4115,
+                "p95": 4215.849958000001,
+                "p99": 4215.849958000001
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1315827775.7297776
+              },
+              "cpuPerOpMs": 907.2334999999999,
+              "cpuSystemMs": 36.023,
+              "cpuUserMs": 1778.444,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 33
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 1183.8844167650677
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 243078686
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 536756224
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.9071249999997235,
+                "median": 0.9032910000005359,
+                "min": 0.9032910000005359,
+                "p95": 0.9071249999997235,
+                "p99": 0.9071249999997235
+              },
+              "wallMeanMs": 2205.743125000001,
+              "wallMs": {
+                "max": 2332.9452920000003,
+                "median": 2078.4924580000006,
+                "min": 2078.4924580000006,
+                "p95": 2332.9452920000003,
+                "p99": 2332.9452920000003
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "computis-effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 758836571.3650911
+              },
+              "cpuPerOpMs": 578.1955,
+              "cpuSystemMs": 75.528,
+              "cpuUserMs": 1080.863,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 168.18554163910449
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 784612919
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 1606123520
+              },
+              "samples": 2,
+              "wallMeanMs": 1012.6843749999998,
+              "wallMs": {
+                "max": 1138.0302500000007,
+                "median": 887.2889589999995,
+                "min": 887.2889589999995,
+                "p95": 1138.0302500000007,
+                "p99": 1138.0302500000007
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "computis-effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 678763467.7574689
+              },
+              "cpuPerOpMs": 276.593,
+              "cpuSystemMs": 42.39,
+              "cpuUserMs": 510.796,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 109.38841669121757
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1053644020
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 2137276416
+              },
+              "samples": 2,
+              "wallMeanMs": 627.9621454999997,
+              "wallMs": {
+                "max": 696.1729999999998,
+                "median": 559.593417,
+                "min": 559.593417,
+                "p95": 696.1729999999998,
+                "p99": 696.1729999999998
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 884852956.5358989
+              },
+              "cpuPerOpMs": 1607.713,
+              "cpuSystemMs": 190.877,
+              "cpuUserMs": 3024.549,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 544.3315000156872
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1575560196
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4501438464
+              },
+              "samples": 2,
+              "wallMeanMs": 2789.0657705000003,
+              "wallMs": {
+                "max": 2792.2411250000005,
+                "median": 2785.791833000001,
+                "min": 2785.791833000001,
+                "p95": 2792.2411250000005,
+                "p99": 2792.2411250000005
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1517634819.7383802
+              },
+              "cpuPerOpMs": 1540.2455,
+              "cpuSystemMs": 228.707,
+              "cpuUserMs": 2851.784,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 337.72891672560945
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2483234463
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4424941568
+              },
+              "samples": 2,
+              "wallMeanMs": 1434.2416664999992,
+              "wallMs": {
+                "max": 1838.846875000001,
+                "median": 1029.5907500000012,
+                "min": 1029.5907500000012,
+                "p95": 1838.846875000001,
+                "p99": 1838.846875000001
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2061060631.819129
+              },
+              "cpuPerOpMs": 1025.095,
+              "cpuSystemMs": 208.765,
+              "cpuUserMs": 1841.425,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 328.4080416196957
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1695330318
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3420110848
+              },
+              "samples": 2,
+              "wallMeanMs": 774.6097704999997,
+              "wallMs": {
+                "max": 791.850625,
+                "median": 757.3153750000001,
+                "min": 757.3153750000001,
+                "p95": 791.850625,
+                "p99": 791.850625
+              }
+            }
+          },
+          "load": 74.455078125
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1599128953.8723032
+              },
+              "cpuPerOpMs": 906.7655,
+              "cpuSystemMs": 184.76,
+              "cpuUserMs": 1628.771,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 332.2817083681002
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2379387902
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4729798656
+              },
+              "samples": 2,
+              "wallMeanMs": 854.0390415000002,
+              "wallMs": {
+                "max": 913.894542,
+                "median": 794.1397079999997,
+                "min": 794.1397079999997,
+                "p95": 913.894542,
+                "p99": 913.894542
+              }
+            }
+          },
+          "load": 74.455078125
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T18:15:02.434Z",
+      "superseded": "new:effect-xml/stream CPU 995.639 ms/op beyond 3 MAD of median 891.117"
+    },
+    {
+      "index": 1,
+      "loadEnd": 45.37109375,
+      "loadStart": 87.248046875,
+      "measurements": [
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1009830560.3782461
+              },
+              "cpuPerOpMs": 925.1189999999999,
+              "cpuSystemMs": 169.167,
+              "cpuUserMs": 1681.071,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 403.8308750023134
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1420201988
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3011608576
+              },
+              "samples": 2,
+              "wallMeanMs": 1444.9486045000003,
+              "wallMs": {
+                "max": 1728.2682499999992,
+                "median": 1161.57625,
+                "min": 1161.57625,
+                "p95": 1728.2682499999992,
+                "p99": 1728.2682499999992
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1121279393.5505457
+              },
+              "cpuPerOpMs": 979.9985,
+              "cpuSystemMs": 124.943,
+              "cpuUserMs": 1835.054,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 602.4739999556914
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2111317141
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4134453248
+              },
+              "samples": 2,
+              "wallMeanMs": 1567.6935210000001,
+              "wallMs": {
+                "max": 1726.4217499999995,
+                "median": 1408.9151249999995,
+                "min": 1408.9151249999995,
+                "p95": 1726.4217499999995,
+                "p99": 1726.4217499999995
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2743139283.401854
+              },
+              "cpuPerOpMs": 1536.1785,
+              "cpuSystemMs": 114.583,
+              "cpuUserMs": 2957.774,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 294.27791660418734
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2457785713
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4878548992
+              },
+              "samples": 2,
+              "wallMeanMs": 920.1042499999999,
+              "wallMs": {
+                "max": 930.6688329999997,
+                "median": 909.4927080000007,
+                "min": 909.4927080000007,
+                "p95": 930.6688329999997,
+                "p99": 930.6688329999997
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2442061493.0634913
+              },
+              "cpuPerOpMs": 1391.621,
+              "cpuSystemMs": 160.699,
+              "cpuUserMs": 2622.543,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 267.31720834504813
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2539211260
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 5299863552
+              },
+              "samples": 2,
+              "wallMeanMs": 900.6392079999998,
+              "wallMs": {
+                "max": 921.5781670000006,
+                "median": 879.6396670000004,
+                "min": 879.6396670000004,
+                "p95": 921.5781670000006,
+                "p99": 921.5781670000006
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "computis-effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3533121426.773801
+              },
+              "cpuPerOpMs": 284.9795,
+              "cpuSystemMs": 28.29,
+              "cpuUserMs": 541.669,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 27.435791678726673
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 983704555
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 2046967808
+              },
+              "samples": 2,
+              "wallMeanMs": 232.68966650000004,
+              "wallMs": {
+                "max": 234.49820899999986,
+                "median": 230.80441700000029,
+                "min": 230.80441700000029,
+                "p95": 234.49820899999986,
+                "p99": 234.49820899999986
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "computis-effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2025227319.9816618
+              },
+              "cpuPerOpMs": 650.659,
+              "cpuSystemMs": 50.845,
+              "cpuUserMs": 1250.473,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 99.30916666053236
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 518972171
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 1298546688
+              },
+              "samples": 2,
+              "wallMeanMs": 400.7251664999999,
+              "wallMs": {
+                "max": 413.4413750000001,
+                "median": 387.96291599999995,
+                "min": 387.96291599999995,
+                "p95": 413.4413750000001,
+                "p99": 413.4413750000001
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2895624025.6267
+              },
+              "cpuPerOpMs": 963.4014999999999,
+              "cpuSystemMs": 45.697,
+              "cpuUserMs": 1881.106,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 48
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 128.0929581844248
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 187720256
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 540655616
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 6.789792000000034,
+                "median": 0.7758330000006026,
+                "min": 0.7758330000006026,
+                "p95": 6.789792000000034,
+                "p99": 6.789792000000034
+              },
+              "wallMeanMs": 1003.293604,
+              "wallMs": {
+                "max": 1090.77,
+                "median": 915.7671250000003,
+                "min": 915.7671250000003,
+                "p95": 1090.77,
+                "p99": 1090.77
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3554648070.7003036
+              },
+              "cpuPerOpMs": 879.251,
+              "cpuSystemMs": 34.853,
+              "cpuUserMs": 1723.649,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 35
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 42.631249816622585
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 208041226
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 537542656
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.920165999999881,
+                "median": 0.9158749999996871,
+                "min": 0.9158749999996871,
+                "p95": 0.920165999999881,
+                "p99": 0.920165999999881
+              },
+              "wallMeanMs": 838.0202294999999,
+              "wallMs": {
+                "max": 849.4893749999997,
+                "median": 826.5026250000001,
+                "min": 826.5026250000001,
+                "p95": 849.4893749999997,
+                "p99": 849.4893749999997
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1926541417.0306096
+              },
+              "cpuPerOpMs": 1177.7525,
+              "cpuSystemMs": 593.727,
+              "cpuUserMs": 1761.778,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 324.9233333626762
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2432690971
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4718166016
+              },
+              "samples": 2,
+              "wallMeanMs": 631.7672914999998,
+              "wallMs": {
+                "max": 637.403542,
+                "median": 626.0869169999996,
+                "min": 626.0869169999996,
+                "p95": 637.403542,
+                "p99": 637.403542
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2506866454.7927866
+              },
+              "cpuPerOpMs": 1163.77,
+              "cpuSystemMs": 532.779,
+              "cpuUserMs": 1794.761,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 356.64587502833456
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2194050065
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4438917120
+              },
+              "samples": 2,
+              "wallMeanMs": 640.6446460000002,
+              "wallMs": {
+                "max": 645.076583,
+                "median": 636.154125,
+                "min": 636.154125,
+                "p95": 645.076583,
+                "p99": 645.076583
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2142635483.5251522
+              },
+              "cpuPerOpMs": 1467.2115,
+              "cpuSystemMs": 82.964,
+              "cpuUserMs": 2851.459,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 270.4659166629426
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1798479579
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4328800256
+              },
+              "samples": 2,
+              "wallMeanMs": 1010.401854,
+              "wallMs": {
+                "max": 1085.4304999999995,
+                "median": 935.3062919999998,
+                "min": 935.3062919999998,
+                "p95": 1085.4304999999995,
+                "p99": 1085.4304999999995
+              }
+            }
+          },
+          "load": 87.248046875
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2296310325.7109933
+              },
+              "cpuPerOpMs": 1689.5945000000002,
+              "cpuSystemMs": 114.436,
+              "cpuUserMs": 3264.753,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 6
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 413.62758324248716
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2418082618
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4524507136
+              },
+              "samples": 2,
+              "wallMeanMs": 1064.475125,
+              "wallMs": {
+                "max": 1099.1169999999993,
+                "median": 1029.7462500000001,
+                "min": 1029.7462500000001,
+                "p95": 1099.1169999999993,
+                "p99": 1099.1169999999993
+              }
+            }
+          },
+          "load": 87.248046875
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T18:18:13.049Z"
+    },
+    {
+      "index": 2,
+      "loadEnd": 24.02880859375,
+      "loadStart": 45.37109375,
+      "measurements": [
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2111289581.5112083
+              },
+              "cpuPerOpMs": 1363.567,
+              "cpuSystemMs": 71.338,
+              "cpuUserMs": 2655.796,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 231.2025833525695
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1780488637
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4032741376
+              },
+              "samples": 2,
+              "wallMeanMs": 958.3599789999998,
+              "wallMs": {
+                "max": 1036.561417,
+                "median": 880.1112089999997,
+                "min": 880.1112089999997,
+                "p95": 1036.561417,
+                "p99": 1036.561417
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2022706872.3148167
+              },
+              "cpuPerOpMs": 1417.078,
+              "cpuSystemMs": 76.938,
+              "cpuUserMs": 2757.218,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 204.06670839292929
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1858327384
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4200579072
+              },
+              "samples": 2,
+              "wallMeanMs": 1002.7621455000001,
+              "wallMs": {
+                "max": 1146.817833,
+                "median": 858.6564579999999,
+                "min": 858.6564579999999,
+                "p95": 1146.817833,
+                "p99": 1146.817833
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1938823502.7426643
+              },
+              "cpuPerOpMs": 1176.0635,
+              "cpuSystemMs": 651.43,
+              "cpuUserMs": 1700.697,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 329.2489583254792
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2225861847
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4514480128
+              },
+              "samples": 2,
+              "wallMeanMs": 611.6794795000001,
+              "wallMs": {
+                "max": 611.7458750000005,
+                "median": 611.542375,
+                "min": 611.542375,
+                "p95": 611.7458750000005,
+                "p99": 611.7458750000005
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2057312017.0669034
+              },
+              "cpuPerOpMs": 1261.3735000000001,
+              "cpuSystemMs": 574.232,
+              "cpuUserMs": 1948.515,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 286.05270833941177
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2443745674
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4700962816
+              },
+              "samples": 2,
+              "wallMeanMs": 676.7484374999999,
+              "wallMs": {
+                "max": 685.7206669999996,
+                "median": 667.7327919999998,
+                "min": 667.7327919999998,
+                "p95": 685.7206669999996,
+                "p99": 685.7206669999996
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3457781534.1470866
+              },
+              "cpuPerOpMs": 891.117,
+              "cpuSystemMs": 42.807,
+              "cpuUserMs": 1739.427,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 42
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 53.05620841681957
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 171849303
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 523632640
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.9047500000001492,
+                "median": 0.7418750000001637,
+                "min": 0.7418750000001637,
+                "p95": 0.9047500000001492,
+                "p99": 0.9047500000001492
+              },
+              "wallMeanMs": 852.935896,
+              "wallMs": {
+                "max": 866.5806670000002,
+                "median": 839.242917,
+                "min": 839.242917,
+                "p95": 866.5806670000002,
+                "p99": 866.5806670000002
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3314761733.2870564
+              },
+              "cpuPerOpMs": 929.4815,
+              "cpuSystemMs": 42.084,
+              "cpuUserMs": 1816.879,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 41
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 78.69562500854954
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 239113884
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 575209472
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 1.0039170000000013,
+                "median": 0.9659999999998945,
+                "min": 0.9659999999998945,
+                "p95": 1.0039170000000013,
+                "p99": 1.0039170000000013
+              },
+              "wallMeanMs": 898.2297500000002,
+              "wallMs": {
+                "max": 952.6277500000001,
+                "median": 843.7852499999999,
+                "min": 843.7852499999999,
+                "p95": 952.6277500000001,
+                "p99": 952.6277500000001
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "computis-effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1344798435.2530527
+              },
+              "cpuPerOpMs": 521.294,
+              "cpuSystemMs": 51.325,
+              "cpuUserMs": 991.263,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 47.93966666329652
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 773990979
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 1449295872
+              },
+              "samples": 2,
+              "wallMeanMs": 447.8099164999999,
+              "wallMs": {
+                "max": 485.185917,
+                "median": 410.3882500000002,
+                "min": 410.3882500000002,
+                "p95": 485.185917,
+                "p99": 485.185917
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "computis-effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3547141517.8338766
+              },
+              "cpuPerOpMs": 275.3275,
+              "cpuSystemMs": 33.004,
+              "cpuUserMs": 517.651,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 82.89545838488266
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1078245128
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 2157166592
+              },
+              "samples": 2,
+              "wallMeanMs": 230.23599999999988,
+              "wallMs": {
+                "max": 231.175792,
+                "median": 229.2380830000002,
+                "min": 229.2380830000002,
+                "p95": 231.175792,
+                "p99": 231.175792
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1685749764.258725
+              },
+              "cpuPerOpMs": 1616.18,
+              "cpuSystemMs": 106.065,
+              "cpuUserMs": 3126.295,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 377.5611666496843
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1636427094
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3361964032
+              },
+              "samples": 2,
+              "wallMeanMs": 1087.7491665000002,
+              "wallMs": {
+                "max": 1161.4442500000005,
+                "median": 1014.0077919999999,
+                "min": 1014.0077919999999,
+                "p95": 1161.4442500000005,
+                "p99": 1161.4442500000005
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2206826725.3654623
+              },
+              "cpuPerOpMs": 1362.6915,
+              "cpuSystemMs": 104.535,
+              "cpuUserMs": 2620.848,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 347.6020416710526
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2460601682
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4588093440
+              },
+              "samples": 2,
+              "wallMeanMs": 922.3367079999998,
+              "wallMs": {
+                "max": 922.8528339999998,
+                "median": 921.7768340000002,
+                "min": 921.7768340000002,
+                "p95": 922.8528339999998,
+                "p99": 922.8528339999998
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1990296317.5314384
+              },
+              "cpuPerOpMs": 1041.4940000000001,
+              "cpuSystemMs": 406.355,
+              "cpuUserMs": 1676.633,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 276.6768332803622
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2302103522
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4576444416
+              },
+              "samples": 2,
+              "wallMeanMs": 603.4790419999999,
+              "wallMs": {
+                "max": 617.6533330000002,
+                "median": 589.2569999999996,
+                "min": 589.2569999999996,
+                "p95": 617.6533330000002,
+                "p99": 617.6533330000002
+              }
+            }
+          },
+          "load": 45.37109375
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2357429980.733312
+              },
+              "cpuPerOpMs": 1261.1095,
+              "cpuSystemMs": 676.317,
+              "cpuUserMs": 1845.902,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 446.45212503382936
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2216084818
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4391305216
+              },
+              "samples": 2,
+              "wallMeanMs": 643.6093540000002,
+              "wallMs": {
+                "max": 663.8988339999996,
+                "median": 623.271334,
+                "min": 623.271334,
+                "p95": 663.8988339999996,
+                "p99": 663.8988339999996
+              }
+            }
+          },
+          "load": 45.37109375
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T18:19:36.379Z"
+    },
+    {
+      "index": 3,
+      "loadEnd": 17.21826171875,
+      "loadStart": 24.02880859375,
+      "measurements": [
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2456586548.560777
+              },
+              "cpuPerOpMs": 1231.978,
+              "cpuSystemMs": 658.856,
+              "cpuUserMs": 1805.1,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 394.4701667060144
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2197940143
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4432805888
+              },
+              "samples": 2,
+              "wallMeanMs": 617.0733749999999,
+              "wallMs": {
+                "max": 630.923667,
+                "median": 603.1661250000006,
+                "min": 603.1661250000006,
+                "p95": 630.923667,
+                "p99": 630.923667
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1274312160.8154404
+              },
+              "cpuPerOpMs": 832.2180000000001,
+              "cpuSystemMs": 213.639,
+              "cpuUserMs": 1450.797,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 185.21437502931803
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2381495333
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4788551680
+              },
+              "samples": 2,
+              "wallMeanMs": 566.3134584999998,
+              "wallMs": {
+                "max": 613.2437500000005,
+                "median": 519.3328339999998,
+                "min": 519.3328339999998,
+                "p95": 613.2437500000005,
+                "p99": 613.2437500000005
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2327091620.702493
+              },
+              "cpuPerOpMs": 1233.5594999999998,
+              "cpuSystemMs": 123.115,
+              "cpuUserMs": 2344.004,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 222.9720833711326
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2528534682
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 5022859264
+              },
+              "samples": 2,
+              "wallMeanMs": 878.9907499999999,
+              "wallMs": {
+                "max": 887.3783749999998,
+                "median": 870.5593330000002,
+                "min": 870.5593330000002,
+                "p95": 887.3783749999998,
+                "p99": 887.3783749999998
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2697161613.0925236
+              },
+              "cpuPerOpMs": 1503.0919999999999,
+              "cpuSystemMs": 70.865,
+              "cpuUserMs": 2935.319,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 5
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 298.3907916932367
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2393523344
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4419518464
+              },
+              "samples": 2,
+              "wallMeanMs": 943.0567915000001,
+              "wallMs": {
+                "max": 971.4477499999994,
+                "median": 914.6197909999996,
+                "min": 914.6197909999996,
+                "p95": 971.4477499999994,
+                "p99": 971.4477499999994
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "computis-effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3647190427.733954
+              },
+              "cpuPerOpMs": 268.572,
+              "cpuSystemMs": 27.614,
+              "cpuUserMs": 509.53,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 82.13374996557832
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1078223856
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 2118991872
+              },
+              "samples": 2,
+              "wallMeanMs": 223.8845419999999,
+              "wallMs": {
+                "max": 224.4231249999998,
+                "median": 223.28437500000018,
+                "min": 223.28437500000018,
+                "p95": 224.4231249999998,
+                "p99": 224.4231249999998
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "computis-effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1507827300.8831375
+              },
+              "cpuPerOpMs": 512.7570000000001,
+              "cpuSystemMs": 46.996,
+              "cpuUserMs": 978.518,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 44.54729170538485
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 783969079
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 1497481216
+              },
+              "samples": 2,
+              "wallMeanMs": 407.55274999999995,
+              "wallMs": {
+                "max": 427.64283300000034,
+                "median": 387.4139580000001,
+                "min": 387.4139580000001,
+                "p95": 427.64283300000034,
+                "p99": 427.64283300000034
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3345799751.435495
+              },
+              "cpuPerOpMs": 932.3825,
+              "cpuSystemMs": 50.135,
+              "cpuUserMs": 1814.63,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 42
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 49.762541661038995
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 174864627
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 536657920
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.9051250000002256,
+                "median": 0.7864170000002559,
+                "min": 0.7864170000002559,
+                "p95": 0.9051250000002256,
+                "p99": 0.9051250000002256
+              },
+              "wallMeanMs": 891.0608545,
+              "wallMs": {
+                "max": 939.0906250000003,
+                "median": 842.962125,
+                "min": 842.962125,
+                "p95": 939.0906250000003,
+                "p99": 939.0906250000003
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3623550686.9539485
+              },
+              "cpuPerOpMs": 873.099,
+              "cpuSystemMs": 42.769,
+              "cpuUserMs": 1703.429,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 40
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 45.37604155484587
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 184329837
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 519553024
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.9457500000003165,
+                "median": 0.7815829999999551,
+                "min": 0.7815829999999551,
+                "p95": 0.9457500000003165,
+                "p99": 0.9457500000003165
+              },
+              "wallMeanMs": 834.1113335000002,
+              "wallMs": {
+                "max": 849.330833,
+                "median": 818.8452910000001,
+                "min": 818.8452910000001,
+                "p95": 849.330833,
+                "p99": 849.330833
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1080430157.1481757
+              },
+              "cpuPerOpMs": 866.5905,
+              "cpuSystemMs": 225.088,
+              "cpuUserMs": 1508.093,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 154.32024997426197
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1358305594
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4475011072
+              },
+              "samples": 2,
+              "wallMeanMs": 679.3389375000002,
+              "wallMs": {
+                "max": 694.3435410000002,
+                "median": 664.2893750000003,
+                "min": 664.2893750000003,
+                "p95": 694.3435410000002,
+                "p99": 694.3435410000002
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2183598210.204423
+              },
+              "cpuPerOpMs": 1227.047,
+              "cpuSystemMs": 693.233,
+              "cpuUserMs": 1760.861,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 325.590958353132
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2223360180
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4503371776
+              },
+              "samples": 2,
+              "wallMeanMs": 617.860729,
+              "wallMs": {
+                "max": 621.2182910000001,
+                "median": 614.4572079999998,
+                "min": 614.4572079999998,
+                "p95": 621.2182910000001,
+                "p99": 621.2182910000001
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1822848547.1566362
+              },
+              "cpuPerOpMs": 1402.9969999999998,
+              "cpuSystemMs": 73.937,
+              "cpuUserMs": 2732.057,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 256.6957083181478
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1704723604
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3937714176
+              },
+              "samples": 2,
+              "wallMeanMs": 945.2496454999998,
+              "wallMs": {
+                "max": 1003.2496669999991,
+                "median": 887.1968750000001,
+                "min": 887.1968750000001,
+                "p95": 1003.2496669999991,
+                "p99": 1003.2496669999991
+              }
+            }
+          },
+          "load": 24.02880859375
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2158382237.9202437
+              },
+              "cpuPerOpMs": 1432.2475,
+              "cpuSystemMs": 112.342,
+              "cpuUserMs": 2752.153,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 367.6428333274089
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2472802966
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4716609536
+              },
+              "samples": 2,
+              "wallMeanMs": 1016.2747294999999,
+              "wallMs": {
+                "max": 1118.512083,
+                "median": 913.9909170000001,
+                "min": 913.9909170000001,
+                "p95": 1118.512083,
+                "p99": 1118.512083
+              }
+            }
+          },
+          "load": 24.02880859375
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T18:20:43.907Z"
+    },
+    {
+      "index": 4,
+      "loadEnd": 35.51123046875,
+      "loadStart": 17.21826171875,
+      "measurements": [
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1835713123.7972949
+              },
+              "cpuPerOpMs": 1335.547,
+              "cpuSystemMs": 65.227,
+              "cpuUserMs": 2605.867,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 317.0467916643247
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2375688551
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4457562112
+              },
+              "samples": 2,
+              "wallMeanMs": 951.2942915000003,
+              "wallMs": {
+                "max": 1071.6617919999999,
+                "median": 830.8499579999998,
+                "min": 830.8499579999998,
+                "p95": 1071.6617919999999,
+                "p99": 1071.6617919999999
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2097869376.4623766
+              },
+              "cpuPerOpMs": 1471.742,
+              "cpuSystemMs": 75.687,
+              "cpuUserMs": 2867.797,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 319.32125001912937
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2500825474
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4710318080
+              },
+              "samples": 2,
+              "wallMeanMs": 1121.1527085000002,
+              "wallMs": {
+                "max": 1284.2550419999998,
+                "median": 957.9966249999998,
+                "min": 957.9966249999998,
+                "p95": 1284.2550419999998,
+                "p99": 1284.2550419999998
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2166180084.264782
+              },
+              "cpuPerOpMs": 1128.5995,
+              "cpuSystemMs": 437.279,
+              "cpuUserMs": 1819.92,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 304.6881665941328
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2587510887
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4890230784
+              },
+              "samples": 2,
+              "wallMeanMs": 641.1783124999997,
+              "wallMs": {
+                "max": 654.8692090000004,
+                "median": 627.4454169999999,
+                "min": 627.4454169999999,
+                "p95": 654.8692090000004,
+                "p99": 654.8692090000004
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2554162239.2079234
+              },
+              "cpuPerOpMs": 1341.137,
+              "cpuSystemMs": 746.218,
+              "cpuUserMs": 1936.056,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 370.2777500147931
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2358225632
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4656988160
+              },
+              "samples": 2,
+              "wallMeanMs": 658.8166040000001,
+              "wallMs": {
+                "max": 673.3294999999998,
+                "median": 644.2595000000001,
+                "min": 644.2595000000001,
+                "p95": 673.3294999999998,
+                "p99": 673.3294999999998
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3510324415.990232
+              },
+              "cpuPerOpMs": 917.4454999999999,
+              "cpuSystemMs": 57.647,
+              "cpuUserMs": 1777.244,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 49
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 48.08225005399436
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 188316834
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 536444928
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 1.0902079999996204,
+                "median": 0.8860829999998714,
+                "min": 0.8860829999998714,
+                "p95": 1.0902079999996204,
+                "p99": 1.0902079999996204
+              },
+              "wallMeanMs": 852.3101460000003,
+              "wallMs": {
+                "max": 908.806083,
+                "median": 795.7620420000003,
+                "min": 795.7620420000003,
+                "p95": 908.806083,
+                "p99": 908.806083
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1414707387.7674444
+              },
+              "cpuPerOpMs": 962.105,
+              "cpuSystemMs": 46.316,
+              "cpuUserMs": 1877.894,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 43
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 931.7014584084973
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 172311717
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 525107200
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 1.1032920000002377,
+                "median": 0.7602090000000317,
+                "min": 0.7602090000000317,
+                "p95": 1.1032920000002377,
+                "p99": 1.1032920000002377
+              },
+              "wallMeanMs": 2110.7934795,
+              "wallMs": {
+                "max": 2163.303375,
+                "median": 2058.2362090000006,
+                "min": 2058.2362090000006,
+                "p95": 2163.303375,
+                "p99": 2163.303375
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "computis-effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 749475215.9201528
+              },
+              "cpuPerOpMs": 547.173,
+              "cpuSystemMs": 86.786,
+              "cpuUserMs": 1007.56,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 227.9757916694507
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 793920625
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 1598521344
+              },
+              "samples": 2,
+              "wallMeanMs": 1038.708625,
+              "wallMs": {
+                "max": 1107.1571669999994,
+                "median": 970.0983330000004,
+                "min": 970.0983330000004,
+                "p95": 1107.1571669999994,
+                "p99": 1107.1571669999994
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "computis-effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1517780669.3458312
+              },
+              "cpuPerOpMs": 247.4685,
+              "cpuSystemMs": 31.634,
+              "cpuUserMs": 463.303,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 24.375791661441326
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 854468706
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 2035777536
+              },
+              "samples": 2,
+              "wallMeanMs": 318.1184375,
+              "wallMs": {
+                "max": 377.17804200000046,
+                "median": 259.0134170000001,
+                "min": 259.0134170000001,
+                "p95": 377.17804200000046,
+                "p99": 377.17804200000046
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1295910360.4312809
+              },
+              "cpuPerOpMs": 1552.8385,
+              "cpuSystemMs": 125.219,
+              "cpuUserMs": 2980.458,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 384.8504583002068
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1919083150
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4246454272
+              },
+              "samples": 2,
+              "wallMeanMs": 1892.532354,
+              "wallMs": {
+                "max": 2065.9908750000004,
+                "median": 1719.0164170000007,
+                "min": 1719.0164170000007,
+                "p95": 2065.9908750000004,
+                "p99": 2065.9908750000004
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 859313353.1659576
+              },
+              "cpuPerOpMs": 1733.7155,
+              "cpuSystemMs": 263.707,
+              "cpuUserMs": 3203.724,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 476.02216666564345
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 678261475
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4167188480
+              },
+              "samples": 2,
+              "wallMeanMs": 2688.7643959999996,
+              "wallMs": {
+                "max": 2710.0670420000006,
+                "median": 2667.398459,
+                "min": 2667.398459,
+                "p95": 2710.0670420000006,
+                "p99": 2710.0670420000006
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 669303992.0895976
+              },
+              "cpuPerOpMs": 927.8455,
+              "cpuSystemMs": 315.343,
+              "cpuUserMs": 1540.348,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 368.3300000266172
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2470841240
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4309041152
+              },
+              "samples": 2,
+              "wallMeanMs": 1543.5856459999995,
+              "wallMs": {
+                "max": 1674.4285420000015,
+                "median": 1412.4776669999992,
+                "min": 1412.4776669999992,
+                "p95": 1674.4285420000015,
+                "p99": 1674.4285420000015
+              }
+            }
+          },
+          "load": 17.21826171875
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 706095158.6346308
+              },
+              "cpuPerOpMs": 673.8875,
+              "cpuSystemMs": 132.171,
+              "cpuUserMs": 1215.604,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 156.53904166538268
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1037471258
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3137175552
+              },
+              "samples": 2,
+              "wallMeanMs": 1052.7828124999996,
+              "wallMs": {
+                "max": 1253.0721250000006,
+                "median": 852.3997500000005,
+                "min": 852.3997500000005,
+                "p95": 1253.0721250000006,
+                "p99": 1253.0721250000006
+              }
+            }
+          },
+          "load": 17.21826171875
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T18:21:51.592Z"
+    },
+    {
+      "index": 0,
+      "loadEnd": 44.55224609375,
+      "loadStart": 35.51123046875,
+      "measurements": [
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1117828283.6607265
+              },
+              "cpuPerOpMs": 1797.804,
+              "cpuSystemMs": 104.51,
+              "cpuUserMs": 3491.098,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 5
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 705.6165417307056
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 821045692
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3574366208
+              },
+              "samples": 2,
+              "wallMeanMs": 2393.0397289999996,
+              "wallMs": {
+                "max": 2434.963708,
+                "median": 2351.068874999999,
+                "min": 2351.068874999999,
+                "p95": 2434.963708,
+                "p99": 2434.963708
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "effect-xml/typed-decode",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 955460650.8051857
+              },
+              "cpuPerOpMs": 1814.448,
+              "cpuSystemMs": 140.393,
+              "cpuUserMs": 3488.503,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 4
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 610.8027083100751
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1896908133
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 3756310528
+              },
+              "samples": 2,
+              "wallMeanMs": 2504.1609164999995,
+              "wallMs": {
+                "max": 2662.8897910000014,
+                "median": 2345.3825420000003,
+                "min": 2345.3825420000003,
+                "p95": 2662.8897910000014,
+                "p99": 2662.8897910000014
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 912075798.4635123
+              },
+              "cpuPerOpMs": 846.3370000000001,
+              "cpuSystemMs": 134.996,
+              "cpuUserMs": 1557.678,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 369.6922916569747
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2316711922
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4402102272
+              },
+              "samples": 2,
+              "wallMeanMs": 1297.3522079999993,
+              "wallMs": {
+                "max": 1303.3372499999987,
+                "median": 1291.3068750000002,
+                "min": 1291.3068750000002,
+                "p95": 1303.3372499999987,
+                "p99": 1303.3372499999987
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "effect-xml/encode-typed",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 659274782.4636528
+              },
+              "cpuPerOpMs": 715.385,
+              "cpuSystemMs": 123.573,
+              "cpuUserMs": 1307.197,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 167.81425004592165
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1111639194
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4567662592
+              },
+              "samples": 2,
+              "wallMeanMs": 1139.009771,
+              "wallMs": {
+                "max": 1301.630874999999,
+                "median": 976.3369999999995,
+                "min": 976.3369999999995,
+                "p95": 1301.630874999999,
+                "p99": 1301.630874999999
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1476164782.0402699
+              },
+              "cpuPerOpMs": 997.0264999999999,
+              "cpuSystemMs": 52.168,
+              "cpuUserMs": 1941.885,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 47
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 887.1845417306758
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 186800367
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 539197440
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.9793339999996533,
+                "median": 0.954834000000119,
+                "min": 0.954834000000119,
+                "p95": 0.9793339999996533,
+                "p99": 0.9793339999996533
+              },
+              "wallMeanMs": 1982.1623125,
+              "wallMs": {
+                "max": 2027.2608339999997,
+                "median": 1937.0164999999997,
+                "min": 1937.0164999999997,
+                "p95": 2027.2608339999997,
+                "p99": 2027.2608339999997
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "effect-xml/stream",
+          "kind": "case",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1576744488.9243548
+              },
+              "cpuPerOpMs": 916.1775,
+              "cpuSystemMs": 37.77,
+              "cpuUserMs": 1794.585,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 38
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 934.5833750558086
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 133441340
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 510672896
+              },
+              "samples": 2,
+              "timeToFirstRecordMs": {
+                "max": 0.8948749999999563,
+                "median": 0.8127910000002885,
+                "min": 0.8127910000002885,
+                "p95": 0.8948749999999563,
+                "p99": 0.8948749999999563
+              },
+              "wallMeanMs": 1912.5831874999994,
+              "wallMs": {
+                "max": 1940.576583,
+                "median": 1884.544041000001,
+                "min": 1884.544041000001,
+                "p95": 1940.576583,
+                "p99": 1940.576583
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "computis-effect-xml/typed-decode",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 842341299.3716346
+              },
+              "cpuPerOpMs": 557.258,
+              "cpuSystemMs": 76.649,
+              "cpuUserMs": 1037.867,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 123.73899994418025
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 759741686
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 1536704512
+              },
+              "samples": 2,
+              "wallMeanMs": 883.6915624999999,
+              "wallMs": {
+                "max": 900.2621250000002,
+                "median": 867.0740000000001,
+                "min": 867.0740000000001,
+                "p95": 900.2621250000002,
+                "p99": 900.2621250000002
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "computis-effect-xml/encode-typed",
+          "kind": "case",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1131944596.4912004
+              },
+              "cpuPerOpMs": 265.2265,
+              "cpuSystemMs": 33.978,
+              "cpuUserMs": 496.475,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 30.480541638098657
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 863924095
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 2125332480
+              },
+              "samples": 2,
+              "wallMeanMs": 426.3354164999996,
+              "wallMs": {
+                "max": 472.6267079999998,
+                "median": 379.965416,
+                "min": 379.965416,
+                "p95": 472.6267079999998,
+                "p99": 472.6267079999998
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1174992889.761504
+              },
+              "cpuPerOpMs": 1715.4575,
+              "cpuSystemMs": 234.303,
+              "cpuUserMs": 3196.612,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 446.35262491647154
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1575986023
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4551753728
+              },
+              "samples": 2,
+              "wallMeanMs": 2105.7785205000005,
+              "wallMs": {
+                "max": 2107.202292000001,
+                "median": 2104.307125000001,
+                "min": 2104.307125000001,
+                "p95": 2107.202292000001,
+                "p99": 2107.202292000001
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "typed/decode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1212631312.4469528
+              },
+              "cpuPerOpMs": 1640.3709999999999,
+              "cpuSystemMs": 212.747,
+              "cpuUserMs": 3067.995,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 3
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 532.5033749686554
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1586732763
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4576231424
+              },
+              "samples": 2,
+              "wallMeanMs": 2046.9682710000002,
+              "wallMs": {
+                "max": 2205.6719999999987,
+                "median": 1888.215624999999,
+                "min": 1888.215624999999,
+                "p95": 2205.6719999999987,
+                "p99": 2205.6719999999987
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1839259781.1194088
+              },
+              "cpuPerOpMs": 1429.7265,
+              "cpuSystemMs": 944.369,
+              "cpuUserMs": 1915.084,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 2
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 410.5124166235328
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 2172688688
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4495228928
+              },
+              "samples": 2,
+              "wallMeanMs": 608.4204170000003,
+              "wallMs": {
+                "max": 611.3293749999993,
+                "median": 605.4589580000002,
+                "min": 605.4589580000002,
+                "p95": 611.3293749999993,
+                "p99": 611.3293749999993
+              }
+            }
+          },
+          "load": 35.51123046875
+        },
+        {
+          "id": "typed/encode-string",
+          "kind": "rung",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1202136836.2170916
+              },
+              "cpuPerOpMs": 915.7115000000001,
+              "cpuSystemMs": 428.571,
+              "cpuUserMs": 1402.852,
+              "expected": 164234,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 1
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 208.90079165110365
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 1184174599
+              },
+              "observed": 164234,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 4283170816
+              },
+              "samples": 2,
+              "wallMeanMs": 547.2381040000002,
+              "wallMs": {
+                "max": 616.2084169999998,
+                "median": 478.2229589999997,
+                "min": 478.2229589999997,
+                "p95": 616.2084169999998,
+                "p99": 616.2084169999998
+              }
+            }
+          },
+          "load": 35.51123046875
+        }
+      ],
+      "order": "forward",
+      "repeatOf": 0,
+      "startedAt": "2026-11-07T18:23:41.101Z"
+    }
+  ],
+  "summary": {
+    "cpuPerOpMs": {
+      "competitors": {
+        "new/computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3.2261609523775343,
+            "low": 2.4408130518135946,
+            "median": 2.6157350746411816,
+            "n": 5
+          }
+        },
+        "old/computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3.256028625878857,
+            "low": 2.2549622767071535,
+            "median": 2.7183854024792153,
+            "n": 5
+          }
+        },
+        "new/computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4.568782300463191,
+            "low": 3.1909971288690993,
+            "median": 4.271507568259619,
+            "n": 5
+          }
+        },
+        "old/computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 5.419425098547896,
+            "low": 2.6972606432615143,
+            "median": 4.132762181139346,
+            "n": 5
+          }
+        }
+      },
+      "ladderDeltas": {
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": -285.731,
+            "low": -670.8739999999998,
+            "median": -574.6859999999999,
+            "n": 5
+          }
+        }
+      },
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.1515684684859684,
+            "low": 0.9074600031799052,
+            "median": 0.9908269622496759,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.4159479015751961,
+            "low": 0.8415243931082358,
+            "median": 0.9881278112336844,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.0882460003656496,
+            "low": 0.9126527205946846,
+            "median": 0.953581469797995,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.2184997967264652,
+            "low": 0.8956708871784327,
+            "median": 1.0457740962257929,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.5613285407030488,
+            "low": 0.6755136861210184,
+            "median": 1.0593215575509747,
+            "n": 5
+          }
+        }
+      },
+      "step2": {
+        "C": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 650.659,
+            "low": 512.7570000000001,
+            "median": 547.173,
+            "n": 5
+          }
+        },
+        "K": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "KOverTMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "T": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1797.804,
+            "low": 1335.547,
+            "median": 1432.2475,
+            "n": 5
+          }
+        },
+        "TMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TMinusKOverC": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TOverC": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3.2261609523775343,
+            "low": 2.4408130518135946,
+            "median": 2.6157350746411816,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1797.804,
+            "low": 1335.547,
+            "median": 1432.2475,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1814.448,
+            "low": 1402.9969999999998,
+            "median": 1467.2115,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1227.047,
+            "low": 846.3370000000001,
+            "median": 1163.77,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1341.137,
+            "low": 715.385,
+            "median": 1177.7525,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 997.0264999999999,
+            "low": 873.099,
+            "median": 891.117,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 963.4014999999999,
+            "low": 916.1775,
+            "median": 932.3825,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 650.659,
+            "low": 512.7570000000001,
+            "median": 547.173,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 284.9795,
+            "low": 247.4685,
+            "median": 268.572,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1715.4575,
+            "low": 1391.621,
+            "median": 1552.8385,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1733.7155,
+            "low": 1233.5594999999998,
+            "median": 1536.1785,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1429.7265,
+            "low": 832.2180000000001,
+            "median": 979.9985,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1261.1095,
+            "low": 673.8875,
+            "median": 925.1189999999999,
+            "n": 5
+          }
+        }
+      }
+    },
+    "wallMedianMs": {
+      "competitors": {
+        "new/computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.711497375079865,
+            "low": 0.8564595255314179,
+            "median": 2.359210085559178,
+            "n": 5
+          }
+        },
+        "old/computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.704939303911777,
+            "low": 0.9875252769865335,
+            "median": 2.2900488138839847,
+            "n": 5
+          }
+        },
+        "new/computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3.39848528477655,
+            "low": 2.42244368754071,
+            "median": 2.7519041939231053,
+            "n": 5
+          }
+        },
+        "old/computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.9750822241816057,
+            "low": 2.487359564080033,
+            "median": 2.712629702402961,
+            "n": 5
+          }
+        }
+      },
+      "ladderDeltas": {
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 529.2754579999992,
+            "low": -1498.848167000001,
+            "median": -395.2869569999998,
+            "n": 5
+          }
+        }
+      },
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.1009722256845467,
+            "low": 0.8672785856630758,
+            "median": 1.024986420121934,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.3226036450528873,
+            "low": 0.9158489478527815,
+            "median": 0.9739016917872376,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.0278435833063126,
+            "low": 0.38662328381960753,
+            "median": 0.9713903705934595,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.1144421734143855,
+            "low": 0.6444543038554709,
+            "median": 1.0506116657760298,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.6570601610335975,
+            "low": 0.8610112744643929,
+            "median": 1.2129338259111269,
+            "n": 5
+          }
+        }
+      },
+      "step2": {
+        "C": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 970.0983330000004,
+            "low": 387.4139580000001,
+            "median": 410.3882500000002,
+            "n": 5
+          }
+        },
+        "K": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "KOverTMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "T": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2351.068874999999,
+            "low": 830.8499579999998,
+            "median": 913.9909170000001,
+            "n": 5
+          }
+        },
+        "TMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TMinusKOverC": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TOverC": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.711497375079865,
+            "low": 0.8564595255314179,
+            "median": 2.359210085559178,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2351.068874999999,
+            "low": 830.8499579999998,
+            "median": 913.9909170000001,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2345.3825420000003,
+            "low": 858.6564579999999,
+            "median": 935.3062919999998,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1291.3068750000002,
+            "low": 611.542375,
+            "median": 627.4454169999999,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 976.3369999999995,
+            "low": 626.0869169999996,
+            "median": 664.2893750000003,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1937.0164999999997,
+            "low": 795.7620420000003,
+            "median": 826.5026250000001,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2058.2362090000006,
+            "low": 842.962125,
+            "median": 915.7671250000003,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 970.0983330000004,
+            "low": 387.4139580000001,
+            "median": 410.3882500000002,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 379.965416,
+            "low": 223.28437500000018,
+            "median": 230.80441700000029,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2104.307125000001,
+            "low": 879.6396670000004,
+            "median": 1014.0077919999999,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2667.398459,
+            "low": 870.5593330000002,
+            "median": 921.7768340000002,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1412.4776669999992,
+            "low": 519.3328339999998,
+            "median": 605.4589580000002,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1161.57625,
+            "low": 478.2229589999997,
+            "median": 623.271334,
+            "n": 5
+          }
+        }
+      }
+    },
+    "allocationBytesPerOp": {
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.2730409545202974,
+            "low": 0.7424658613802787,
+            "median": 1.1180210070994767,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.8381464791992654,
+            "low": 0.8253922119696014,
+            "median": 1.3195106886781416,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.025370685433128,
+            "low": 0.9702695426084433,
+            "median": 1.0019188507466992,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.2435035511302261,
+            "low": 0.8714100186969707,
+            "median": 0.9968000261972174,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.7010481972668743,
+            "low": 0.47606234631213806,
+            "median": 1.2046866425153218,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2675007493,
+            "low": 1746303415.5,
+            "median": 2193509325.0000005,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2392627219,
+            "low": 1723046943,
+            "median": 2164922865.0000005,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1606010572.5000002,
+            "low": 1183283551,
+            "median": 1349159582,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1682724492.5,
+            "low": 733978274.9999999,
+            "median": 1217125852.9999998,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3022444695.5,
+            "low": 2925998198,
+            "median": 2978866992.0000005,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3015655000.5,
+            "low": 2905161064.5,
+            "median": 2981311185.4999995,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 811559555,
+            "low": 602214075,
+            "median": 744369899,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 822120846.5,
+            "low": 482588070.99999994,
+            "median": 816549558.5,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2543576577,
+            "low": 1833672901,
+            "median": 2452552285.0000005,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2523974113,
+            "low": 2035437297.0000002,
+            "median": 2310491149,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1757822440.4999998,
+            "low": 721660127,
+            "median": 1119043203,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1517263986.9999998,
+            "low": 657855083,
+            "median": 1459153259,
+            "n": 5
+          }
+        }
+      }
+    },
+    "gcCountPerOp": {
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 0.75,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 0.6666666666666666,
+            "median": 1.5,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.236842105263158,
+            "low": 0.7291666666666666,
+            "median": 1.024390243902439,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.6666666666666667,
+            "low": 0.75,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 0.3333333333333333,
+            "median": 1.3333333333333333,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 3,
+            "low": 1.5,
+            "median": 2,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 1.5,
+            "median": 2,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.5,
+            "low": 1,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.5,
+            "low": 0.5,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 24.5,
+            "low": 17.5,
+            "median": 21,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 24,
+            "low": 19,
+            "median": 21,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 1,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1,
+            "low": 0.5,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.5,
+            "low": 1.5,
+            "median": 1.5,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 1.5,
+            "median": 2,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2,
+            "low": 0.5,
+            "median": 1,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.5,
+            "low": 0.5,
+            "median": 1.5,
+            "n": 5
+          }
+        }
+      }
+    },
+    "gcPauseMsPerOp": {
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.5293149996343314,
+            "low": 0.992877209535324,
+            "median": 1.1552282465854722,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.2029850954600696,
+            "low": 0.82286382744294,
+            "median": 1.151008009107236,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 0.9492834619251574,
+            "low": 0.0516069279703897,
+            "median": 0.6741951463128416,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.3382428292450006,
+            "low": 0.8084717167604605,
+            "median": 0.9083835152489469,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.352959339140188,
+            "low": 0.4695269520023099,
+            "median": 1.4918968242639694,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 352.8082708653528,
+            "low": 115.60129167628475,
+            "median": 183.82141666370444,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 305.40135415503755,
+            "low": 102.03335419646464,
+            "median": 135.2329583314713,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 184.84614582848735,
+            "low": 152.3440832970664,
+            "median": 164.6244791627396,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 185.13887500739656,
+            "low": 77.16012498713098,
+            "median": 143.02635416970588,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 443.5922708653379,
+            "low": 21.315624908311293,
+            "median": 24.04112502699718,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 467.2916875279043,
+            "low": 24.881270830519497,
+            "median": 64.0464790922124,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 113.98789583472535,
+            "low": 22.273645852692425,
+            "median": 49.65458333026618,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 41.44772919244133,
+            "low": 12.187895830720663,
+            "median": 15.240270819049329,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 223.17631245823577,
+            "low": 133.65860417252406,
+            "median": 188.78058332484215,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 266.2516874843277,
+            "low": 111.4860416855663,
+            "median": 173.8010208355263,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 301.2369999778457,
+            "low": 92.60718751465902,
+            "median": 184.1650000133086,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 223.22606251691468,
+            "low": 78.26952083269134,
+            "median": 197.2350833530072,
+            "n": 5
+          }
+        }
+      }
+    },
+    "peakHeapUsedBytes": {
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.4505594691114514,
+            "low": 0.43283366111225374,
+            "median": 0.9581135446476313,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.084050233658818,
+            "low": 0.9019024985726393,
+            "median": 1.0972278699241955,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.3998687887876426,
+            "low": 0.7186922822097608,
+            "median": 1.092884670170166,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.8294149391280112,
+            "low": 0.6650516034232313,
+            "median": 0.9932271266777896,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2.381599703073413,
+            "low": 1.0388156190148135,
+            "median": 1.4866315910268955,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2472802966,
+            "low": 821045692,
+            "median": 2375688551,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2500825474,
+            "low": 1704723604,
+            "median": 1858327384,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2587510887,
+            "low": 2194050065,
+            "median": 2225861847,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2443745674,
+            "low": 1111639194,
+            "median": 2358225632,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 208041226,
+            "low": 171849303,
+            "median": 186800367,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 239113884,
+            "low": 133441340,
+            "median": 174864627,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 793920625,
+            "low": 518972171,
+            "median": 773990979,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1078245128,
+            "low": 854468706,
+            "median": 983704555,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2539211260,
+            "low": 1575986023,
+            "median": 1919083150,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2528534682,
+            "low": 678261475,
+            "median": 2457785713,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2470841240,
+            "low": 2111317141,
+            "median": 2302103522,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2216084818,
+            "low": 1037471258,
+            "median": 1420201988,
+            "n": 5
+          }
+        }
+      }
+    },
+    "peakRssBytes": {
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.1978039352747578,
+            "low": 0.9463399363467191,
+            "median": 0.9600441526934314,
+            "n": 5
+          }
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.050084435688151,
+            "low": 0.9408141012730316,
+            "median": 0.9637538201070347,
+            "n": 5
+          }
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.0558567807757708,
+            "low": 0.9103338270479663,
+            "median": 0.9942422497651444,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.0863606290909213,
+            "low": 0.7327584051993501,
+            "median": 0.9946511236578581,
+            "n": 5
+          }
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.3735416079131806,
+            "low": 1.042160403545951,
+            "median": 1.0802529596351231,
+            "n": 5
+          }
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4716609536,
+            "low": 3574366208,
+            "median": 4457562112,
+            "n": 5
+          }
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4710318080,
+            "low": 3756310528,
+            "median": 4200579072,
+            "n": 5
+          }
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4890230784,
+            "low": 4402102272,
+            "median": 4503371776,
+            "n": 5
+          }
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4718166016,
+            "low": 4475011072,
+            "median": 4656988160,
+            "n": 5
+          }
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 539197440,
+            "low": 519553024,
+            "median": 536444928,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 575209472,
+            "low": 510672896,
+            "median": 536657920,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1598521344,
+            "low": 1298546688,
+            "median": 1497481216,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 2157166592,
+            "low": 2035777536,
+            "median": 2118991872,
+            "n": 5
+          }
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 5299863552,
+            "low": 3361964032,
+            "median": 4419518464,
+            "n": 5
+          }
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 5022859264,
+            "low": 4167188480,
+            "median": 4588093440,
+            "n": 5
+          }
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4788551680,
+            "low": 4134453248,
+            "median": 4495228928,
+            "n": 5
+          }
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 4432805888,
+            "low": 3011608576,
+            "median": 4283170816,
+            "n": 5
+          }
+        }
+      }
+    },
+    "timeToFirstRecordMedianMs": {
+      "newOverOld": {
+        "effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 1.1805053407098896,
+            "low": 0.7679865424433175,
+            "median": 1.1655781502189984,
+            "n": 5
+          }
+        },
+        "typed/decode-string": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "typed/encode-string": {
+          "_id": "Option",
+          "_tag": "None"
+        }
+      },
+      "units": {
+        "new:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "old:effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "new:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "old:effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "new:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 0.954834000000119,
+            "low": 0.7418750000001637,
+            "median": 0.8860829999998714,
+            "n": 5
+          }
+        },
+        "old:effect-xml/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.9375,
+            "high": 0.9659999999998945,
+            "low": 0.7602090000000317,
+            "median": 0.7864170000002559,
+            "n": 5
+          }
+        },
+        "new:computis-effect-xml/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "new:computis-effect-xml/encode-typed": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "new:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "old:typed/decode-string": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "new:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "old:typed/encode-string": {
+          "_id": "Option",
+          "_tag": "None"
+        }
+      }
+    }
+  }
+}

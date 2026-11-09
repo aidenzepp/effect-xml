@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0
+    https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+    identifier="example-hotspot-bicycle" title="Parts of a bicycle" time-dependent="false"
+    xml:lang="en-GB">
+  <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="identifier">
+    <qti-correct-response>
+      <qti-value>part-crank</qti-value>
+    </qti-correct-response>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float"/>
+  <qti-item-body>
+    <p>The drawing shows a bicycle seen from the side. Four of its parts are marked:
+      the saddle, the handlebar, the front hub, and the pedal crank.</p>
+    <qti-hotspot-interaction response-identifier="RESPONSE" max-choices="1">
+      <qti-prompt>Select the pedal crank.</qti-prompt>
+      <img src="https://assets.example/qti/bicycle-side-view.svg" width="640" height="400"
+        alt="A side view of a bicycle with four circled markers on its frame and wheels"/>
+      <qti-hotspot-choice identifier="part-saddle" shape="circle" coords="250,90,30"/>
+      <qti-hotspot-choice identifier="part-handlebar" shape="rect" coords="440,60,500,110"/>
+      <qti-hotspot-choice identifier="part-hub" shape="circle" coords="500,300,28"/>
+      <qti-hotspot-choice identifier="part-crank" shape="poly" coords="290,280,330,280,330,320,290,320"/>
+    </qti-hotspot-interaction>
+  </qti-item-body>
+  <qti-response-processing
+    template="https://purl.imsglobal.org/spec/qti/v3p0/rptemplates/match_correct"/>
+</qti-assessment-item>

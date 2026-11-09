@@ -1,0 +1,4138 @@
+{
+  "block": {
+    "cases": [],
+    "failures": ["failure/typed-decode", "failure/stream"],
+    "input": "bank-4m-bad-last",
+    "jit": "off",
+    "newCommit": "df898abecb3ada0adf73d82aae5680c9eda22919",
+    "newTree": ".worktrees/perf3-m2-new-df898ab",
+    "oldCommit": "bd60a0eb4e2e094832a3baa61526a308de319ba2",
+    "oldJit": "off",
+    "oldTree": ".worktrees/perf3-baseline-bd60a0eb4e2e094832a3baa61526a308de319ba2",
+    "policy": {
+      "maxMs": 30000,
+      "maxSamples": 1000000,
+      "minMs": 2000,
+      "minSamples": 10,
+      "warmupIterations": 5,
+      "warmupMs": 1000
+    },
+    "policyName": "ab",
+    "rounds": 15,
+    "rungs": []
+  },
+  "environment": {
+    "arch": "arm64",
+    "commit": "df898abecb3ada0adf73d82aae5680c9eda22919",
+    "cores": 14,
+    "cpuModel": "Apple M4 Pro",
+    "dirty": false,
+    "os": "Darwin 27.2.0",
+    "packages": {
+      "effect": "absent",
+      "fast-xml-parser": "absent",
+      "saxes": "absent",
+      "sax": "absent",
+      "txml": "absent",
+      "@rgrove/parse-xml": "absent",
+      "libxml2-wasm": "absent",
+      "@computis/effect-xml": "absent"
+    },
+    "runtime": "bun",
+    "runtimeVersion": "1.4.2",
+    "totalMemoryBytes": 51539607552
+  },
+  "method": "Interleaved A/B: each round runs every unit once, each in a child process of its own on the driver's runtime, in the schedule order on even rounds and reversed on odd rounds. A child loads the case or rung from its tree, runs the check once, warms up under the policy, then meters process.resourceUsage over the sampling phase alone; cpuPerOpMs is user+system CPU of the whole process over that phase divided by the sample count. The 1-minute load average is read at the start and end of every round and at the start of every unit. A round is an outlier when max(load start, load end) exceeds 2x the block median of that value, when a unit failed, or when a unit's cpuPerOpMs lies beyond 3 x 1.4826 x MAD of that unit's block median; each outlier round is repeated once after the planned rounds, and the repeat replaces it in the summary (the original stays, marked superseded). Summary values are per-round values reduced to a median with a distribution-free order-statistic interval (95%, or the range below 6 rounds, with its coverage). New-side units run in block.jit and old-side units in block.oldJit; when both sides are one tree, newOverOld is the ratio of the two JIT modes.",
+  "repeated": 2,
+  "rounds": [
+    {
+      "index": 0,
+      "loadEnd": 15.0009765625,
+      "loadStart": 16.890625,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2751400977.7855053
+              },
+              "cpuPerOpMs": 185.06778571428572,
+              "cpuSystemMs": 59.927,
+              "cpuUserMs": 2531.022,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 35
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 197.80108326813206
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 213782254
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 614924288
+              },
+              "samples": 14,
+              "wallMeanMs": 146.59336907142855,
+              "wallMs": {
+                "max": 177.54033400000026,
+                "median": 144.23016600000028,
+                "min": 129.20899999999983,
+                "p95": 177.54033400000026,
+                "p99": 177.54033400000026
+              }
+            }
+          },
+          "load": 16.890625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2995059982.3309274
+              },
+              "cpuPerOpMs": 163.927,
+              "cpuSystemMs": 65.502,
+              "cpuUserMs": 2557.33,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 137.50574993900955
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 290396800
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 636092416
+              },
+              "samples": 16,
+              "wallMeanMs": 125.6433385625,
+              "wallMs": {
+                "max": 136.85558300000002,
+                "median": 126.20966599999974,
+                "min": 113.49066700000003,
+                "p95": 136.85558300000002,
+                "p99": 136.85558300000002
+              }
+            }
+          },
+          "load": 16.890625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3290489938.856969
+              },
+              "cpuPerOpMs": 63.31422857142857,
+              "cpuSystemMs": 58.712,
+              "cpuUserMs": 2157.286,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 69
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 62.654583365656435
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 174902536
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 395116544
+              },
+              "samples": 35,
+              "wallMeanMs": 57.50738811428572,
+              "wallMs": {
+                "max": 61.13166700000011,
+                "median": 57.53362500000003,
+                "min": 54.794791999999916,
+                "p95": 59.717833000000155,
+                "p99": 61.13166700000011
+              }
+            }
+          },
+          "load": 16.890625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3407546975.9094462
+              },
+              "cpuPerOpMs": 114.49015789473683,
+              "cpuSystemMs": 64.988,
+              "cpuUserMs": 2110.325,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 71
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 68.21366678923368
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 178649098
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 394100736
+              },
+              "samples": 19,
+              "wallMeanMs": 105.7507214736842,
+              "wallMs": {
+                "max": 114.15637500000003,
+                "median": 105.2231670000001,
+                "min": 101.54454200000009,
+                "p95": 114.15637500000003,
+                "p99": 114.15637500000003
+              }
+            }
+          },
+          "load": 16.890625
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:21:53.162Z"
+    },
+    {
+      "index": 1,
+      "loadEnd": 13.4384765625,
+      "loadStart": 15.0009765625,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3533353765.1955767
+              },
+              "cpuPerOpMs": 109.09771428571429,
+              "cpuSystemMs": 65.281,
+              "cpuUserMs": 2225.771,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 77
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 68.38454154785722
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 186280021
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 400605184
+              },
+              "samples": 21,
+              "wallMeanMs": 99.84794047619046,
+              "wallMs": {
+                "max": 103.35620900000004,
+                "median": 99.2566670000001,
+                "min": 96.41575000000012,
+                "p95": 103.34112499999992,
+                "p99": 103.35620900000004
+              }
+            }
+          },
+          "load": 15.0009765625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3317875903.9692755
+              },
+              "cpuPerOpMs": 61.96655555555555,
+              "cpuSystemMs": 55.243,
+              "cpuUserMs": 2175.553,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 70
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 62.03570810612291
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 180965368
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 397197312
+              },
+              "samples": 36,
+              "wallMeanMs": 56.581572916666666,
+              "wallMs": {
+                "max": 60.06954200000018,
+                "median": 56.18337499999984,
+                "min": 54.82183299999997,
+                "p95": 59.00979200000006,
+                "p99": 60.06954200000018
+              }
+            }
+          },
+          "load": 15.0009765625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3053473791.3592505
+              },
+              "cpuPerOpMs": 159.14288235294117,
+              "cpuSystemMs": 58.811,
+              "cpuUserMs": 2646.618,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 39
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 137.68320815870538
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 291057613
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 647741440
+              },
+              "samples": 17,
+              "wallMeanMs": 122.81971076470587,
+              "wallMs": {
+                "max": 130.2258340000003,
+                "median": 124.8744999999999,
+                "min": 112.0592079999999,
+                "p95": 130.2258340000003,
+                "p99": 130.2258340000003
+              }
+            }
+          },
+          "load": 15.0009765625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3048924495.671382
+              },
+              "cpuPerOpMs": 179.32653333333334,
+              "cpuSystemMs": 53.92,
+              "cpuUserMs": 2635.978,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 136.39987510396168
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 267524449
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 688734208
+              },
+              "samples": 15,
+              "wallMeanMs": 136.2959306,
+              "wallMs": {
+                "max": 146.03854200000023,
+                "median": 139.12033399999973,
+                "min": 125.85350000000017,
+                "p95": 146.03854200000023,
+                "p99": 146.03854200000023
+              }
+            }
+          },
+          "load": 15.0009765625
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:22:07.283Z"
+    },
+    {
+      "index": 2,
+      "loadEnd": 11.72216796875,
+      "loadStart": 13.4384765625,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2912195863.8607907
+              },
+              "cpuPerOpMs": 179.2976666666667,
+              "cpuSystemMs": 67.849,
+              "cpuUserMs": 2621.616,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 36
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 127.79616675106809
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 295133789
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 715063296
+              },
+              "samples": 15,
+              "wallMeanMs": 139.0408972,
+              "wallMs": {
+                "max": 150.02016700000013,
+                "median": 138.916917,
+                "min": 128.0617920000002,
+                "p95": 150.02016700000013,
+                "p99": 150.02016700000013
+              }
+            }
+          },
+          "load": 13.4384765625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3030395123.1740265
+              },
+              "cpuPerOpMs": 159.10988235294118,
+              "cpuSystemMs": 65.161,
+              "cpuUserMs": 2639.707,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 142.6562083652243
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 246115319
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 622575616
+              },
+              "samples": 17,
+              "wallMeanMs": 121.96457352941177,
+              "wallMs": {
+                "max": 139.669042,
+                "median": 121.89329100000032,
+                "min": 111.44220799999994,
+                "p95": 139.669042,
+                "p99": 139.669042
+              }
+            }
+          },
+          "load": 13.4384765625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3290774591.103367
+              },
+              "cpuPerOpMs": 62.56483333333334,
+              "cpuSystemMs": 65.601,
+              "cpuUserMs": 2186.733,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 70
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 66.4105418836698
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 180912074
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 397819904
+              },
+              "samples": 36,
+              "wallMeanMs": 56.973278944444445,
+              "wallMs": {
+                "max": 61.47891699999991,
+                "median": 56.519874999999956,
+                "min": 54.69983400000001,
+                "p95": 59.91412500000001,
+                "p99": 61.47891699999991
+              }
+            }
+          },
+          "load": 13.4384765625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3662676280.6935706
+              },
+              "cpuPerOpMs": 108.25785714285715,
+              "cpuSystemMs": 68.554,
+              "cpuUserMs": 2204.861,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 79
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 67.35483335796744
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 186299771
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 405340160
+              },
+              "samples": 21,
+              "wallMeanMs": 99.16726585714284,
+              "wallMs": {
+                "max": 102.59770800000001,
+                "median": 99.09204200000022,
+                "min": 95.75045799999998,
+                "p95": 102.25700000000006,
+                "p99": 102.59770800000001
+              }
+            }
+          },
+          "load": 13.4384765625
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:22:21.643Z"
+    },
+    {
+      "index": 3,
+      "loadEnd": 11.06298828125,
+      "loadStart": 11.72216796875,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3583798393.6457057
+              },
+              "cpuPerOpMs": 107.90361904761906,
+              "cpuSystemMs": 66.788,
+              "cpuUserMs": 2199.188,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 77
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 69.63954155799001
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 188577369
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 411566080
+              },
+              "samples": 21,
+              "wallMeanMs": 98.7558630952381,
+              "wallMs": {
+                "max": 108.90266699999984,
+                "median": 98.31912499999999,
+                "min": 92.36204199999997,
+                "p95": 105.14566699999978,
+                "p99": 108.90266699999984
+              }
+            }
+          },
+          "load": 11.72216796875
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3261959400.5589013
+              },
+              "cpuPerOpMs": 62.71557142857143,
+              "cpuSystemMs": 58.685,
+              "cpuUserMs": 2136.36,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 68
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 62.44179158238694
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 176147322
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 393887744
+              },
+              "samples": 35,
+              "wallMeanMs": 57.46279525714285,
+              "wallMs": {
+                "max": 63.148249999999734,
+                "median": 57.20133299999998,
+                "min": 54.82129199999986,
+                "p95": 59.923041999999896,
+                "p99": 63.148249999999734
+              }
+            }
+          },
+          "load": 11.72216796875
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2979748443.758351
+              },
+              "cpuPerOpMs": 160.349625,
+              "cpuSystemMs": 65.53,
+              "cpuUserMs": 2500.064,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 32
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 121.08391686342657
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 414857082
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 770195456
+              },
+              "samples": 16,
+              "wallMeanMs": 125.1550390625,
+              "wallMs": {
+                "max": 131.303625,
+                "median": 126.39066700000012,
+                "min": 112.81733400000007,
+                "p95": 131.303625,
+                "p99": 131.303625
+              }
+            }
+          },
+          "load": 11.72216796875
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2890092947.8143845
+              },
+              "cpuPerOpMs": 184.29606666666666,
+              "cpuSystemMs": 65.015,
+              "cpuUserMs": 2699.426,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 145.44045855291188
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 213511370
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 627949568
+              },
+              "samples": 15,
+              "wallMeanMs": 139.96689166666667,
+              "wallMs": {
+                "max": 160.44329199999993,
+                "median": 140.46270800000002,
+                "min": 127.76483300000018,
+                "p95": 160.44329199999993,
+                "p99": 160.44329199999993
+              }
+            }
+          },
+          "load": 11.72216796875
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:22:36.093Z"
+    },
+    {
+      "index": 4,
+      "loadEnd": 10.21240234375,
+      "loadStart": 11.06298828125,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2978943018.15558
+              },
+              "cpuPerOpMs": 179.05746666666667,
+              "cpuSystemMs": 63.611,
+              "cpuUserMs": 2622.251,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 140.8644582843408
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 297990224
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 725909504
+              },
+              "samples": 15,
+              "wallMeanMs": 136.93441386666666,
+              "wallMs": {
+                "max": 153.18366700000024,
+                "median": 136.07508300000018,
+                "min": 125.54108300000007,
+                "p95": 153.18366700000024,
+                "p99": 153.18366700000024
+              }
+            }
+          },
+          "load": 11.06298828125
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3037184788.5336466
+              },
+              "cpuPerOpMs": 156.7455294117647,
+              "cpuSystemMs": 61.81,
+              "cpuUserMs": 2602.864,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 38
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 128.25241673272103
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 273416423
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 663781376
+              },
+              "samples": 17,
+              "wallMeanMs": 122.0987304117647,
+              "wallMs": {
+                "max": 135.07766700000002,
+                "median": 123.673542,
+                "min": 110.02633300000002,
+                "p95": 135.07766700000002,
+                "p99": 135.07766700000002
+              }
+            }
+          },
+          "load": 11.06298828125
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3364463634.145347
+              },
+              "cpuPerOpMs": 60.70921621621621,
+              "cpuSystemMs": 62.83,
+              "cpuUserMs": 2183.411,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 71
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 61.814250017050654
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 180115729
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 399048704
+              },
+              "samples": 37,
+              "wallMeanMs": 55.0482972972973,
+              "wallMs": {
+                "max": 57.66274999999996,
+                "median": 54.68175000000019,
+                "min": 53.012707999999975,
+                "p95": 57.5242089999997,
+                "p99": 57.66274999999996
+              }
+            }
+          },
+          "load": 11.06298828125
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3641914684.299547
+              },
+              "cpuPerOpMs": 108.53633333333333,
+              "cpuSystemMs": 65.194,
+              "cpuUserMs": 2214.069,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 79
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 67.85245856735855
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 188590492
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 407486464
+              },
+              "samples": 21,
+              "wallMeanMs": 99.72935314285715,
+              "wallMs": {
+                "max": 108.9769580000002,
+                "median": 99.5557090000002,
+                "min": 95.454792,
+                "p95": 103.35616600000003,
+                "p99": 108.9769580000002
+              }
+            }
+          },
+          "load": 11.06298828125
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:22:50.371Z"
+    },
+    {
+      "index": 5,
+      "loadEnd": 9.03857421875,
+      "loadStart": 10.21240234375,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3461295206.824626
+              },
+              "cpuPerOpMs": 113.23610000000001,
+              "cpuSystemMs": 69.427,
+              "cpuUserMs": 2195.295,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 75
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 82.05991645809263
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 188848648
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 401408000
+              },
+              "samples": 20,
+              "wallMeanMs": 104.47679585,
+              "wallMs": {
+                "max": 128.1864999999998,
+                "median": 102.3637920000001,
+                "min": 98.6139169999999,
+                "p95": 112.23329200000035,
+                "p99": 128.1864999999998
+              }
+            }
+          },
+          "load": 10.21240234375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3348853734.042966
+              },
+              "cpuPerOpMs": 61.21818918918918,
+              "cpuSystemMs": 62.075,
+              "cpuUserMs": 2202.998,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 71
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 62.164083356037736
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 179483646
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 402669568
+              },
+              "samples": 37,
+              "wallMeanMs": 55.32302364864865,
+              "wallMs": {
+                "max": 59.17966699999988,
+                "median": 55.2026249999999,
+                "min": 52.8717079999999,
+                "p95": 58.38216700000021,
+                "p99": 59.17966699999988
+              }
+            }
+          },
+          "load": 10.21240234375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3025573440.825122
+              },
+              "cpuPerOpMs": 159.131,
+              "cpuSystemMs": 63.174,
+              "cpuUserMs": 2642.053,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 38
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 136.34820841252804
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 263614189
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 647643136
+              },
+              "samples": 17,
+              "wallMeanMs": 122.96830635294116,
+              "wallMs": {
+                "max": 137.12087500000007,
+                "median": 122.963166,
+                "min": 114.94537500000001,
+                "p95": 137.12087500000007,
+                "p99": 137.12087500000007
+              }
+            }
+          },
+          "load": 10.21240234375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3050587064.099888
+              },
+              "cpuPerOpMs": 176.01999999999998,
+              "cpuSystemMs": 61.363,
+              "cpuUserMs": 2578.937,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 38
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 126.30012491717935
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 259968533
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 649854976
+              },
+              "samples": 15,
+              "wallMeanMs": 136.33016113333332,
+              "wallMs": {
+                "max": 145.33012499999995,
+                "median": 137.729333,
+                "min": 127.53575000000001,
+                "p95": 145.33012499999995,
+                "p99": 145.33012499999995
+              }
+            }
+          },
+          "load": 10.21240234375
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:23:04.816Z"
+    },
+    {
+      "index": 6,
+      "loadEnd": 8.0625,
+      "loadStart": 9.03857421875,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3001230178.172644
+              },
+              "cpuPerOpMs": 178.01166666666668,
+              "cpuSystemMs": 64.623,
+              "cpuUserMs": 2605.552,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 142.87295856047422
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 213587413
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 619413504
+              },
+              "samples": 15,
+              "wallMeanMs": 134.78936386666666,
+              "wallMs": {
+                "max": 148.62341700000025,
+                "median": 135.17000000000007,
+                "min": 123.09904199999983,
+                "p95": 148.62341700000025,
+                "p99": 148.62341700000025
+              }
+            }
+          },
+          "load": 9.03857421875
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2826440027.46794
+              },
+              "cpuPerOpMs": 159.8059375,
+              "cpuSystemMs": 66.099,
+              "cpuUserMs": 2490.796,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 35
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 144.0639165812172
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 262520897
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 641597440
+              },
+              "samples": 16,
+              "wallMeanMs": 128.083322875,
+              "wallMs": {
+                "max": 158.84295800000018,
+                "median": 126.77679199999989,
+                "min": 115.24720900000011,
+                "p95": 158.84295800000018,
+                "p99": 158.84295800000018
+              }
+            }
+          },
+          "load": 9.03857421875
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2981678876.286031
+              },
+              "cpuPerOpMs": 64.1621515151515,
+              "cpuSystemMs": 67.296,
+              "cpuUserMs": 2050.055,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 64
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 154.72170826978981
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 176228537
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 392331264
+              },
+              "samples": 33,
+              "wallMeanMs": 62.62107954545456,
+              "wallMs": {
+                "max": 99.12358300000005,
+                "median": 59.37037499999997,
+                "min": 54.206333000000086,
+                "p95": 97.55866700000024,
+                "p99": 99.12358300000005
+              }
+            }
+          },
+          "load": 9.03857421875
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3374161605.8950996
+              },
+              "cpuPerOpMs": 111.24847368421052,
+              "cpuSystemMs": 74.444,
+              "cpuUserMs": 2039.277,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 70
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 98.67841663071886
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 180801426
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 399409152
+              },
+              "samples": 19,
+              "wallMeanMs": 105.53469299999999,
+              "wallMs": {
+                "max": 142.41100000000006,
+                "median": 101.16937499999995,
+                "min": 97.26945799999999,
+                "p95": 142.41100000000006,
+                "p99": 142.41100000000006
+              }
+            }
+          },
+          "load": 9.03857421875
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:23:19.134Z"
+    },
+    {
+      "index": 7,
+      "loadEnd": 18.35302734375,
+      "loadStart": 8.0625,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3540994964.9077854
+              },
+              "cpuPerOpMs": 108.7642857142857,
+              "cpuSystemMs": 64.642,
+              "cpuUserMs": 2219.408,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 77
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 65.35041646566242
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 186292815
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 400097280
+              },
+              "samples": 21,
+              "wallMeanMs": 99.78957542857145,
+              "wallMs": {
+                "max": 104.89145899999994,
+                "median": 99.79775000000018,
+                "min": 96.35099999999989,
+                "p95": 103.06658400000015,
+                "p99": 104.89145899999994
+              }
+            }
+          },
+          "load": 8.0625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2494365148.2596216
+              },
+              "cpuPerOpMs": 66.39581481481481,
+              "cpuSystemMs": 51.649,
+              "cpuUserMs": 1741.038,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 52
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 202.14770827442408
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 159129452
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 379682816
+              },
+              "samples": 27,
+              "wallMeanMs": 74.56321914814815,
+              "wallMs": {
+                "max": 144.8843340000003,
+                "median": 62.54112500000019,
+                "min": 54.024708000000146,
+                "p95": 136.30174999999963,
+                "p99": 144.8843340000003
+              }
+            }
+          },
+          "load": 8.0625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1229632023.8594387
+              },
+              "cpuPerOpMs": 183.3262,
+              "cpuSystemMs": 51.74,
+              "cpuUserMs": 1781.522,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 22
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 615.5273749027401
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 262484129
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 627097600
+              },
+              "samples": 10,
+              "wallMeanMs": 291.5552917,
+              "wallMs": {
+                "max": 383.8118749999999,
+                "median": 273.53370799999993,
+                "min": 202.4387499999998,
+                "p95": 383.8118749999999,
+                "p99": 383.8118749999999
+              }
+            }
+          },
+          "load": 8.0625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1071683831.6437935
+              },
+              "cpuPerOpMs": 214.2516,
+              "cpuSystemMs": 56.732,
+              "cpuUserMs": 2085.784,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 24
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 418.7663749908097
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 258602861
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 633995264
+              },
+              "samples": 10,
+              "wallMeanMs": 379.1002333,
+              "wallMs": {
+                "max": 475.3713340000004,
+                "median": 376.903542,
+                "min": 295.75462500000003,
+                "p95": 475.3713340000004,
+                "p99": 475.3713340000004
+              }
+            }
+          },
+          "load": 8.0625
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:23:33.364Z"
+    },
+    {
+      "index": 8,
+      "loadEnd": 17.15478515625,
+      "loadStart": 18.35302734375,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2763780338.874664
+              },
+              "cpuPerOpMs": 191.63478571428573,
+              "cpuSystemMs": 61.48,
+              "cpuUserMs": 2621.407,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 36
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 189.56049991538748
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 260112576
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 615137280
+              },
+              "samples": 14,
+              "wallMeanMs": 149.31378871428572,
+              "wallMs": {
+                "max": 168.21737500000017,
+                "median": 151.682417,
+                "min": 134.08979100000033,
+                "p95": 168.21737500000017,
+                "p99": 168.21737500000017
+              }
+            }
+          },
+          "load": 18.35302734375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2664740482.3595524
+              },
+              "cpuPerOpMs": 174.44893333333331,
+              "cpuSystemMs": 80.401,
+              "cpuUserMs": 2536.333,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 31
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 173.21691662073135
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 292654437
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 733249536
+              },
+              "samples": 15,
+              "wallMeanMs": 137.29834166666666,
+              "wallMs": {
+                "max": 185.75475000000006,
+                "median": 134.45016699999996,
+                "min": 116.80595799999992,
+                "p95": 185.75475000000006,
+                "p99": 185.75475000000006
+              }
+            }
+          },
+          "load": 18.35302734375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3262940935.732895
+              },
+              "cpuPerOpMs": 63.325657142857146,
+              "cpuSystemMs": 72.795,
+              "cpuUserMs": 2143.603,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 69
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 71.31399970967323
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 171867866
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 391053312
+              },
+              "samples": 35,
+              "wallMeanMs": 58.376379742857154,
+              "wallMs": {
+                "max": 64.15037499999994,
+                "median": 58.530583000000206,
+                "min": 54.66445799999997,
+                "p95": 60.932916000000205,
+                "p99": 64.15037499999994
+              }
+            }
+          },
+          "load": 18.35302734375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3252515553.614173
+              },
+              "cpuPerOpMs": 113.36736842105263,
+              "cpuSystemMs": 66.849,
+              "cpuUserMs": 2087.131,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 71
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 105.21304199937731
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 180638122
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 409927680
+              },
+              "samples": 19,
+              "wallMeanMs": 110.81843857894735,
+              "wallMs": {
+                "max": 251.47612500000014,
+                "median": 101.76637500000015,
+                "min": 98.25862499999994,
+                "p95": 251.47612500000014,
+                "p99": 251.47612500000014
+              }
+            }
+          },
+          "load": 18.35302734375
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:23:52.834Z"
+    },
+    {
+      "index": 9,
+      "loadEnd": 15.47802734375,
+      "loadStart": 17.15478515625,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3582517230.517539
+              },
+              "cpuPerOpMs": 109.6144,
+              "cpuSystemMs": 60.818,
+              "cpuUserMs": 2131.47,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 75
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 65.27420814381912
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 186387434
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 399294464
+              },
+              "samples": 20,
+              "wallMeanMs": 100.6754583,
+              "wallMs": {
+                "max": 106.9248749999997,
+                "median": 99.40229099999988,
+                "min": 98.0765409999999,
+                "p95": 104.86000000000013,
+                "p99": 106.9248749999997
+              }
+            }
+          },
+          "load": 17.15478515625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3331958694.7639704
+              },
+              "cpuPerOpMs": 61.98799999999999,
+              "cpuSystemMs": 55.814,
+              "cpuUserMs": 2175.754,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 70
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 64.44854190340266
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 175172713
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 397361152
+              },
+              "samples": 36,
+              "wallMeanMs": 56.29797686111111,
+              "wallMs": {
+                "max": 61.76887499999975,
+                "median": 56.52995899999996,
+                "min": 53.68887500000005,
+                "p95": 59.7960420000004,
+                "p99": 61.76887499999975
+              }
+            }
+          },
+          "load": 17.15478515625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2648348109.8644924
+              },
+              "cpuPerOpMs": 171.91226666666668,
+              "cpuSystemMs": 56.762,
+              "cpuUserMs": 2521.922,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 34
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 167.56833327235654
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 288836514
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 648429568
+              },
+              "samples": 15,
+              "wallMeanMs": 136.80853333333332,
+              "wallMs": {
+                "max": 154.0694999999996,
+                "median": 135.4476249999998,
+                "min": 118.8663330000004,
+                "p95": 154.0694999999996,
+                "p99": 154.0694999999996
+              }
+            }
+          },
+          "load": 17.15478515625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2644323559.792494
+              },
+              "cpuPerOpMs": 199.977,
+              "cpuSystemMs": 78.827,
+              "cpuUserMs": 2720.851,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 35
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 176.78504151990637
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 228011442
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 618840064
+              },
+              "samples": 14,
+              "wallMeanMs": 151.95591664285715,
+              "wallMs": {
+                "max": 168.69966700000032,
+                "median": 147.69079200000033,
+                "min": 141.77979199999982,
+                "p95": 168.69966700000032,
+                "p99": 168.69966700000032
+              }
+            }
+          },
+          "load": 17.15478515625
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:24:07.397Z"
+    },
+    {
+      "index": 10,
+      "loadEnd": 19.2177734375,
+      "loadStart": 15.47802734375,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2746320782.094725
+              },
+              "cpuPerOpMs": 194.08378571428574,
+              "cpuSystemMs": 64.708,
+              "cpuUserMs": 2652.465,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 35
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 164.37187505653128
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 212378041
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 621002752
+              },
+              "samples": 14,
+              "wallMeanMs": 146.52865178571432,
+              "wallMs": {
+                "max": 172.57904199999984,
+                "median": 140.3090830000001,
+                "min": 134.56445799999983,
+                "p95": 172.57904199999984,
+                "p99": 172.57904199999984
+              }
+            }
+          },
+          "load": 15.47802734375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2333854313.075123
+              },
+              "cpuPerOpMs": 172.9619285714286,
+              "cpuSystemMs": 64.062,
+              "cpuUserMs": 2357.405,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 31
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 219.32095830561593
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 263042411
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 622723072
+              },
+              "samples": 14,
+              "wallMeanMs": 156.0077112857143,
+              "wallMs": {
+                "max": 319.84349999999995,
+                "median": 132.614458,
+                "min": 120.64570800000001,
+                "p95": 319.84349999999995,
+                "p99": 319.84349999999995
+              }
+            }
+          },
+          "load": 15.47802734375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1646543847.5244682
+              },
+              "cpuPerOpMs": 68.92784210526317,
+              "cpuSystemMs": 36.641,
+              "cpuUserMs": 1272.988,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 36
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 616.0667081130669
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 125143630
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 327958528
+              },
+              "samples": 19,
+              "wallMeanMs": 110.80442321052631,
+              "wallMs": {
+                "max": 141.60879099999966,
+                "median": 116.03399999999988,
+                "min": 78.68766600000004,
+                "p95": 141.60879099999966,
+                "p99": 141.60879099999966
+              }
+            }
+          },
+          "load": 15.47802734375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1488990778.285951
+              },
+              "cpuPerOpMs": 132.7938,
+              "cpuSystemMs": 34.827,
+              "cpuUserMs": 1293.111,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 37
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 476.7590413684957
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 129226756
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 326549504
+              },
+              "samples": 10,
+              "wallMeanMs": 239.89751670000004,
+              "wallMs": {
+                "max": 278.34316599999966,
+                "median": 231.64333400000032,
+                "min": 193.9145840000001,
+                "p95": 278.34316599999966,
+                "p99": 278.34316599999966
+              }
+            }
+          },
+          "load": 15.47802734375
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:24:21.819Z",
+      "superseded": "old:failure/stream CPU 132.794 ms/op beyond 3 MAD of median 113.236"
+    },
+    {
+      "index": 11,
+      "loadEnd": 16.37548828125,
+      "loadStart": 19.2177734375,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2568645202.3922343
+              },
+              "cpuPerOpMs": 114.77266666666667,
+              "cpuSystemMs": 59.432,
+              "cpuUserMs": 1662.158,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 56
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 195.1251668506302
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 144408363
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 344883200
+              },
+              "samples": 15,
+              "wallMeanMs": 140.22318333333334,
+              "wallMs": {
+                "max": 335.45174999999995,
+                "median": 103.6847499999999,
+                "min": 99.36062500000025,
+                "p95": 335.45174999999995,
+                "p99": 335.45174999999995
+              }
+            }
+          },
+          "load": 19.2177734375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3221907425.988822
+              },
+              "cpuPerOpMs": 64.20534285714285,
+              "cpuSystemMs": 74.151,
+              "cpuUserMs": 2173.036,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 68
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 68.79904173547402
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 176825819
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 393740288
+              },
+              "samples": 35,
+              "wallMeanMs": 58.03503214285715,
+              "wallMs": {
+                "max": 60.68979199999967,
+                "median": 58.0112079999999,
+                "min": 55.92041599999993,
+                "p95": 60.037874999999985,
+                "p99": 60.68979199999967
+              }
+            }
+          },
+          "load": 19.2177734375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2804727540.2983036
+              },
+              "cpuPerOpMs": 169.1758125,
+              "cpuSystemMs": 77.565,
+              "cpuUserMs": 2629.248,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 35
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 147.9752495069988
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 264447375
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 647987200
+              },
+              "samples": 16,
+              "wallMeanMs": 130.75474475,
+              "wallMs": {
+                "max": 143.12095799999997,
+                "median": 130.8628749999998,
+                "min": 114.60025000000019,
+                "p95": 143.12095799999997,
+                "p99": 143.12095799999997
+              }
+            }
+          },
+          "load": 19.2177734375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2642397163.3327374
+              },
+              "cpuPerOpMs": 191.19357142857143,
+              "cpuSystemMs": 72.87,
+              "cpuUserMs": 2603.84,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 34
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 147.6612916449085
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 261221802
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 647135232
+              },
+              "samples": 14,
+              "wallMeanMs": 149.35127971428574,
+              "wallMs": {
+                "max": 166.74570799999992,
+                "median": 148.496625,
+                "min": 135.56662499999993,
+                "p95": 166.74570799999992,
+                "p99": 166.74570799999992
+              }
+            }
+          },
+          "load": 19.2177734375
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:24:37.473Z"
+    },
+    {
+      "index": 12,
+      "loadEnd": 14.11376953125,
+      "loadStart": 16.37548828125,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2781660188.3385196
+              },
+              "cpuPerOpMs": 190.4647857142857,
+              "cpuSystemMs": 77.679,
+              "cpuUserMs": 2588.828,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 36
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 139.9621666641906
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 254198329
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 614236160
+              },
+              "samples": 14,
+              "wallMeanMs": 147.8652916428571,
+              "wallMs": {
+                "max": 161.29562499999975,
+                "median": 145.02637499999992,
+                "min": 136.176958,
+                "p95": 161.29562499999975,
+                "p99": 161.29562499999975
+              }
+            }
+          },
+          "load": 16.37548828125
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2832508148.4082775
+              },
+              "cpuPerOpMs": 174.97206666666665,
+              "cpuSystemMs": 74.432,
+              "cpuUserMs": 2550.149,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 31
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 137.75483326753601
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 349580574
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 758317056
+              },
+              "samples": 15,
+              "wallMeanMs": 134.27088613333333,
+              "wallMs": {
+                "max": 157.40875000000005,
+                "median": 134.2012080000004,
+                "min": 117.6991660000001,
+                "p95": 157.40875000000005,
+                "p99": 157.40875000000005
+              }
+            }
+          },
+          "load": 16.37548828125
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3143297652.6518464
+              },
+              "cpuPerOpMs": 65.04479411764704,
+              "cpuSystemMs": 74.515,
+              "cpuUserMs": 2137.008,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 66
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 70.00549987424165
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 175411735
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 389611520
+              },
+              "samples": 34,
+              "wallMeanMs": 59.32672670588236,
+              "wallMs": {
+                "max": 63.03895899999998,
+                "median": 59.31433300000026,
+                "min": 55.36712499999999,
+                "p95": 61.770416000000296,
+                "p99": 63.03895899999998
+              }
+            }
+          },
+          "load": 16.37548828125
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3462750939.0248137
+              },
+              "cpuPerOpMs": 114.2695,
+              "cpuSystemMs": 79.435,
+              "cpuUserMs": 2205.955,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 75
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 73.21849989239126
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 184976039
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 397148160
+              },
+              "samples": 20,
+              "wallMeanMs": 104.4233854,
+              "wallMs": {
+                "max": 109.80733400000008,
+                "median": 103.51999999999975,
+                "min": 100.17566699999998,
+                "p95": 109.48587499999985,
+                "p99": 109.80733400000008
+              }
+            }
+          },
+          "load": 16.37548828125
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:24:52.259Z"
+    },
+    {
+      "index": 13,
+      "loadEnd": 18.92822265625,
+      "loadStart": 14.11376953125,
+      "measurements": [
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3461923325.9288692
+              },
+              "cpuPerOpMs": 113.71900000000001,
+              "cpuSystemMs": 74.074,
+              "cpuUserMs": 2200.306,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 75
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 71.47916662506759
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 184232753
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 397819904
+              },
+              "samples": 20,
+              "wallMeanMs": 104.4808875,
+              "wallMs": {
+                "max": 109.12533299999996,
+                "median": 104.89504199999965,
+                "min": 98.65158300000007,
+                "p95": 107.11970799999972,
+                "p99": 109.12533299999996
+              }
+            }
+          },
+          "load": 14.11376953125
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 3176954246.306531
+              },
+              "cpuPerOpMs": 64.72514705882354,
+              "cpuSystemMs": 68.463,
+              "cpuUserMs": 2132.192,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 66
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 62.82933329930529
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 175966376
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 390184960
+              },
+              "samples": 34,
+              "wallMeanMs": 58.83124017647059,
+              "wallMs": {
+                "max": 69.19325000000026,
+                "median": 57.84741600000007,
+                "min": 56.258375000000115,
+                "p95": 61.46916599999986,
+                "p99": 69.19325000000026
+              }
+            }
+          },
+          "load": 14.11376953125
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1308804787.1780555
+              },
+              "cpuPerOpMs": 196.44459999999998,
+              "cpuSystemMs": 62.483,
+              "cpuUserMs": 1901.963,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 23
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 380.7681250618771
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 288731883
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 609222656
+              },
+              "samples": 10,
+              "wallMeanMs": 284.42643749999996,
+              "wallMs": {
+                "max": 355.46137499999986,
+                "median": 284.86333399999967,
+                "min": 242.4034590000001,
+                "p95": 355.46137499999986,
+                "p99": 355.46137499999986
+              }
+            }
+          },
+          "load": 14.11376953125
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1126010443.2415535
+              },
+              "cpuPerOpMs": 218.692,
+              "cpuSystemMs": 72.621,
+              "cpuUserMs": 2114.299,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 25
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 556.9266250240617
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 254776919
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 650199040
+              },
+              "samples": 10,
+              "wallMeanMs": 363.65304589999994,
+              "wallMs": {
+                "max": 526.0902500000002,
+                "median": 332.35962500000005,
+                "min": 283.1223749999999,
+                "p95": 526.0902500000002,
+                "p99": 526.0902500000002
+              }
+            }
+          },
+          "load": 14.11376953125
+        }
+      ],
+      "order": "reverse",
+      "startedAt": "2026-11-07T02:25:06.542Z"
+    },
+    {
+      "index": 14,
+      "loadEnd": 28.943359375,
+      "loadStart": 18.92822265625,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1017542998.6602032
+              },
+              "cpuPerOpMs": 220.0558,
+              "cpuSystemMs": 67.552,
+              "cpuUserMs": 2133.006,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 26
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 728.4763337229379
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 233242138
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 591659008
+              },
+              "samples": 10,
+              "wallMeanMs": 406.2566291,
+              "wallMs": {
+                "max": 512.5112500000005,
+                "median": 404.58037499999955,
+                "min": 287.76329199999964,
+                "p95": 512.5112500000005,
+                "p99": 512.5112500000005
+              }
+            }
+          },
+          "load": 18.92822265625
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1223157210.397984
+              },
+              "cpuPerOpMs": 196.8304,
+              "cpuSystemMs": 68.554,
+              "cpuUserMs": 1899.75,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 22
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 445.33558329567313
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 291787960
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 606339072
+              },
+              "samples": 10,
+              "wallMeanMs": 303.35787079999994,
+              "wallMs": {
+                "max": 349.7520829999994,
+                "median": 296.4175,
+                "min": 269.4696669999994,
+                "p95": 349.7520829999994,
+                "p99": 349.7520829999994
+              }
+            }
+          },
+          "load": 18.92822265625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1481765093.676531
+              },
+              "cpuPerOpMs": 70.67325000000001,
+              "cpuSystemMs": 39.305,
+              "cpuUserMs": 1091.467,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 31
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 335.6983332778327
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 106652252
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 305840128
+              },
+              "samples": 16,
+              "wallMeanMs": 126.35568750000002,
+              "wallMs": {
+                "max": 165.3834579999998,
+                "median": 123.09249999999975,
+                "min": 83.31937500000004,
+                "p95": 165.3834579999998,
+                "p99": 165.3834579999998
+              }
+            }
+          },
+          "load": 18.92822265625
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1437804878.7549603
+              },
+              "cpuPerOpMs": 127.0847,
+              "cpuSystemMs": 45.354,
+              "cpuUserMs": 1225.493,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 38
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 549.1084998939186
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 122035279
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 321650688
+              },
+              "samples": 10,
+              "wallMeanMs": 256.1014583,
+              "wallMs": {
+                "max": 326.71741699999984,
+                "median": 246.98745799999983,
+                "min": 182.86904200000026,
+                "p95": 326.71741699999984,
+                "p99": 326.71741699999984
+              }
+            }
+          },
+          "load": 18.92822265625
+        }
+      ],
+      "order": "forward",
+      "startedAt": "2026-11-07T02:25:25.332Z",
+      "superseded": "new:failure/stream CPU 70.673 ms/op beyond 3 MAD of median 63.326"
+    },
+    {
+      "index": 10,
+      "loadEnd": 38.91748046875,
+      "loadStart": 28.943359375,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1213316062.4499233
+              },
+              "cpuPerOpMs": 224.1633,
+              "cpuSystemMs": 71.814,
+              "cpuUserMs": 2169.819,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 25
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 823.3765832846984
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 247822821
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 613908480
+              },
+              "samples": 10,
+              "wallMeanMs": 344.99729160000004,
+              "wallMs": {
+                "max": 449.0126250000003,
+                "median": 357.60162500000024,
+                "min": 209.06516699999975,
+                "p95": 449.0126250000003,
+                "p99": 449.0126250000003
+              }
+            }
+          },
+          "load": 28.943359375
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1166624538.906304
+              },
+              "cpuPerOpMs": 191.4957,
+              "cpuSystemMs": 69.937,
+              "cpuUserMs": 1845.02,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 22
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 709.3288751202635
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 275535187
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 612614144
+              },
+              "samples": 10,
+              "wallMeanMs": 316.81128750000005,
+              "wallMs": {
+                "max": 415.65300000000025,
+                "median": 303.64087500000005,
+                "min": 241.09495799999968,
+                "p95": 415.65300000000025,
+                "p99": 415.65300000000025
+              }
+            }
+          },
+          "load": 28.943359375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1417932765.942194
+              },
+              "cpuPerOpMs": 70.33475,
+              "cpuSystemMs": 44.872,
+              "cpuUserMs": 1080.484,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 31
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 402.7169168693945
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 114892519
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 315506688
+              },
+              "samples": 16,
+              "wallMeanMs": 132.02182293750002,
+              "wallMs": {
+                "max": 245.76604099999986,
+                "median": 115.28841599999987,
+                "min": 64.84612500000003,
+                "p95": 245.76604099999986,
+                "p99": 245.76604099999986
+              }
+            }
+          },
+          "load": 28.943359375
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1669572275.6077952
+              },
+              "cpuPerOpMs": 121.0864,
+              "cpuSystemMs": 44.464,
+              "cpuUserMs": 1166.4,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 38
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 573.3342082821764
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 124862117
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 319176704
+              },
+              "samples": 10,
+              "wallMeanMs": 219.9096,
+              "wallMs": {
+                "max": 331.83270900000025,
+                "median": 194.96604200000002,
+                "min": 165.0609159999999,
+                "p95": 331.83270900000025,
+                "p99": 331.83270900000025
+              }
+            }
+          },
+          "load": 28.943359375
+        }
+      ],
+      "order": "forward",
+      "repeatOf": 10,
+      "startedAt": "2026-11-07T02:25:46.301Z"
+    },
+    {
+      "index": 14,
+      "loadEnd": 40.5927734375,
+      "loadStart": 38.91748046875,
+      "measurements": [
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1371624576.239268
+              },
+              "cpuPerOpMs": 222.3475,
+              "cpuSystemMs": 62.786,
+              "cpuUserMs": 2160.689,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 24
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 443.4644582797773
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 267928822
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 672088064
+              },
+              "samples": 10,
+              "wallMeanMs": 299.1224833,
+              "wallMs": {
+                "max": 390.93200000000024,
+                "median": 269.61862500000007,
+                "min": 243.02895799999988,
+                "p95": 390.93200000000024,
+                "p99": 390.93200000000024
+              }
+            }
+          },
+          "load": 38.91748046875
+        },
+        {
+          "id": "failure/typed-decode",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1403965101.4077706
+              },
+              "cpuPerOpMs": 207.51819999999998,
+              "cpuSystemMs": 67.918,
+              "cpuUserMs": 2007.264,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 22
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 420.4720834386535
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 233631334
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 604045312
+              },
+              "samples": 10,
+              "wallMeanMs": 264.40035,
+              "wallMs": {
+                "max": 322.00591699999995,
+                "median": 251.8151670000002,
+                "min": 217.07274999999981,
+                "p95": 322.00591699999995,
+                "p99": 322.00591699999995
+              }
+            }
+          },
+          "load": 38.91748046875
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "new",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 2033863060.3719923
+              },
+              "cpuPerOpMs": 71.66931818181818,
+              "cpuSystemMs": 54.411,
+              "cpuUserMs": 1522.314,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 43
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 416.23316617915407
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 131533519
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 341950464
+              },
+              "samples": 22,
+              "wallMeanMs": 92.94845077272727,
+              "wallMs": {
+                "max": 135.82720899999958,
+                "median": 84.61083300000018,
+                "min": 63.83070900000007,
+                "p95": 134.23691699999972,
+                "p99": 135.82720899999958
+              }
+            }
+          },
+          "load": 38.91748046875
+        },
+        {
+          "id": "failure/stream",
+          "kind": "failure",
+          "side": "old",
+          "line": {
+            "result": {
+              "allocationBytesPerSecond": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "bytes/s",
+                "value": 1780113125.6836436
+              },
+              "cpuPerOpMs": 129.3362727272727,
+              "cpuSystemMs": 46.119,
+              "cpuUserMs": 1376.58,
+              "expected": 1,
+              "gcCount": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "count",
+                "value": 40
+              },
+              "gcPauseMs": {
+                "source": "node:v8 GCProfiler on Bun (fidelity unverified)",
+                "unit": "ms",
+                "value": 320.99170848960057
+              },
+              "heapUsedBytes": {
+                "source": "process.memoryUsage heapUsed",
+                "unit": "bytes",
+                "value": 127775745
+              },
+              "observed": 1,
+              "peakRssBytes": {
+                "source": "process.resourceUsage maxRSS (process lifetime)",
+                "unit": "bytes",
+                "value": 331743232
+              },
+              "samples": 11,
+              "wallMeanMs": 196.78955309090907,
+              "wallMs": {
+                "max": 260.4676250000002,
+                "median": 184.89466700000003,
+                "min": 167.43304199999966,
+                "p95": 260.4676250000002,
+                "p99": 260.4676250000002
+              }
+            }
+          },
+          "load": 38.91748046875
+        }
+      ],
+      "order": "forward",
+      "repeatOf": 14,
+      "startedAt": "2026-11-07T02:26:06.559Z"
+    }
+  ],
+  "summary": {
+    "cpuPerOpMs": {
+      "competitors": {},
+      "ladderDeltas": {},
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.1493389315170937,
+            "low": 1.1061326831352785,
+            "median": 1.1268795125430644,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.5779241801430888,
+            "low": 0.5585880489671612,
+            "median": 0.5679913274193107,
+            "n": 15
+          }
+        }
+      },
+      "step2": {
+        "C": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "K": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "KOverTMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "T": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TMinusKOverC": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TOverC": {
+          "_id": "Option",
+          "_tag": "None"
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 214.2516,
+            "low": 179.2976666666667,
+            "median": 190.4647857142857,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 183.3262,
+            "low": 159.14288235294117,
+            "median": 169.1758125,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 65.04479411764704,
+            "low": 61.98799999999999,
+            "median": 63.325657142857146,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 114.49015789473683,
+            "low": 108.7642857142857,
+            "median": 113.23610000000001,
+            "n": 15
+          }
+        }
+      }
+    },
+    "wallMedianMs": {
+      "competitors": {},
+      "ladderDeltas": {},
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.1427822493405582,
+            "low": 1.090390414745187,
+            "median": 1.1200860996048199,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.5817925352773429,
+            "low": 0.5492578029854629,
+            "median": 0.5686987536333548,
+            "n": 15
+          }
+        }
+      },
+      "step2": {
+        "C": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "K": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "KOverTMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "T": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TMinusK": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TMinusKOverC": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "TOverC": {
+          "_id": "Option",
+          "_tag": "None"
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 269.61862500000007,
+            "low": 138.916917,
+            "median": 145.02637499999992,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 251.8151670000002,
+            "low": 124.8744999999999,
+            "median": 130.8628749999998,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 59.37037499999997,
+            "low": 56.519874999999956,
+            "median": 57.84741600000007,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 104.89504199999965,
+            "low": 99.40229099999988,
+            "median": 101.76637500000015,
+            "n": 15
+          }
+        }
+      }
+    },
+    "allocationBytesPerOp": {
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.1178267072839112,
+            "low": 1.084698867145106,
+            "median": 1.1052638796334002,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.5284634578072406,
+            "low": 0.5157234399659028,
+            "median": 0.5200923837566395,
+            "n": 15
+          }
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 412670513.57142854,
+            "low": 404517326.53333324,
+            "median": 407919816.1333333,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 372930532.875,
+            "low": 365864449.1999999,
+            "median": 370836406.7058823,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 187730637.3888889,
+            "low": 186481560.79411763,
+            "median": 187198068.5625,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 361704821.55,
+            "low": 353921103.5238095,
+            "median": 360438695.1052632,
+            "n": 15
+          }
+        }
+      }
+    },
+    "gcCountPerOp": {
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.1363636363636362,
+            "low": 1.0909090909090908,
+            "median": 1.1035087719298247,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.5275653923541248,
+            "low": 0.5168776371308017,
+            "median": 0.5204081632653061,
+            "n": 15
+          }
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 2.5,
+            "low": 2.4285714285714284,
+            "median": 2.466666666666667,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 2.2666666666666666,
+            "low": 2.176470588235294,
+            "median": 2.2,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.9444444444444444,
+            "low": 1.9375,
+            "median": 1.9428571428571428,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 3.75,
+            "low": 3.6666666666666665,
+            "median": 3.736842105263158,
+            "n": 15
+          }
+        }
+      }
+    },
+    "gcPauseMsPerOp": {
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.2447826725034778,
+            "low": 1.0546822862842413,
+            "median": 1.130360019621088,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.5751552017000355,
+            "low": 0.4390075969782252,
+            "median": 0.5291765591484363,
+            "n": 15
+          }
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 41.87663749908097,
+            "low": 9.39096388562272,
+            "median": 10.547235117493463,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 38.07681250618771,
+            "low": 8.099012244629728,
+            "median": 9.183655551169068,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 4.688536614236055,
+            "low": 1.7840511880681984,
+            "median": 1.847921567626626,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 5.537528526283016,
+            "low": 3.2564067403741537,
+            "median": 3.590192988907036,
+            "n": 15
+          }
+        }
+      }
+    },
+    "peakHeapUsedBytes": {
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.9878025902128921,
+            "low": 0.789413494998766,
+            "median": 0.8994234954100436,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 0.9747076718299778,
+            "low": 0.9398311315343286,
+            "median": 0.9550626178969829,
+            "n": 15
+          }
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 267524449,
+            "low": 228011442,
+            "median": 258602861,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 291057613,
+            "low": 262520897,
+            "median": 275535187,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 179483646,
+            "low": 171867866,
+            "median": 175966376,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 186387434,
+            "low": 178649098,
+            "median": 184976039,
+            "n": 15
+          }
+        }
+      }
+    },
+    "peakRssBytes": {
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.0672601118760758,
+            "low": 0.9543674356318064,
+            "median": 1.002112807894948,
+            "n": 15
+          }
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 1.0025775338820986,
+            "low": 0.9792931526677656,
+            "median": 0.9822791041102633,
+            "n": 15
+          }
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 672088064,
+            "low": 615137280,
+            "median": 633995264,
+            "n": 15
+          }
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 663781376,
+            "low": 622575616,
+            "median": 647643136,
+            "n": 15
+          }
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 397361152,
+            "low": 389611520,
+            "median": 393740288,
+            "n": 15
+          }
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "Some",
+          "value": {
+            "coverage": 0.96484375,
+            "high": 405340160,
+            "low": 394100736,
+            "median": 399409152,
+            "n": 15
+          }
+        }
+      }
+    },
+    "timeToFirstRecordMedianMs": {
+      "newOverOld": {
+        "failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "failure/stream": {
+          "_id": "Option",
+          "_tag": "None"
+        }
+      },
+      "units": {
+        "new:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "old:failure/typed-decode": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "new:failure/stream": {
+          "_id": "Option",
+          "_tag": "None"
+        },
+        "old:failure/stream": {
+          "_id": "Option",
+          "_tag": "None"
+        }
+      }
+    }
+  }
+}

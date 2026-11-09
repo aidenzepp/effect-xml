@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cp:manifest xmlns:cp="http://www.imsglobal.org/xsd/qti/qtiv3p0/imscp_v1p1"
+  xmlns:lom="http://ltsc.ieee.org/xsd/LOM"
+  xmlns:qm="http://www.imsglobal.org/xsd/imsqti_metadata_v3p0"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+  xs:schemaLocation="http://www.imsglobal.org/xsd/qti/qtiv3p0/imscp_v1p1 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqtiv3p0_imscpv1p2_v1p0.xsd http://ltsc.ieee.org/xsd/LOM https://purl.imsglobal.org/spec/md/v1p3/schema/xsd/imsmd_loose_v1p3p2.xsd"
+  identifier="pkg-corpus-sampler">
+  <cp:metadata>
+    <cp:schema>QTI Package</cp:schema>
+    <cp:schemaversion>3.0.0</cp:schemaversion>
+    <lom:lom>
+      <lom:general>
+        <lom:title><lom:string language="en">Corpus sampler</lom:string></lom:title>
+        <lom:language>en</lom:language>
+        <lom:description><lom:string language="en">Three items from this directory, packaged with the media they load.</lom:string></lom:description>
+      </lom:general>
+    </lom:lom>
+  </cp:metadata>
+  <cp:organizations/>
+  <cp:resources>
+    <cp:resource identifier="res-bicycle-hotspot" type="imsqti_item_xmlv3p0" href="bpig-hotspot.xml">
+      <cp:file href="bpig-hotspot.xml"/>
+    </cp:resource>
+    <cp:resource identifier="res-delta-essay" type="imsqti_item_xmlv3p0" href="bg011-media.xml">
+      <cp:metadata>
+        <qm:qtiMetadata>
+          <qm:timeDependent>false</qm:timeDependent>
+          <qm:interactionType>extendedTextInteraction</qm:interactionType>
+          <qm:feedbackType>none</qm:feedbackType>
+          <qm:solutionAvailable>false</qm:solutionAvailable>
+          <qm:scoringMode>human</qm:scoringMode>
+          <qm:toolName>example-tool</qm:toolName>
+          <qm:toolVersion>0.1.0</qm:toolVersion>
+        </qm:qtiMetadata>
+        <lom:lom>
+          <lom:general>
+            <lom:identifier><lom:catalog>example-tool</lom:catalog><lom:entry>river-delta-essay</lom:entry></lom:identifier>
+            <lom:title><lom:string language="en">Watching a river delta form</lom:string></lom:title>
+          </lom:general>
+        </lom:lom>
+      </cp:metadata>
+      <cp:file href="bg011-media.xml"/>
+      <cp:dependency identifierref="res-delta-still"/>
+      <cp:dependency identifierref="res-delta-clip"/>
+    </cp:resource>
+    <cp:resource identifier="res-delta-still" type="webcontent" href="media/delta-aerial.png">
+      <cp:file href="media/delta-aerial.png"/>
+    </cp:resource>
+    <cp:resource identifier="res-delta-clip" type="webcontent" href="media/delta-timelapse.webm">
+      <cp:file href="media/delta-timelapse.webm"/>
+      <cp:file href="media/delta-timelapse.mp4"/>
+      <cp:file href="media/delta-timelapse.en.vtt"/>
+    </cp:resource>
+    <cp:resource identifier="res-true-false" type="imsqti_item_xmlv3p0" href="bg007-true-false.xml">
+      <cp:file href="bg007-true-false.xml"/>
+    </cp:resource>
+  </cp:resources>
+</cp:manifest>

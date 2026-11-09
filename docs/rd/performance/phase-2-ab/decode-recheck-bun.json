@@ -1,0 +1,1750 @@
+{
+  "method": "5 alternating rounds on bank-4m; each round runs before (C^) then after (C) for each case (eager-decode: typed-decode, stream; compile-alloc: typed-decode, stream; positions-pull: stream/positions; wire-check: typed-decode, stream; resolver-start: tree, stream), one bench/case-process.ts process per side per case, tokenizer upstream, from clean detached worktrees with the root node_modules symlinked; value per round is the case process's wallMs.median; summary is the median of the 5 round values",
+  "runtime": "bun 1.4.2",
+  "load": [
+    "== round 1 start: load 10:28:12Z 37.43 24.97 22.40",
+    "== round 1 end: load 10:30:17Z 34.29 26.49 23.27",
+    "== round 2 start: load 10:30:17Z 34.29 26.49 23.27",
+    "== round 2 end: load 10:32:27Z 30.13 28.60 24.60",
+    "== round 3 start: load 10:32:27Z 30.13 28.60 24.60",
+    "== round 3 end: load 10:34:00Z 9.58 21.94 22.43",
+    "== round 4 start: load 10:34:00Z 9.58 21.94 22.43",
+    "== round 4 end: load 10:35:35Z 5.86 17.55 20.69",
+    "== round 5 start: load 10:35:35Z 5.86 17.55 20.69",
+    "== round 5 end: load 10:37:30Z 16.57 19.49 21.16"
+  ],
+  "comparisons": [
+    {
+      "opt": "perf2-opt-eager-decode",
+      "caseId": "effect-xml/typed-decode",
+      "input": "bank-4m",
+      "before": {
+        "commit": "a3f8280",
+        "roundMedianWallMs": [
+          194.49033299999974, 179.3997500000005, 178.9217920000001, 177.3956250000001,
+          186.53154199999994
+        ],
+        "medianOfRoundsMs": 179.3997500000005
+      },
+      "after": {
+        "commit": "fd314ba",
+        "roundMedianWallMs": [
+          152.78470800000014, 144.8675420000004, 142.07158299999992, 155.4832919999999,
+          143.2269580000002
+        ],
+        "medianOfRoundsMs": 144.8675420000004
+      },
+      "changePercent": -19.2,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-eager-decode",
+      "caseId": "effect-xml/stream",
+      "input": "bank-4m",
+      "before": {
+        "commit": "a3f8280",
+        "roundMedianWallMs": [
+          159.08620900000005, 149.829792, 146.1517920000001, 151.8711669999998, 250.7272499999999
+        ],
+        "medianOfRoundsMs": 151.8711669999998
+      },
+      "after": {
+        "commit": "fd314ba",
+        "roundMedianWallMs": [
+          172.50816600000007, 164.10674999999992, 118.0947500000002, 120.25112499999977,
+          214.50658300000032
+        ],
+        "medianOfRoundsMs": 164.10674999999992
+      },
+      "changePercent": 8.1,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-compile-alloc",
+      "caseId": "effect-xml/typed-decode",
+      "input": "bank-4m",
+      "before": {
+        "commit": "0dc703f",
+        "roundMedianWallMs": [
+          146.50704200000018, 266.62304200000017, 129.74862500000017, 141.0057079999997,
+          245.9689159999998
+        ],
+        "medianOfRoundsMs": 146.50704200000018
+      },
+      "after": {
+        "commit": "28fe69f",
+        "roundMedianWallMs": [
+          130.09812499999998, 253.41770799999995, 121.72491599999967, 125.07220899999993,
+          225.8052090000001
+        ],
+        "medianOfRoundsMs": 130.09812499999998
+      },
+      "changePercent": -11.2,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-compile-alloc",
+      "caseId": "effect-xml/stream",
+      "input": "bank-4m",
+      "before": {
+        "commit": "0dc703f",
+        "roundMedianWallMs": [
+          113.85795900000039, 386.367209, 105.17533300000014, 109.52687500000002, 217.2918749999999
+        ],
+        "medianOfRoundsMs": 113.85795900000039
+      },
+      "after": {
+        "commit": "28fe69f",
+        "roundMedianWallMs": [
+          103.284584, 287.5717089999998, 103.18412500000022, 108.65033399999993, 194.74408399999993
+        ],
+        "medianOfRoundsMs": 108.65033399999993
+      },
+      "changePercent": -4.6,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-positions-pull",
+      "caseId": "effect-xml/stream/positions",
+      "input": "bank-4m",
+      "before": {
+        "commit": "28fe69f",
+        "roundMedianWallMs": [
+          192.32266700000037, 312.05045900000096, 178.53579200000013, 177.7030420000001,
+          190.54487500000005
+        ],
+        "medianOfRoundsMs": 190.54487500000005
+      },
+      "after": {
+        "commit": "b1210ce",
+        "roundMedianWallMs": [
+          304.04645900000014, 159.8053749999999, 162.7324580000004, 161.18870900000002,
+          171.38554099999965
+        ],
+        "medianOfRoundsMs": 162.7324580000004
+      },
+      "changePercent": -14.6,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-wire-check",
+      "caseId": "effect-xml/typed-decode",
+      "input": "bank-4m",
+      "before": {
+        "commit": "1b0b2f7",
+        "roundMedianWallMs": [
+          129.01508299999932, 122.71374999999989, 121.97162500000013, 124.20554099999981,
+          122.85133299999961
+        ],
+        "medianOfRoundsMs": 122.85133299999961
+      },
+      "after": {
+        "commit": "7c88ef5",
+        "roundMedianWallMs": [
+          108.47450000000026, 100.88341700000001, 102.17962500000021, 100.29841700000043,
+          99.87279200000012
+        ],
+        "medianOfRoundsMs": 100.88341700000001
+      },
+      "changePercent": -17.9,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-wire-check",
+      "caseId": "effect-xml/stream",
+      "input": "bank-4m",
+      "before": {
+        "commit": "1b0b2f7",
+        "roundMedianWallMs": [
+          123.41754100000071, 102.72700000000032, 100.174125, 101.45579100000032, 116.43220900000006
+        ],
+        "medianOfRoundsMs": 102.72700000000032
+      },
+      "after": {
+        "commit": "7c88ef5",
+        "roundMedianWallMs": [
+          178.80270800000017, 86.37529200000017, 85.92250000000013, 85.99920900000006, 86.575875
+        ],
+        "medianOfRoundsMs": 86.37529200000017
+      },
+      "changePercent": -15.9,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-resolver-start",
+      "caseId": "effect-xml/tree",
+      "input": "bank-4m",
+      "before": {
+        "commit": "24044c8",
+        "roundMedianWallMs": [
+          94.72129200000018, 47.601584, 44.042291000000205, 45.19925000000012, 46.19733300000007
+        ],
+        "medianOfRoundsMs": 46.19733300000007
+      },
+      "after": {
+        "commit": "0dc703f",
+        "roundMedianWallMs": [
+          73.71283300000005, 59.56437499999993, 31.032333000000108, 32.03687500000024,
+          30.75229199999967
+        ],
+        "medianOfRoundsMs": 32.03687500000024
+      },
+      "changePercent": -30.7,
+      "failures": 0
+    },
+    {
+      "opt": "perf2-opt-resolver-start",
+      "caseId": "effect-xml/stream",
+      "input": "bank-4m",
+      "before": {
+        "commit": "24044c8",
+        "roundMedianWallMs": [
+          265.5140000000001, 123.36716700000034, 115.13733400000001, 133.17608399999995,
+          120.1204580000001
+        ],
+        "medianOfRoundsMs": 123.36716700000034
+      },
+      "after": {
+        "commit": "0dc703f",
+        "roundMedianWallMs": [
+          251.08616699999948, 109.62725, 107.77816600000006, 104.82337499999994, 106.01150000000007
+        ],
+        "medianOfRoundsMs": 107.77816600000006
+      },
+      "changePercent": -12.6,
+      "failures": 0
+    }
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 395.7434159999998,
+        "median": 194.49033299999974,
+        "min": 167.11804099999972,
+        "p95": 376.1282500000002,
+        "p99": 395.7434159999998
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 168.82845799999996,
+        "median": 152.78470800000014,
+        "min": 135.92612499999996,
+        "p95": 166.91220799999974,
+        "p99": 168.82845799999996
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 225.9487079999999,
+        "median": 159.08620900000005,
+        "min": 143.34395799999947,
+        "p95": 177.7474999999995,
+        "p99": 225.9487079999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 332.0985410000003,
+        "median": 172.50816600000007,
+        "min": 117.47912499999984,
+        "p95": 304.07666700000027,
+        "p99": 332.0985410000003
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 353.0052079999996,
+        "median": 146.50704200000018,
+        "min": 120.6743749999996,
+        "p95": 343.77475000000004,
+        "p99": 353.0052079999996
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 145.26383299999998,
+        "median": 130.09812499999998,
+        "min": 111.54454200000009,
+        "p95": 144.10741599999983,
+        "p99": 145.26383299999998
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 144.90049999999974,
+        "median": 113.85795900000039,
+        "min": 103.81783300000006,
+        "p95": 128.564208,
+        "p99": 144.90049999999974
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 107.69066699999985,
+        "median": 103.284584,
+        "min": 99.3802499999997,
+        "p95": 107.39816599999995,
+        "p99": 107.69066699999985
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-positions-pull",
+      "side": "before",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 321.763375,
+        "median": 192.32266700000037,
+        "min": 174.32070900000008,
+        "p95": 268.22741700000006,
+        "p99": 321.763375
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-positions-pull",
+      "side": "after",
+      "commit": "b1210ce",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 527.9354589999994,
+        "median": 304.04645900000014,
+        "min": 166.7084590000004,
+        "p95": 494.96029199999975,
+        "p99": 527.9354589999994
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 248.2800000000002,
+        "median": 129.01508299999932,
+        "min": 109.19170799999984,
+        "p95": 219.72362500000008,
+        "p99": 248.2800000000002
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 173.03245900000002,
+        "median": 108.47450000000026,
+        "min": 88.09004199999981,
+        "p95": 137.02420900000016,
+        "p99": 173.03245900000002
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 360.03229099999953,
+        "median": 123.41754100000071,
+        "min": 96.89704200000006,
+        "p95": 317.21875,
+        "p99": 360.03229099999953
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 398.9261670000001,
+        "median": 178.80270800000017,
+        "min": 145.7636249999996,
+        "p95": 227.66154199999983,
+        "p99": 398.9261670000001
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 137.79729099999986,
+        "median": 94.72129200000018,
+        "min": 51.98195799999985,
+        "p95": 131.83062500000005,
+        "p99": 137.79729099999986
+      },
+      "samples": 33,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 125.24479100000008,
+        "median": 73.71283300000005,
+        "min": 30.116250000000036,
+        "p95": 104.13358300000004,
+        "p99": 125.24479100000008
+      },
+      "samples": 43,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 347.5394580000011,
+        "median": 265.5140000000001,
+        "min": 225.40774999999985,
+        "p95": 344.193542,
+        "p99": 347.5394580000011
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 1,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 292.0468329999985,
+        "median": 251.08616699999948,
+        "min": 215.7361660000006,
+        "p95": 287.18779099999983,
+        "p99": 292.0468329999985
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 244.92258300000003,
+        "median": 179.3997500000005,
+        "min": 167.37587499999972,
+        "p95": 229.57354099999975,
+        "p99": 244.92258300000003
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 154.17837500000041,
+        "median": 144.8675420000004,
+        "min": 129.81683299999986,
+        "p95": 153.92050000000017,
+        "p99": 154.17837500000041
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 162.273416,
+        "median": 149.829792,
+        "min": 144.28733399999987,
+        "p95": 158.311334,
+        "p99": 162.273416
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 338.6234589999999,
+        "median": 164.10674999999992,
+        "min": 120.26858300000004,
+        "p95": 315.3931670000002,
+        "p99": 338.6234589999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 419.57429199999933,
+        "median": 266.62304200000017,
+        "min": 174.1446249999999,
+        "p95": 370.4295839999995,
+        "p99": 419.57429199999933
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 361.8643339999999,
+        "median": 253.41770799999995,
+        "min": 174.4346660000001,
+        "p95": 321.7395839999999,
+        "p99": 361.8643339999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 561.2158749999999,
+        "median": 386.367209,
+        "min": 233.86349999999948,
+        "p95": 521.277666,
+        "p99": 561.2158749999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 525.4595409999997,
+        "median": 287.5717089999998,
+        "min": 192.17262499999924,
+        "p95": 453.89174999999886,
+        "p99": 525.4595409999997
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-positions-pull",
+      "side": "before",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 403.1377500000003,
+        "median": 312.05045900000096,
+        "min": 199.1129579999997,
+        "p95": 369.21566699999994,
+        "p99": 403.1377500000003
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-positions-pull",
+      "side": "after",
+      "commit": "b1210ce",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 168.2729999999999,
+        "median": 159.8053749999999,
+        "min": 142.66250000000036,
+        "p95": 168.11666700000023,
+        "p99": 168.2729999999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 136.58412499999986,
+        "median": 122.71374999999989,
+        "min": 106.53141700000015,
+        "p95": 134.48937499999988,
+        "p99": 136.58412499999986
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 116.54566699999987,
+        "median": 100.88341700000001,
+        "min": 86.26312499999995,
+        "p95": 113.0283330000002,
+        "p99": 116.54566699999987
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 132.87679200000002,
+        "median": 102.72700000000032,
+        "min": 96.38091699999995,
+        "p95": 130.5295000000001,
+        "p99": 132.87679200000002
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 98.8452500000003,
+        "median": 86.37529200000017,
+        "min": 83.43641699999989,
+        "p95": 93.12041599999975,
+        "p99": 98.8452500000003
+      },
+      "samples": 35,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 99.4210420000004,
+        "median": 47.601584,
+        "min": 38.983208000000104,
+        "p95": 78.62095799999952,
+        "p99": 99.4210420000004
+      },
+      "samples": 60,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 140.4727499999999,
+        "median": 59.56437499999993,
+        "min": 27.349249999999756,
+        "p95": 109.50283300000001,
+        "p99": 140.4727499999999
+      },
+      "samples": 47,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 267.187625,
+        "median": 123.36716700000034,
+        "min": 119.83879100000013,
+        "p95": 246.686375,
+        "p99": 267.187625
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 2,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 123.41004199999952,
+        "median": 109.62725,
+        "min": 104.06387499999983,
+        "p95": 121.79012499999953,
+        "p99": 123.41004199999952
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 202.8321249999999,
+        "median": 178.9217920000001,
+        "min": 162.96591699999954,
+        "p95": 194.12374999999975,
+        "p99": 202.8321249999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 156.54208299999982,
+        "median": 142.07158299999992,
+        "min": 125.46875,
+        "p95": 154.83195800000067,
+        "p99": 156.54208299999982
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 156.3349169999999,
+        "median": 146.1517920000001,
+        "min": 134.55404100000032,
+        "p95": 154.66124999999965,
+        "p99": 156.3349169999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 131.34016700000006,
+        "median": 118.0947500000002,
+        "min": 109.60162500000024,
+        "p95": 127.47354200000018,
+        "p99": 131.34016700000006
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 144.04895799999986,
+        "median": 129.74862500000017,
+        "min": 118.10941600000001,
+        "p95": 141.73774999999978,
+        "p99": 144.04895799999986
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 133.82375000000002,
+        "median": 121.72491599999967,
+        "min": 108.39908300000025,
+        "p95": 132.2700420000001,
+        "p99": 133.82375000000002
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 113.82124999999996,
+        "median": 105.17533300000014,
+        "min": 98.93037499999991,
+        "p95": 113.27945799999998,
+        "p99": 113.82124999999996
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 112.68129199999976,
+        "median": 103.18412500000022,
+        "min": 97.19391700000006,
+        "p95": 110.35729100000026,
+        "p99": 112.68129199999976
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-positions-pull",
+      "side": "before",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 190.10599999999977,
+        "median": 178.53579200000013,
+        "min": 171.34833300000014,
+        "p95": 186.84987499999988,
+        "p99": 190.10599999999977
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-positions-pull",
+      "side": "after",
+      "commit": "b1210ce",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 179.98250000000007,
+        "median": 162.7324580000004,
+        "min": 144.54308300000002,
+        "p95": 174.842584,
+        "p99": 179.98250000000007
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 140.38266699999986,
+        "median": 121.97162500000013,
+        "min": 107.89270800000031,
+        "p95": 134.36987500000032,
+        "p99": 140.38266699999986
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 114.97637500000019,
+        "median": 102.17962500000021,
+        "min": 87.56712500000003,
+        "p95": 112.95841700000028,
+        "p99": 114.97637500000019
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 107.15774999999985,
+        "median": 100.174125,
+        "min": 95.45329199999992,
+        "p95": 104.58662499999991,
+        "p99": 107.15774999999985
+      },
+      "samples": 31,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 92.41300000000001,
+        "median": 85.92250000000013,
+        "min": 81.83345800000006,
+        "p95": 91.45479200000045,
+        "p99": 92.41300000000001
+      },
+      "samples": 35,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 55.05816700000014,
+        "median": 44.042291000000205,
+        "min": 36.44150000000036,
+        "p95": 50.820458000000144,
+        "p99": 55.05816700000014
+      },
+      "samples": 68,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 43.009874999999965,
+        "median": 31.032333000000108,
+        "min": 24.74287500000014,
+        "p95": 38.784124999999676,
+        "p99": 43.009874999999965
+      },
+      "samples": 94,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 126.82974999999988,
+        "median": 115.13733400000001,
+        "min": 110.56483300000036,
+        "p95": 124.82062499999984,
+        "p99": 126.82974999999988
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 3,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 115.97570899999982,
+        "median": 107.77816600000006,
+        "min": 98.0980840000002,
+        "p95": 114.20875000000024,
+        "p99": 115.97570899999982
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 231.5925419999994,
+        "median": 177.3956250000001,
+        "min": 160.44833300000005,
+        "p95": 229.1211659999999,
+        "p99": 231.5925419999994
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 263.6564579999995,
+        "median": 155.4832919999999,
+        "min": 133.919666,
+        "p95": 232.62795800000004,
+        "p99": 263.6564579999995
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 205.17641700000013,
+        "median": 151.8711669999998,
+        "min": 139.75937499999964,
+        "p95": 161.40187500000002,
+        "p99": 205.17641700000013
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 129.16625000000022,
+        "median": 120.25112499999977,
+        "min": 109.51641699999982,
+        "p95": 126.25920799999994,
+        "p99": 129.16625000000022
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 177.04212499999994,
+        "median": 141.0057079999997,
+        "min": 119.20004199999948,
+        "p95": 168.45058300000005,
+        "p99": 177.04212499999994
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 137.41870800000015,
+        "median": 125.07220899999993,
+        "min": 108.93937500000038,
+        "p95": 135.2928750000001,
+        "p99": 137.41870800000015
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 116.14387500000021,
+        "median": 109.52687500000002,
+        "min": 100.59825000000001,
+        "p95": 115.58058299999993,
+        "p99": 116.14387500000021
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 120.43683299999998,
+        "median": 108.65033399999993,
+        "min": 100.64216699999997,
+        "p95": 117.07745900000009,
+        "p99": 120.43683299999998
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-positions-pull",
+      "side": "before",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 183.40645799999947,
+        "median": 177.7030420000001,
+        "min": 169.29916700000012,
+        "p95": 181.96766600000046,
+        "p99": 183.40645799999947
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-positions-pull",
+      "side": "after",
+      "commit": "b1210ce",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 171.87191699999948,
+        "median": 161.18870900000002,
+        "min": 144.42137500000035,
+        "p95": 170.5797080000002,
+        "p99": 171.87191699999948
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 131.320291,
+        "median": 124.20554099999981,
+        "min": 105.91708300000028,
+        "p95": 131.2422919999999,
+        "p99": 131.320291
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 113.38675000000012,
+        "median": 100.29841700000043,
+        "min": 84.55612500000007,
+        "p95": 109.70224999999982,
+        "p99": 113.38675000000012
+      },
+      "samples": 31,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 107.50270799999998,
+        "median": 101.45579100000032,
+        "min": 96.056333,
+        "p95": 107.09945800000014,
+        "p99": 107.50270799999998
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 90.57491600000003,
+        "median": 85.99920900000006,
+        "min": 79.32691599999998,
+        "p95": 89.72850000000017,
+        "p99": 90.57491600000003
+      },
+      "samples": 36,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 62.530083000000104,
+        "median": 45.19925000000012,
+        "min": 36.991415999999845,
+        "p95": 51.872791000000234,
+        "p99": 62.530083000000104
+      },
+      "samples": 67,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 40.89175000000023,
+        "median": 32.03687500000024,
+        "min": 25.3737500000002,
+        "p95": 39.12579200000005,
+        "p99": 40.89175000000023
+      },
+      "samples": 93,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 141.70383300000003,
+        "median": 133.17608399999995,
+        "min": 122.3866250000001,
+        "p95": 139.27424999999994,
+        "p99": 141.70383300000003
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 4,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 113.87533299999996,
+        "median": 104.82337499999994,
+        "min": 100.85441700000047,
+        "p95": 111.94050000000016,
+        "p99": 113.87533299999996
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 230.35479199999963,
+        "median": 186.53154199999994,
+        "min": 166.89883399999985,
+        "p95": 223.2333749999998,
+        "p99": 230.35479199999963
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 154.02204100000017,
+        "median": 143.2269580000002,
+        "min": 127.8573750000005,
+        "p95": 153.45454100000006,
+        "p99": 154.02204100000017
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-eager-decode",
+      "side": "before",
+      "commit": "a3f8280",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 338.8179580000001,
+        "median": 250.7272499999999,
+        "min": 153.89375000000018,
+        "p95": 338.67612499999996,
+        "p99": 338.8179580000001
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-eager-decode",
+      "side": "after",
+      "commit": "fd314ba",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 280.7562909999997,
+        "median": 214.50658300000032,
+        "min": 174.0419579999998,
+        "p95": 278.0991670000003,
+        "p99": 280.7562909999997
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 326.516208,
+        "median": 245.9689159999998,
+        "min": 177.97441600000002,
+        "p95": 282.62004199999956,
+        "p99": 326.516208
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 296.39350000000013,
+        "median": 225.8052090000001,
+        "min": 178.65820800000006,
+        "p95": 268.0909579999998,
+        "p99": 296.39350000000013
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "before",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 305.24866699999984,
+        "median": 217.2918749999999,
+        "min": 165.83583400000043,
+        "p95": 263.0681249999998,
+        "p99": 305.24866699999984
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-compile-alloc",
+      "side": "after",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 258.6311660000001,
+        "median": 194.74408399999993,
+        "min": 107.17041599999993,
+        "p95": 231.57045900000003,
+        "p99": 258.6311660000001
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-positions-pull",
+      "side": "before",
+      "commit": "28fe69f",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 196.45820900000035,
+        "median": 190.54487500000005,
+        "min": 179.08629099999985,
+        "p95": 195.536208,
+        "p99": 196.45820900000035
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-positions-pull",
+      "side": "after",
+      "commit": "b1210ce",
+      "caseId": "effect-xml/stream/positions",
+      "wallMs": {
+        "max": 188.68354200000022,
+        "median": 171.38554099999965,
+        "min": 156.55495799999971,
+        "p95": 184.51695800000016,
+        "p99": 188.68354200000022
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 147.5635000000002,
+        "median": 122.85133299999961,
+        "min": 106.4135839999999,
+        "p95": 134.34504199999992,
+        "p99": 147.5635000000002
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/typed-decode",
+      "wallMs": {
+        "max": 111.94350000000031,
+        "median": 99.87279200000012,
+        "min": 88.83500000000004,
+        "p95": 108.61362499999996,
+        "p99": 111.94350000000031
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-wire-check",
+      "side": "before",
+      "commit": "1b0b2f7",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 147.3130839999999,
+        "median": 116.43220900000006,
+        "min": 108.78095900000017,
+        "p95": 131.394542,
+        "p99": 147.3130839999999
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-wire-check",
+      "side": "after",
+      "commit": "7c88ef5",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 91.82550000000037,
+        "median": 86.575875,
+        "min": 80.64341599999989,
+        "p95": 91.05570800000032,
+        "p99": 91.82550000000037
+      },
+      "samples": 35,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 60.09220800000003,
+        "median": 46.19733300000007,
+        "min": 40.58183300000019,
+        "p95": 52.30774999999994,
+        "p99": 60.09220800000003
+      },
+      "samples": 65,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/tree",
+      "wallMs": {
+        "max": 42.81429200000002,
+        "median": 30.75229199999967,
+        "min": 24.74041699999998,
+        "p95": 38.65879099999984,
+        "p99": 42.81429200000002
+      },
+      "samples": 96,
+      "observed": 62653,
+      "expected": 62653
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-resolver-start",
+      "side": "before",
+      "commit": "24044c8",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 145.32541599999968,
+        "median": 120.1204580000001,
+        "min": 111.50891700000011,
+        "p95": 140.40787500000033,
+        "p99": 145.32541599999968
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    },
+    {
+      "round": 5,
+      "opt": "perf2-opt-resolver-start",
+      "side": "after",
+      "commit": "0dc703f",
+      "caseId": "effect-xml/stream",
+      "wallMs": {
+        "max": 117.3271249999998,
+        "median": 106.01150000000007,
+        "min": 99.53025000000002,
+        "p95": 116.30920799999967,
+        "p99": 117.3271249999998
+      },
+      "samples": 30,
+      "observed": 10442,
+      "expected": 10442
+    }
+  ]
+}

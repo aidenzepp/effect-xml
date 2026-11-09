@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0" identifier="flour-per-loaf-feedback" title="Flour for several loaves, with feedback on every choice" adaptive="false" time-dependent="false" xml:lang="en-US">
+  <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="identifier">
+    <qti-correct-response>
+      <qti-value>OPT_X</qti-value>
+    </qti-correct-response>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+    <qti-default-value><qti-value>0</qti-value></qti-default-value>
+  </qti-outcome-declaration>
+  <qti-outcome-declaration identifier="CHOICE_NOTE" cardinality="single" base-type="identifier" />
+  <qti-outcome-declaration identifier="WORKED_STEP" cardinality="single" base-type="identifier" />
+  <qti-item-body>
+    <qti-choice-interaction response-identifier="RESPONSE" shuffle="false" max-choices="1">
+      <qti-prompt>
+        <p>A bread recipe needs 2 cups of flour for each loaf. How many cups of flour are needed for 5 loaves?</p>
+      </qti-prompt>
+      <qti-simple-choice identifier="OPT_W">7
+        <qti-feedback-inline outcome-identifier="CHOICE_NOTE" identifier="OPT_W" show-hide="show">Adding 2 and 5 counts the numbers, not the flour. Each loaf needs its own 2 cups.</qti-feedback-inline>
+      </qti-simple-choice>
+      <qti-simple-choice identifier="OPT_X">10
+        <qti-feedback-inline outcome-identifier="CHOICE_NOTE" identifier="OPT_X" show-hide="show">Right. Five loaves at 2 cups each is 5 x 2 = 10 cups.</qti-feedback-inline>
+      </qti-simple-choice>
+      <qti-simple-choice identifier="OPT_Y">25
+        <qti-feedback-inline outcome-identifier="CHOICE_NOTE" identifier="OPT_Y" show-hide="show">This squares the number of loaves. The cups per loaf is 2, not 5.</qti-feedback-inline>
+      </qti-simple-choice>
+      <qti-simple-choice identifier="OPT_Z">3
+        <qti-feedback-inline outcome-identifier="CHOICE_NOTE" identifier="OPT_Z" show-hide="show">Subtracting 2 from 5 leaves less flour than a single batch would use.</qti-feedback-inline>
+      </qti-simple-choice>
+    </qti-choice-interaction>
+    <qti-feedback-block identifier="WORK_SETUP" outcome-identifier="WORKED_STEP" data-solution-title="Choose the operation">
+      <p>The same amount goes into every loaf, so repeated addition applies: multiply the loaves by the cups per loaf.</p>
+    </qti-feedback-block>
+    <qti-feedback-block identifier="WORK_RESULT" outcome-identifier="WORKED_STEP" data-solution-title="Find the total">
+      <p>5 x 2 = 10, so the baker needs 10 cups of flour.</p>
+    </qti-feedback-block>
+  </qti-item-body>
+  <qti-response-processing>
+    <qti-response-condition>
+      <qti-response-if>
+        <qti-match>
+          <qti-variable identifier="RESPONSE"/>
+          <qti-correct identifier="RESPONSE"/>
+        </qti-match>
+        <qti-set-outcome-value identifier="SCORE"><qti-base-value base-type="float">1</qti-base-value></qti-set-outcome-value>
+      </qti-response-if>
+      <qti-response-else>
+        <qti-set-outcome-value identifier="SCORE"><qti-base-value base-type="float">0</qti-base-value></qti-set-outcome-value>
+      </qti-response-else>
+    </qti-response-condition>
+    <qti-set-outcome-value identifier="CHOICE_NOTE"><qti-variable identifier="RESPONSE"/></qti-set-outcome-value>
+  </qti-response-processing>
+</qti-assessment-item>

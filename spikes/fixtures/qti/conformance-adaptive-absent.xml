@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0" identifier="rp-sum-without-adaptive" title="Response processing raises an outcome; the adaptive attribute is omitted" time-dependent="false">
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+    <qti-default-value>
+      <qti-value>2.25</qti-value>
+    </qti-default-value>
+  </qti-outcome-declaration>
+  <qti-response-processing>
+    <qti-set-outcome-value identifier="SCORE">
+      <qti-sum>
+        <qti-base-value base-type="float">0.75</qti-base-value>
+        <qti-variable identifier="SCORE"/>
+      </qti-sum>
+    </qti-set-outcome-value>
+  </qti-response-processing>
+</qti-assessment-item>

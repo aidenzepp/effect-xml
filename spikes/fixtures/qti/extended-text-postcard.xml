@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0_v1p0.xsd http://www.w3.org/1998/Math/MathML http://www.w3.org/Math/XMLSchema/mathml3/mathml3.xsd" identifier="example-extended-text-ramp" title="Height of a ramp, extended text" adaptive="false" time-dependent="false">
+  <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="string"/>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float"/>
+  <qti-item-body>
+    <div class="layout-grid">
+      <div class="layout-cell-wide">
+        <p>A loading ramp leans against the back of a delivery van.</p>
+        <div>
+          <object data="https://assets.example/qti/ramp-sketch.png" type="image/png">
+            <blockquote class="field-note">
+              <p>
+                Measured on site:<br/> the ramp is 8 metres long<br/> and rises at 20 degrees from the ground.<br/>
+                Give the height of its top edge<br/> to two decimal places.
+              </p>
+            </blockquote>
+          </object>
+        </div>
+        <p>
+          Type digits and at most one decimal point.<br/>Answers longer than five characters are not accepted.<br/>
+        </p>
+        <qti-extended-text-interaction response-identifier="RESPONSE" format="plain" expected-length="5" class="qti-height-lines-2" pattern-mask="^[0-9]{1,2}(\.[0-9]{1,2})?$" data-patternmask-message="Enter a number such as 2.74, with at most two digits after the point">
+          <qti-prompt>
+            <p>
+              <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mn>8</mn><mo class="times">×</mo><mrow><mi>sin</mi><mo>⁡</mo><mfenced><mrow><mn>20</mn></mrow></mfenced></mrow></mrow></math> =
+            </p>
+          </qti-prompt>
+        </qti-extended-text-interaction>
+      </div>
+    </div>
+  </qti-item-body>
+</qti-assessment-item>

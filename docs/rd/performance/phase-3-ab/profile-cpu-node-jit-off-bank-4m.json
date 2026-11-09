@@ -1,0 +1,646 @@
+{
+  "environment": {
+    "arch": "arm64",
+    "commit": "ee496cc3bfda5b8838db63de09dac63318b7aa5c",
+    "cores": 14,
+    "cpuModel": "Apple M4 Pro",
+    "dirty": true,
+    "os": "Darwin 27.2.0",
+    "packages": {
+      "effect": "4.1.2",
+      "fast-xml-parser": "5.12.0",
+      "saxes": "6.0.0",
+      "sax": "1.6.1",
+      "txml": "6.0.3",
+      "@rgrove/parse-xml": "5.1.0",
+      "libxml2-wasm": "0.7.2",
+      "@computis/effect-xml": "0.4.0"
+    },
+    "runtime": "node",
+    "runtimeVersion": "26.13.0",
+    "totalMemoryBytes": 51539607552
+  },
+  "jit": "off",
+  "profiles": [
+    {
+      "buckets": {
+        "builder": 1472.7470000000003,
+        "effect-runtime": 1923.7360000000003,
+        "fast-decode": 5.436,
+        "fast-encode": 0,
+        "harness": 6.056000000000001,
+        "other": 9173.910999999995,
+        "positions": 0,
+        "resolver-collector": 3382.912,
+        "schema": 2050.4799999999996,
+        "structural": 0,
+        "tokenizer": 2624.750000000006,
+        "writer": 0
+      },
+      "callerBuckets": {
+        "builder": 1472.7470000000003,
+        "effect-runtime": 1923.7360000000003,
+        "fast-decode": 5.436,
+        "fast-encode": 0,
+        "harness": 6.056000000000001,
+        "other": 8785.158000000012,
+        "positions": 0,
+        "resolver-collector": 3382.912,
+        "schema": 2064.682,
+        "structural": 0,
+        "tokenizer": 2999.301000000006,
+        "writer": 0
+      },
+      "caseId": "effect-xml/typed-decode",
+      "input": "bank-4m",
+      "topFunctions": [
+        {
+          "callerLayer": "other",
+          "functionName": "(garbage collector)",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 7199.581,
+          "url": ""
+        },
+        {
+          "callerLayer": "resolver-collector",
+          "functionName": "start",
+          "layer": "resolver-collector",
+          "lineNumber": 421,
+          "selfMs": 1347.547,
+          "url": "work/perf3b/tree/src/resolve.ts"
+        },
+        {
+          "callerLayer": "tokenizer",
+          "functionName": "startTag",
+          "layer": "tokenizer",
+          "lineNumber": 916,
+          "selfMs": 1093.163,
+          "url": "node_modules/effect/dist/encoding/Xml.js"
+        },
+        {
+          "callerLayer": "builder",
+          "functionName": "buildElement",
+          "layer": "builder",
+          "lineNumber": 292,
+          "selfMs": 1071.054,
+          "url": "work/perf3b/tree/src/builder.ts"
+        },
+        {
+          "callerLayer": "resolver-collector",
+          "functionName": "push",
+          "layer": "resolver-collector",
+          "lineNumber": 855,
+          "selfMs": 671.623,
+          "url": "work/perf3b/tree/src/resolve.ts"
+        },
+        {
+          "callerLayer": "resolver-collector",
+          "functionName": "push",
+          "layer": "resolver-collector",
+          "lineNumber": 525,
+          "selfMs": 650.13,
+          "url": "work/perf3b/tree/src/resolve.ts"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "",
+          "layer": "schema",
+          "lineNumber": 1654,
+          "selfMs": 545.604,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "assignProperty",
+          "layer": "effect-runtime",
+          "lineNumber": 1,
+          "selfMs": 519.807,
+          "url": "node_modules/effect/dist/internal/record.js"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "isBlank",
+          "layer": "schema",
+          "lineNumber": 47,
+          "selfMs": 486.042,
+          "url": "work/perf3b/tree/src/compile.ts"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "onItem",
+          "layer": "schema",
+          "lineNumber": 1328,
+          "selfMs": 406.095,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "effect-runtime",
+          "lineNumber": 154,
+          "selfMs": 376.505,
+          "url": "node_modules/effect/dist/internal/schema/interpreter.js"
+        },
+        {
+          "callerLayer": "tokenizer",
+          "functionName": "RegExp: [\\0-\\x08\\x0B\\x0C\\x0E-\\x1F\\uFFFE\\uFFFF]",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 374.551,
+          "url": ""
+        },
+        {
+          "callerLayer": "builder",
+          "functionName": "writeElements",
+          "layer": "builder",
+          "lineNumber": 159,
+          "selfMs": 347.569,
+          "url": "work/perf3b/tree/src/builder.ts"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "makeExit",
+          "layer": "effect-runtime",
+          "lineNumber": 341,
+          "selfMs": 297.315,
+          "url": "node_modules/effect/dist/internal/core.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "compileSourceTextModule",
+          "layer": "other",
+          "lineNumber": 337,
+          "selfMs": 280.791,
+          "url": "node:internal/modules/esm/utils"
+        }
+      ],
+      "totalMs": 20640.028000000002
+    },
+    {
+      "buckets": {
+        "builder": 56.801,
+        "effect-runtime": 1062.1899999999998,
+        "fast-decode": 0,
+        "fast-encode": 36.703,
+        "harness": 8.201,
+        "other": 6627.7769999999855,
+        "positions": 0,
+        "resolver-collector": 122.42200000000001,
+        "schema": 1559.3849999999989,
+        "structural": 0,
+        "tokenizer": 1446.7479999999991,
+        "writer": 1345.8300000000015
+      },
+      "callerBuckets": {
+        "builder": 56.801,
+        "effect-runtime": 1062.1899999999998,
+        "fast-decode": 0,
+        "fast-encode": 36.703,
+        "harness": 8.201,
+        "other": 6447.757999999988,
+        "positions": 0,
+        "resolver-collector": 122.42200000000001,
+        "schema": 1585.7139999999986,
+        "structural": 0,
+        "tokenizer": 1600.438,
+        "writer": 1345.8300000000015
+      },
+      "caseId": "effect-xml/encode-typed",
+      "input": "bank-4m",
+      "topFunctions": [
+        {
+          "callerLayer": "other",
+          "functionName": "(garbage collector)",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 5114.557,
+          "url": ""
+        },
+        {
+          "callerLayer": "writer",
+          "functionName": "attributesOf",
+          "layer": "writer",
+          "lineNumber": 259,
+          "selfMs": 681.073,
+          "url": "work/perf3b/tree/src/writer.ts"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "",
+          "layer": "schema",
+          "lineNumber": 1654,
+          "selfMs": 519.262,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "tokenizer",
+          "functionName": "write",
+          "layer": "tokenizer",
+          "lineNumber": 1498,
+          "selfMs": 427.799,
+          "url": "node_modules/effect/dist/encoding/Xml.js"
+        },
+        {
+          "callerLayer": "writer",
+          "functionName": "writeNode",
+          "layer": "writer",
+          "lineNumber": 426,
+          "selfMs": 411.192,
+          "url": "work/perf3b/tree/src/writer.ts"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "assignProperty",
+          "layer": "effect-runtime",
+          "lineNumber": 1,
+          "selfMs": 356.426,
+          "url": "node_modules/effect/dist/internal/record.js"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "onItem",
+          "layer": "schema",
+          "lineNumber": 1328,
+          "selfMs": 294.057,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "tokenizer",
+          "functionName": "push",
+          "layer": "tokenizer",
+          "lineNumber": 1487,
+          "selfMs": 277.418,
+          "url": "node_modules/effect/dist/encoding/Xml.js"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "hasPropertySignature",
+          "layer": "schema",
+          "lineNumber": 1920,
+          "selfMs": 237.29,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "tokenizer",
+          "functionName": "searchInvalid",
+          "layer": "tokenizer",
+          "lineNumber": 370,
+          "selfMs": 227.072,
+          "url": "node_modules/effect/dist/encoding/Xml.js"
+        },
+        {
+          "callerLayer": "writer",
+          "functionName": "writeElements",
+          "layer": "writer",
+          "lineNumber": 343,
+          "selfMs": 181.645,
+          "url": "work/perf3b/tree/src/writer.ts"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "parse",
+          "layer": "schema",
+          "lineNumber": 1240,
+          "selfMs": 173.503,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "compileSourceTextModule",
+          "layer": "other",
+          "lineNumber": 337,
+          "selfMs": 172.43,
+          "url": "node:internal/modules/esm/utils"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "internalModuleStat",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 158.477,
+          "url": ""
+        },
+        {
+          "callerLayer": "tokenizer",
+          "functionName": "push",
+          "layer": "tokenizer",
+          "lineNumber": 1210,
+          "selfMs": 125.105,
+          "url": "node_modules/effect/dist/encoding/Xml.js"
+        }
+      ],
+      "totalMs": 12266.056999999984
+    },
+    {
+      "buckets": {
+        "builder": 0,
+        "effect-runtime": 274.69300000000004,
+        "fast-decode": 0,
+        "fast-encode": 0,
+        "harness": 7.84,
+        "other": 5690.992000000002,
+        "positions": 0,
+        "resolver-collector": 0,
+        "schema": 226.66400000000004,
+        "structural": 0,
+        "tokenizer": 0,
+        "writer": 0
+      },
+      "callerBuckets": {
+        "builder": 0,
+        "effect-runtime": 501.27399999999994,
+        "fast-decode": 0,
+        "fast-encode": 0,
+        "harness": 7.84,
+        "other": 5464.411000000003,
+        "positions": 0,
+        "resolver-collector": 0,
+        "schema": 226.66400000000004,
+        "structural": 0,
+        "tokenizer": 0,
+        "writer": 0
+      },
+      "caseId": "computis-effect-xml/typed-decode",
+      "input": "bank-4m",
+      "topFunctions": [
+        {
+          "callerLayer": "other",
+          "functionName": "(garbage collector)",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 2496.529,
+          "url": ""
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "attribute",
+          "layer": "other",
+          "lineNumber": 148,
+          "selfMs": 708.152,
+          "url": "node_modules/@computis/effect-xml/dist/decoder.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "other",
+          "lineNumber": 2,
+          "selfMs": 226.581,
+          "url": ""
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "nameEnd",
+          "layer": "other",
+          "lineNumber": 85,
+          "selfMs": 202.56,
+          "url": "node_modules/@computis/effect-xml/dist/tokenizer.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "internalModuleStat",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 194.826,
+          "url": ""
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "decode",
+          "layer": "other",
+          "lineNumber": 513,
+          "selfMs": 185.159,
+          "url": "node_modules/@computis/effect-xml/dist/tokenizer.js"
+        },
+        {
+          "callerLayer": "schema",
+          "functionName": "",
+          "layer": "schema",
+          "lineNumber": 2501,
+          "selfMs": 171.745,
+          "url": "node_modules/effect/dist/SchemaAST.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "compileSourceTextModule",
+          "layer": "other",
+          "lineNumber": 337,
+          "selfMs": 153.93,
+          "url": "node:internal/modules/esm/utils"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "whitespaceEnd",
+          "layer": "other",
+          "lineNumber": 119,
+          "selfMs": 152.405,
+          "url": "node_modules/@computis/effect-xml/dist/tokenizer.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "",
+          "layer": "other",
+          "lineNumber": 25,
+          "selfMs": 139.894,
+          "url": "node_modules/@computis/effect-xml/dist/exact-decoder.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "attribute",
+          "layer": "other",
+          "lineNumber": 397,
+          "selfMs": 102.028,
+          "url": "node_modules/@computis/effect-xml/dist/tokenizer.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "nextIndexOf",
+          "layer": "other",
+          "lineNumber": 13,
+          "selfMs": 96.537,
+          "url": "node_modules/@computis/effect-xml/dist/characters.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "store",
+          "layer": "other",
+          "lineNumber": 41,
+          "selfMs": 86.292,
+          "url": "node_modules/@computis/effect-xml/dist/decoder-plan.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "",
+          "layer": "other",
+          "lineNumber": 252,
+          "selfMs": 82.139,
+          "url": "node_modules/@computis/effect-xml/dist/decoder.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "effect-runtime",
+          "lineNumber": 77,
+          "selfMs": 58.176,
+          "url": "node_modules/effect/dist/internal/schema/compilerRegistry.js"
+        }
+      ],
+      "totalMs": 6200.189000000002
+    },
+    {
+      "buckets": {
+        "builder": 0,
+        "effect-runtime": 884.4149999999997,
+        "fast-decode": 0,
+        "fast-encode": 0,
+        "harness": 8.614,
+        "other": 5013.315000000006,
+        "positions": 0,
+        "resolver-collector": 0,
+        "schema": 49.649,
+        "structural": 0,
+        "tokenizer": 0,
+        "writer": 0
+      },
+      "callerBuckets": {
+        "builder": 0,
+        "effect-runtime": 1318.6610000000003,
+        "fast-decode": 0,
+        "fast-encode": 0,
+        "harness": 8.614,
+        "other": 4579.069000000003,
+        "positions": 0,
+        "resolver-collector": 0,
+        "schema": 49.649,
+        "structural": 0,
+        "tokenizer": 0,
+        "writer": 0
+      },
+      "caseId": "computis-effect-xml/encode-typed",
+      "input": "bank-4m",
+      "topFunctions": [
+        {
+          "callerLayer": "other",
+          "functionName": "",
+          "layer": "other",
+          "lineNumber": 164,
+          "selfMs": 1353.932,
+          "url": "node_modules/@computis/effect-xml/dist/encoder.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "(garbage collector)",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 1144.68,
+          "url": ""
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "other",
+          "lineNumber": 2,
+          "selfMs": 434.246,
+          "url": ""
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "writeValue",
+          "layer": "other",
+          "lineNumber": 119,
+          "selfMs": 420.059,
+          "url": "node_modules/@computis/effect-xml/dist/encoder.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "RegExp: [&<\"\\t\\n\\r\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\uD800-\\uDFFF\\uFFFE\\uFFFF]",
+          "layer": "other",
+          "lineNumber": -1,
+          "selfMs": 290.877,
+          "url": ""
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "effect-runtime",
+          "lineNumber": 154,
+          "selfMs": 179.969,
+          "url": "node_modules/effect/dist/internal/schema/interpreter.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "realpathSync",
+          "layer": "other",
+          "lineNumber": 3357,
+          "selfMs": 154.751,
+          "url": "node:fs"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "ExitPrimitive",
+          "layer": "effect-runtime",
+          "lineNumber": 329,
+          "selfMs": 112.833,
+          "url": "node_modules/effect/dist/internal/core.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "compileSourceTextModule",
+          "layer": "other",
+          "lineNumber": 337,
+          "selfMs": 105.386,
+          "url": "node:internal/modules/esm/utils"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "module2.exports.__wbg_get_b9b93047fe3cf45b",
+          "layer": "other",
+          "lineNumber": 279,
+          "selfMs": 105.298,
+          "url": "node:internal/deps/amaro/dist/index"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "rebuild",
+          "layer": "effect-runtime",
+          "lineNumber": 44,
+          "selfMs": 97.995,
+          "url": "node_modules/effect/dist/internal/schema/make.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "effect-runtime",
+          "lineNumber": 96,
+          "selfMs": 96.341,
+          "url": "node_modules/effect/dist/internal/schema/compilerRegistry.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "value",
+          "layer": "effect-runtime",
+          "lineNumber": 133,
+          "selfMs": 80.718,
+          "url": "node_modules/effect/dist/internal/matcher.js"
+        },
+        {
+          "callerLayer": "effect-runtime",
+          "functionName": "",
+          "layer": "effect-runtime",
+          "lineNumber": 978,
+          "selfMs": 72.689,
+          "url": "node_modules/effect/dist/internal/effect.js"
+        },
+        {
+          "callerLayer": "other",
+          "functionName": "getCLIOptionsFromBinding",
+          "layer": "other",
+          "lineNumber": 32,
+          "selfMs": 72.304,
+          "url": "node:internal/options"
+        }
+      ],
+      "totalMs": 5955.993000000006
+    }
+  ]
+}

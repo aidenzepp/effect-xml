@@ -1,0 +1,1152 @@
+{
+  "environment": {
+    "arch": "arm64",
+    "commit": "0dc703fe57d9cdc777b9d95b44777192f6800830",
+    "cores": 14,
+    "cpuModel": "Apple M4 Pro",
+    "dirty": true,
+    "os": "Darwin 27.2.0",
+    "packages": {
+      "effect": "4.1.2",
+      "fast-xml-parser": "5.12.0",
+      "saxes": "6.0.0",
+      "sax": "1.6.1",
+      "txml": "6.0.3",
+      "@rgrove/parse-xml": "5.1.0",
+      "libxml2-wasm": "0.7.2",
+      "@computis/effect-xml": "0.4.0"
+    },
+    "runtime": "node",
+    "runtimeVersion": "26.13.0",
+    "totalMemoryBytes": 51539607552
+  },
+  "failures": [],
+  "method": {
+    "maxMs": 60000,
+    "maxSamples": 200,
+    "minMs": 3000,
+    "minSamples": 30,
+    "warmupIterations": 5,
+    "warmupMs": 1000,
+    "chunkBytes": 65536,
+    "floorMs": {
+      "max": 0.001500000013038516,
+      "median": 0.00004199997056275606,
+      "min": 0,
+      "p95": 0.00008300004992634058,
+      "p99": 0.0001669999910518527
+    },
+    "isolation": "process-per-case",
+    "quantile": "nearest-rank"
+  },
+  "results": [
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/events",
+      "class": "events",
+      "expected": 62653,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 848934276.2490369
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 92.368
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 3810.488
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 114
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 889.4331979999995
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 301199472
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 478396416
+        },
+        "samples": 74,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 101.84949426513924
+        },
+        "wallMs": {
+          "max": 82.77137500000026,
+          "median": 41.183042000000114,
+          "min": 22.49283300000002,
+          "p95": 61.77454200000011,
+          "p99": 82.77137500000026
+        }
+      },
+      "observed": 62653,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/events",
+      "class": "events",
+      "expected": 985405,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 736851170.7012391
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 845.076
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 23346.196
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 590
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 6468.482642000005
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 1850884248
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 2171420672
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 87.06731053268182
+        },
+        "wallMs": {
+          "max": 972.3007499999985,
+          "median": 770.7713329999988,
+          "min": 661.4483749999999,
+          "p95": 847.2247499999976,
+          "p99": 972.3007499999985
+        }
+      },
+      "observed": 985405,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/tree",
+      "class": "tree",
+      "expected": 62653,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 1127379713.8121471
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 96.517
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 3636.392
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 148
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 1486.6437919999996
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 386608840
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 565051392
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 37.27589843757538
+        },
+        "wallMs": {
+          "max": 171.53170799999953,
+          "median": 112.52504099999987,
+          "min": 78.31966699999975,
+          "p95": 152.21470899999986,
+          "p99": 171.53170799999953
+        }
+      },
+      "observed": 62653,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/tree",
+      "class": "tree",
+      "expected": 985405,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 1998948510.8558698
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 1014.493
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 51533.298
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 1854
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 7279.662927000007
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 2127939768
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 3083026432
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 70.58976848394335
+        },
+        "wallMs": {
+          "max": 1018.7640420000025,
+          "median": 950.6899999999987,
+          "min": 889.5005830000009,
+          "p95": 1015.0425410000025,
+          "p99": 1018.7640420000025
+        }
+      },
+      "observed": 985405,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/encode-tree",
+      "class": "encode-tree",
+      "expected": 62653,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3023328969.8240776
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 101.667
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 4943.918
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 389
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 944.2742649999997
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 398991896
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 599932928
+        },
+        "samples": 49,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 68.49328959683577
+        },
+        "wallMs": {
+          "max": 103.5081660000003,
+          "median": 61.23916700000018,
+          "min": 53.66145800000004,
+          "p95": 70.63758299999995,
+          "p99": 103.5081660000003
+        }
+      },
+      "observed": 62653,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/encode-tree",
+      "class": "encode-tree",
+      "expected": 985405,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 2789207525.551158
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 969.1
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 47233.95
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 3175
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 10771.105895
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 2534153320
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 3156115456
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 63.518958958617866
+        },
+        "wallMs": {
+          "max": 1213.9963329999991,
+          "median": 1056.5190000000002,
+          "min": 968.1194999999971,
+          "p95": 1184.844333000001,
+          "p99": 1213.9963329999991
+        }
+      },
+      "observed": 985405,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/typed-decode",
+      "class": "typed-decode",
+      "expected": 10442,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3423768895.4363303
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 109.142
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 6442.455
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 531
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 473.46881199999996
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 317227440
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 556204032
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 31.725330038667316
+        },
+        "wallMs": {
+          "max": 156.56458399999974,
+          "median": 132.21208399999978,
+          "min": 124.60670800000025,
+          "p95": 152.351625,
+          "p99": 156.56458399999974
+        }
+      },
+      "observed": 10442,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/typed-decode",
+      "class": "typed-decode",
+      "expected": 164234,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 1993402601.8554626
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 1333.21
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 54173.034
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 3614
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 14020.34151600004
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 2465650784
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 2843213824
+        },
+        "samples": 11,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 14.830600919316627
+        },
+        "wallMs": {
+          "max": 4641.1287500000035,
+          "median": 4525.034916999997,
+          "min": 2237.2975000000006,
+          "p95": 4641.1287500000035,
+          "p99": 4641.1287500000035
+        }
+      },
+      "observed": 164234,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/encode-typed",
+      "class": "encode-typed",
+      "expected": 10442,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3160825136.961521
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 93.792
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 7436.634
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 619
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 696.9304109999999
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 435992848
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 625180672
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 25.799321774389057
+        },
+        "wallMs": {
+          "max": 173.31904100000065,
+          "median": 162.5807080000004,
+          "min": 157.05554200000006,
+          "p95": 172.8769169999996,
+          "p99": 173.31904100000065
+        }
+      },
+      "observed": 10442,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/encode-typed",
+      "class": "encode-typed",
+      "expected": 164234,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 2895159698.091541
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 1193.083
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 81133.868
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 5588
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 12251.278337999978
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 3081891424
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 3429908480
+        },
+        "samples": 17,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 23.662187993404704
+        },
+        "wallMs": {
+          "max": 2989.744666999999,
+          "median": 2836.127708,
+          "min": 2728.3641659999994,
+          "p95": 2989.744666999999,
+          "p99": 2989.744666999999
+        }
+      },
+      "observed": 164234,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/stream",
+      "class": "stream",
+      "expected": 10442,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3825900529.32102
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 45.837
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 4903.737
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 547
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 108.75712500000002
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 75932616
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 235405312
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 34.010025325617356
+        },
+        "timeToFirstRecordMs": {
+          "max": 1.111417000000074,
+          "median": 0.8475419999999758,
+          "min": 0.8146249999999782,
+          "p95": 0.9435839999998734,
+          "p99": 1.111417000000074
+        },
+        "wallMs": {
+          "max": 129.53695900000002,
+          "median": 123.33045800000036,
+          "min": 121.32658399999991,
+          "p95": 128.3037089999998,
+          "p99": 129.53695900000002
+        }
+      },
+      "observed": 10442,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/stream",
+      "class": "stream",
+      "expected": 164234,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3919273500.31142
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 725.479
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 61013.91
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 7247
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 1640.4536520000065
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 151444704
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 462684160
+        },
+        "samples": 27,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 36.12415680182791
+        },
+        "timeToFirstRecordMs": {
+          "max": 1.1399170000004233,
+          "median": 0.8572910000002594,
+          "min": 0.8131250000005821,
+          "p95": 1.0482910000027914,
+          "p99": 1.1399170000004233
+        },
+        "wallMs": {
+          "max": 2921.030083999998,
+          "median": 1857.7315830000007,
+          "min": 1837.661666,
+          "p95": 2005.8875420000004,
+          "p99": 2921.030083999998
+        }
+      },
+      "observed": 164234,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "effect-xml/stream/positions",
+      "class": "stream",
+      "expected": 10442,
+      "input": "bank-4m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 2967107116.614431
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 123.487
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 8763.181
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 753
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 294.367833
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 218491944
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 400769024
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 17.755706624630445
+        },
+        "timeToFirstRecordMs": {
+          "max": 0.5859590000000026,
+          "median": 0.22566700000061246,
+          "min": 0.1959580000002461,
+          "p95": 0.322208000000046,
+          "p99": 0.5859590000000026
+        },
+        "wallMs": {
+          "max": 243.59158399999978,
+          "median": 236.2323329999997,
+          "min": 230.75033299999996,
+          "p95": 241.68391599999995,
+          "p99": 243.59158399999978
+        }
+      },
+      "observed": 10442,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "effect-xml/stream/positions",
+      "class": "stream",
+      "expected": 164234,
+      "input": "bank-64m",
+      "library": "@aidenzepp/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 2839959503.4509406
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 969.26
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 65074.96
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 5358
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 3844.443401000008
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 627782256
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 961511424
+        },
+        "samples": 11,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 17.28763184750809
+        },
+        "timeToFirstRecordMs": {
+          "max": 0.32329200000094716,
+          "median": 0.24650000000110595,
+          "min": 0.2134589999986929,
+          "p95": 0.32329200000094716,
+          "p99": 0.32329200000094716
+        },
+        "wallMs": {
+          "max": 4196.386082999998,
+          "median": 3881.9074580000015,
+          "min": 3808.507583999999,
+          "p95": 4196.386082999998,
+          "p99": 4196.386082999998
+        }
+      },
+      "observed": 164234,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "computis-effect-xml/typed-decode",
+      "class": "typed-decode",
+      "expected": 10442,
+      "input": "bank-4m",
+      "library": "@computis/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 1733332454.940929
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 66.034
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 5871.083
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 256
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 482.49203700000027
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 273959480
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 445300736
+        },
+        "samples": 121,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 170.13525325761682
+        },
+        "wallMs": {
+          "max": 31.522040999999717,
+          "median": 24.653750000000173,
+          "min": 22.575417000000016,
+          "p95": 28.031790999999885,
+          "p99": 29.92904200000021
+        }
+      },
+      "observed": 10442,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "computis-effect-xml/typed-decode",
+      "class": "typed-decode",
+      "expected": 164234,
+      "input": "bank-64m",
+      "library": "@computis/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 1707468554.5106857
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 403.057
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 20488.186
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 817
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 1931.008244999999
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 1871694280
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 2099544064
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 171.75428663043934
+        },
+        "wallMs": {
+          "max": 434.6099580000009,
+          "median": 390.72670800000014,
+          "min": 376.8089170000003,
+          "p95": 424.3478749999995,
+          "p99": 434.6099580000009
+        }
+      },
+      "observed": 164234,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 4194472,
+      "caseId": "computis-effect-xml/encode-typed",
+      "class": "encode-typed",
+      "expected": 10442,
+      "input": "bank-4m",
+      "library": "@computis/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3316842365.280967
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 164.122
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 4595.338
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 279
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 356.69336699999997
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 307739416
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 504971264
+        },
+        "samples": 200,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 283.9450654526692
+        },
+        "wallMs": {
+          "max": 23.997666999999865,
+          "median": 14.77212499999996,
+          "min": 12.793874999999844,
+          "p95": 16.43249999999989,
+          "p99": 22.09566700000005
+        }
+      },
+      "observed": 10442,
+      "tokenizer": "upstream"
+    },
+    {
+      "bytes": 67108987,
+      "caseId": "computis-effect-xml/encode-typed",
+      "class": "encode-typed",
+      "expected": 164234,
+      "input": "bank-64m",
+      "library": "@computis/effect-xml",
+      "metrics": {
+        "allocationBytesPerSecond": {
+          "source": "node:v8 GCProfiler",
+          "unit": "bytes/s",
+          "value": 3018822868.482085
+        },
+        "cpuSystemMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 736.437
+        },
+        "cpuUserMs": {
+          "source": "process.resourceUsage",
+          "unit": "ms",
+          "value": 12208.794
+        },
+        "gcCount": {
+          "source": "node:v8 GCProfiler",
+          "unit": "count",
+          "value": 702
+        },
+        "gcPauseMs": {
+          "source": "node:v8 GCProfiler",
+          "unit": "ms",
+          "value": 1846.980358
+        },
+        "heapUsedBytes": {
+          "source": "process.memoryUsage heapUsed",
+          "unit": "bytes",
+          "value": 2224458272
+        },
+        "peakRssBytes": {
+          "source": "process.resourceUsage maxRSS (process lifetime)",
+          "unit": "bytes",
+          "value": 2668101632
+        },
+        "samples": 30,
+        "throughputMBps": {
+          "source": "input UTF-8 bytes / median",
+          "unit": "MB/s",
+          "value": 247.94094333690697
+        },
+        "wallMs": {
+          "max": 327.71370899999965,
+          "median": 270.66520799999944,
+          "min": 261.9348339999997,
+          "p95": 312.9132499999996,
+          "p99": 327.71370899999965
+        }
+      },
+      "observed": 164234,
+      "tokenizer": "upstream"
+    }
+  ]
+}

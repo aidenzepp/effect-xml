@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item
+ xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0
+  https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+ identifier="river-delta-response"
+ title="Watching a river delta form"
+ time-dependent="false"
+ xml:lang="en-US">
+ <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="string"/>
+ <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float"/>
+ <qti-item-body>
+  <div><img src="media/delta-aerial.png" alt="Aerial view of a river splitting into channels before it meets the sea" width="480" height="270"/></div>
+  <p>A river slows down when it reaches the sea, and the sand and silt it carries
+    settle out of the water.</p>
+  <p>Watch the time-lapse clip below. It compresses forty years of satellite images
+    of one stretch of coast into less than a minute.</p>
+  <video width="480" height="270" controls="controls">
+   <source src="media/delta-timelapse.webm" type="video/webm"/>
+   <source src="media/delta-timelapse.mp4" type="video/mp4"/>
+   <track src="media/delta-timelapse.en.vtt" kind="captions" srclang="en" label="English"/>
+  </video>
+  <p>Describe two changes you can see in the channels over the course of the clip,
+    and explain what might cause each one. Write three to five sentences
+    in your own words.</p>
+  <qti-extended-text-interaction response-identifier="RESPONSE"/>
+ </qti-item-body>
+</qti-assessment-item>

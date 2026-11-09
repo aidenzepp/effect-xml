@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Spike-owned fixture: the QTI corpus has no CDATA section (fixtures/qti/SOURCES.md), so SPIKE-03 adds one here. -->
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0" identifier="spike-cdata" title="CDATA and entity forms" adaptive="false" time-dependent="false">
+  <qti-item-body>
+    <p>Raw: <![CDATA[a < b && c > d]]> and escaped: a &lt; b &amp;&amp; c &gt; d</p>
+    <p>Apostrophe &apos;quoted&apos; and &quot;double&quot; and e&#769; and &#xE9; and é</p>
+    <p class='single'>single-quoted attribute<br/></p>
+  </qti-item-body>
+</qti-assessment-item>

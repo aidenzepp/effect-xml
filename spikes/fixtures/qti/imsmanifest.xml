@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest xmlns="http://www.imsglobal.org/xsd/qti/qtiv3p0/imscp_v1p1"
+  xmlns:imsmd="http://ltsc.ieee.org/xsd/LOM"
+  xmlns:imsqti="http://www.imsglobal.org/xsd/imsqti_metadata_v3p0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/qti/qtiv3p0/imscp_v1p1 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqtiv3p0_imscpv1p2_v1p0.xsd http://ltsc.ieee.org/xsd/LOM https://purl.imsglobal.org/spec/md/v1p3/schema/xsd/imsmd_loose_v1p3p2.xsd"
+  identifier="pkg-corpus-sampler">
+  <metadata>
+    <schema>QTI Package</schema>
+    <schemaversion>3.0.0</schemaversion>
+    <imsmd:lom>
+      <imsmd:general>
+        <imsmd:title><imsmd:string language="en">Corpus sampler</imsmd:string></imsmd:title>
+        <imsmd:language>en</imsmd:language>
+        <imsmd:description><imsmd:string language="en">Three items from this directory, packaged with the media they load.</imsmd:string></imsmd:description>
+      </imsmd:general>
+    </imsmd:lom>
+  </metadata>
+  <organizations/>
+  <resources>
+    <resource identifier="res-bicycle-hotspot" type="imsqti_item_xmlv3p0" href="bpig-hotspot.xml">
+      <file href="bpig-hotspot.xml"/>
+    </resource>
+    <resource identifier="res-delta-essay" type="imsqti_item_xmlv3p0" href="bg011-media.xml">
+      <metadata>
+        <imsqti:qtiMetadata>
+          <imsqti:timeDependent>false</imsqti:timeDependent>
+          <imsqti:interactionType>extendedTextInteraction</imsqti:interactionType>
+          <imsqti:feedbackType>none</imsqti:feedbackType>
+          <imsqti:solutionAvailable>false</imsqti:solutionAvailable>
+          <imsqti:scoringMode>human</imsqti:scoringMode>
+          <imsqti:toolName>example-tool</imsqti:toolName>
+          <imsqti:toolVersion>0.1.0</imsqti:toolVersion>
+        </imsqti:qtiMetadata>
+        <imsmd:lom>
+          <imsmd:general>
+            <imsmd:identifier><imsmd:catalog>example-tool</imsmd:catalog><imsmd:entry>river-delta-essay</imsmd:entry></imsmd:identifier>
+            <imsmd:title><imsmd:string language="en">Watching a river delta form</imsmd:string></imsmd:title>
+          </imsmd:general>
+        </imsmd:lom>
+      </metadata>
+      <file href="bg011-media.xml"/>
+      <dependency identifierref="res-delta-still"/>
+      <dependency identifierref="res-delta-clip"/>
+    </resource>
+    <resource identifier="res-delta-still" type="webcontent" href="media/delta-aerial.png">
+      <file href="media/delta-aerial.png"/>
+    </resource>
+    <resource identifier="res-delta-clip" type="webcontent" href="media/delta-timelapse.webm">
+      <file href="media/delta-timelapse.webm"/>
+      <file href="media/delta-timelapse.mp4"/>
+      <file href="media/delta-timelapse.en.vtt"/>
+    </resource>
+    <resource identifier="res-true-false" type="imsqti_item_xmlv3p0" href="bg007-true-false.xml">
+      <file href="bg007-true-false.xml"/>
+    </resource>
+  </resources>
+</manifest>

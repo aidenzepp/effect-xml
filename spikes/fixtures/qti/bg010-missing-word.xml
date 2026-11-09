@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item
+  xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0
+  https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+  identifier="example-missing-word-seasons"
+  title="Missing word in a verse about the seasons"
+  time-dependent="false"
+  xml:lang="en-GB">
+  <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="string">
+    <qti-correct-response>
+      <qti-value>winter</qti-value>
+    </qti-correct-response>
+    <qti-mapping default-value="0">
+      <qti-map-entry map-key="winter" mapped-value="1" case-sensitive="true"/>
+      <qti-map-entry map-key="Winter" mapped-value="0.5"/>
+    </qti-mapping>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float"/>
+  <qti-item-body>
+    <p>Read the short verse below and type the word that completes its second line.</p>
+    <div>
+      <blockquote>
+        <p>The leaves come down in red and gold,<br/>
+          the days grow short as autumn turns to <qti-text-entry-interaction response-identifier="RESPONSE"/>;<br/>
+          the river runs both dark and cold<br/>
+          beneath a sky of grey.</p>
+      </blockquote>
+    </div>
+  </qti-item-body>
+  <qti-response-processing template="https://purl.imsglobal.org/spec/qti/v3p0/rptemplates/map_response"/>
+</qti-assessment-item>

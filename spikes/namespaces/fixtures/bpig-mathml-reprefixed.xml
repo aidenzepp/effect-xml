@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:mml="http://www.w3.org/1998/Math/MathML"
+  xs:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0
+      https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd
+      http://www.w3.org/1998/Math/MathML
+      https://purl.imsglobal.org/spec/mathml/v3p0/schema/xsd/mathml3.xsd"
+  identifier="cube-equation-choice" title="Solving for a cube" adaptive="false" time-dependent="false" xml:lang="en">
+  <!-- Synthetic item written for the effect-xml fixture corpus:
+       one choice interaction whose prompt carries a MathML equation. -->
+  <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="identifier">
+    <qti-correct-response>
+      <qti-value>CHOICE_3</qti-value>
+    </qti-correct-response>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float"/>
+  <qti-item-body>
+    <qti-choice-interaction response-identifier="RESPONSE" max-choices="1">
+      <qti-prompt>Which value of y makes this equation true?
+        <div role="math" aria-label="2 y cubed equals 54">
+          <mml:math>
+            <mml:mrow>
+              <mml:mn>2</mml:mn>
+              <mml:msup>
+                <mml:mi>y</mml:mi>
+                <mml:mn>3</mml:mn>
+              </mml:msup>
+              <mml:mo>=</mml:mo>
+              <mml:mn>54</mml:mn>
+            </mml:mrow>
+          </mml:math>
+        </div>
+      </qti-prompt>
+      <qti-simple-choice identifier="CHOICE_3">3</qti-simple-choice>
+      <qti-simple-choice identifier="CHOICE_6">6</qti-simple-choice>
+      <qti-simple-choice identifier="CHOICE_9">9</qti-simple-choice>
+      <qti-simple-choice identifier="CHOICE_27">27</qti-simple-choice>
+    </qti-choice-interaction>
+  </qti-item-body>
+  <qti-response-processing
+    template="https://purl.imsglobal.org/spec/qti/v3p0/rptemplates/match_correct"/>
+</qti-assessment-item>

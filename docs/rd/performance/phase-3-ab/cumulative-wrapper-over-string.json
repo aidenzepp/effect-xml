@@ -1,0 +1,533 @@
+{
+  "method": "Derived from the cumulative-<runtime>-jit-<mode>-<input>.json blocks in this directory (old = STEP1 ee496cc, new = 659480f). For each kept round (superseded undefined) and each side, the ratio of the fromString case's cpuPerOpMs to its string rung's cpuPerOpMs in that round (effect-xml/typed-decode over typed/decode-string, effect-xml/encode-typed over typed/encode-string), and the per-round quotient of the new side's ratio over the old side's. Each is reduced to a median with the same distribution-free order-statistic interval as bench/ab.ts (95%, or the range below 6 rounds, with its coverage). Generator: work/perf3b-cum/derive.mjs (not committed); the formula above is the whole computation.",
+  "blocks": {
+    "cumulative-bun-jit-off-bank-16k.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 0.7423772195556017,
+        "low": 0.7323376444787891,
+        "high": 0.7951878236017433,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 0.8006557080775114,
+        "low": 0.7741387386682256,
+        "high": 0.8415077885644164,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 0.9409064481124239,
+        "low": 0.899472590480942,
+        "high": 0.962399645249395,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.6594719254039266,
+        "low": 0.6274720552323292,
+        "high": 0.7087334290531201,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 0.8047514311776197,
+        "low": 0.7457746767304338,
+        "high": 0.8532887355980145,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.8118821182996221,
+        "low": 0.7635564583896921,
+        "high": 0.8428174377900763,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-bun-jit-off-bank-4m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 0.8635690783143644,
+        "low": 0.8486884487246632,
+        "high": 0.8966923886646386,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 0.9687290316459917,
+        "low": 0.9506478212317165,
+        "high": 0.993526742013208,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 0.8971678639843597,
+        "low": 0.8542180223603691,
+        "high": 0.931559804191927,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.8365600956927748,
+        "low": 0.7673135355507353,
+        "high": 0.8824136102467303,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 0.889697200816914,
+        "low": 0.8483323730786105,
+        "high": 1.02476404517205,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.914471420186158,
+        "low": 0.8741027691390754,
+        "high": 0.9790748193273549,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-bun-jit-off-bank-64m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 5,
+        "median": 1.0151494638795624,
+        "low": 0.8786090436801951,
+        "high": 1.3364472280004709,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 5,
+        "median": 1.1046084148981987,
+        "low": 0.9323204950533697,
+        "high": 1.3930043361494795,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 5,
+        "median": 0.9190129734555019,
+        "low": 0.7947825941292481,
+        "high": 1.0159977074832973,
+        "coverage": 0.9375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 5,
+        "median": 0.8727562369539521,
+        "low": 0.82029863738324,
+        "high": 1.4248897759622687,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 5,
+        "median": 1.0632446727311267,
+        "low": 0.8173898953826755,
+        "high": 1.4434672547130896,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 5,
+        "median": 0.8445988486891061,
+        "low": 0.6046248947485998,
+        "high": 1.7432192201191592,
+        "coverage": 0.9375
+      }
+    },
+    "cumulative-bun-jit-on-bank-16k.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 0.7400013910077892,
+        "low": 0.6929172575886573,
+        "high": 0.7865523548303835,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 0.7696573559858123,
+        "low": 0.7399104543641173,
+        "high": 0.8185698631519611,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 0.9739291274884024,
+        "low": 0.9390652125276099,
+        "high": 0.9918651590548023,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.6540555421322619,
+        "low": 0.6003520602400593,
+        "high": 0.6708579031836481,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 0.6880344762228954,
+        "low": 0.635611270208529,
+        "high": 0.7315798116595723,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.9157250148034211,
+        "low": 0.888165766054828,
+        "high": 0.982119110740819,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-bun-jit-on-bank-4m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 0.8854254305724363,
+        "low": 0.8573608559467848,
+        "high": 0.9382678865289041,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 0.9677535285826933,
+        "low": 0.9306648685666207,
+        "high": 0.9927424770054815,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 0.9343697826736925,
+        "low": 0.8859289381278908,
+        "high": 1.0199084326747627,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.82779600892597,
+        "low": 0.7961006599357673,
+        "high": 0.8701466507233907,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 0.946006982549748,
+        "low": 0.8915631234382627,
+        "high": 0.9794845388647825,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.906764738760112,
+        "low": 0.764138305216746,
+        "high": 1.0065801363153106,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-bun-jit-on-bank-64m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 5,
+        "median": 1.085136524947651,
+        "low": 0.7444764550428049,
+        "high": 1.4242842825733975,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 5,
+        "median": 0.9950428528249133,
+        "low": 0.4463587994709019,
+        "high": 1.1362478720682223,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 5,
+        "median": 1.18886956424763,
+        "low": 1.02957235956658,
+        "high": 1.6678879321417686,
+        "coverage": 0.9375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 5,
+        "median": 0.9145856419474087,
+        "low": 0.5019811352539615,
+        "high": 1.1624236294823829,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 5,
+        "median": 0.9701455413514052,
+        "low": 0.8813695436862857,
+        "high": 1.300537612011638,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 5,
+        "median": 0.925658597580271,
+        "low": 0.5695467228813575,
+        "high": 1.1981950954112883,
+        "coverage": 0.9375
+      }
+    },
+    "cumulative-node-jit-off-bank-16k.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 1.0111783013924858,
+        "low": 0.9745629150072436,
+        "high": 1.0463586011993675,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 1.122323626891059,
+        "low": 1.093369130679895,
+        "high": 1.1567245447522818,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 0.9247583634986674,
+        "low": 0.8741738091232727,
+        "high": 0.9487690442211507,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.8621016463291962,
+        "low": 0.8246621237773369,
+        "high": 0.9204934232395882,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 1.007587219807322,
+        "low": 0.9620597381645069,
+        "high": 1.0280738723168161,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.8719870263716462,
+        "low": 0.8457102381264618,
+        "high": 0.8952262282097118,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-node-jit-off-bank-4m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 1.014428993584432,
+        "low": 0.979075537836971,
+        "high": 1.04051382138283,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 1.178911539509866,
+        "low": 1.0966979641608825,
+        "high": 1.2227124111179994,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 0.8615638938926237,
+        "low": 0.8285360191275318,
+        "high": 0.9157079622013187,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.9948437446504863,
+        "low": 0.9747116134189783,
+        "high": 1.0394420695518012,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 1.2145923963283922,
+        "low": 1.103819371903572,
+        "high": 1.253302702146192,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.8241622078177762,
+        "low": 0.7981112524055349,
+        "high": 0.9012740399136556,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-node-jit-off-bank-64m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 5,
+        "median": 1.0166497204899514,
+        "low": 0.9718055940605257,
+        "high": 1.1546189555937196,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 5,
+        "median": 1.1155751084714232,
+        "low": 0.9530856537149591,
+        "high": 1.2731495667367567,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 5,
+        "median": 0.974320251079722,
+        "low": 0.7633082706467759,
+        "high": 1.1011785451736236,
+        "coverage": 0.9375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 5,
+        "median": 0.769641679807373,
+        "low": 0.6596029394044545,
+        "high": 1.0334960744764685,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 5,
+        "median": 1.2217674938203158,
+        "low": 0.9970047276563595,
+        "high": 1.4753102056453555,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 5,
+        "median": 0.7039152628770846,
+        "low": 0.5216812551436958,
+        "high": 0.9142405126966376,
+        "coverage": 0.9375
+      }
+    },
+    "cumulative-node-jit-on-bank-16k.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 1.0400791566063796,
+        "low": 0.9871668741181883,
+        "high": 1.09101675133626,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 1.0501042811097763,
+        "low": 0.9865189823207506,
+        "high": 1.125349053285266,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 1.0031880324600901,
+        "low": 0.9551010536993182,
+        "high": 1.0379822065331805,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 0.8459151878108203,
+        "low": 0.7492192652028425,
+        "high": 0.9472527952630115,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 0.8833701186852458,
+        "low": 0.8410667789076558,
+        "high": 0.9243716282286201,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.9886132195164593,
+        "low": 0.8481374333987375,
+        "high": 1.0743164713803444,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-node-jit-on-bank-4m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 15,
+        "median": 1.0119898977326973,
+        "low": 0.9917954438683609,
+        "high": 1.1250630505380035,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 15,
+        "median": 1.0606414781068911,
+        "low": 0.9936186767252523,
+        "high": 1.0848236821845763,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 15,
+        "median": 1.012407913521115,
+        "low": 0.9195603390884294,
+        "high": 1.0386329828260579,
+        "coverage": 0.96484375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 15,
+        "median": 1.0181358633012139,
+        "low": 0.9517592700555071,
+        "high": 1.1040319906640863,
+        "coverage": 0.96484375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 15,
+        "median": 1.117389810745742,
+        "low": 1.0342338664122022,
+        "high": 1.21005990578852,
+        "coverage": 0.96484375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 15,
+        "median": 0.8966656936230039,
+        "low": 0.8396205441812369,
+        "high": 0.9861958935996495,
+        "coverage": 0.96484375
+      }
+    },
+    "cumulative-node-jit-on-bank-64m.json": {
+      "new:effect-xml/typed-decode / new:typed/decode-string": {
+        "n": 5,
+        "median": 1.0907658442317851,
+        "low": 0.8438716482216839,
+        "high": 1.2428571567950553,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/typed-decode / old:typed/decode-string": {
+        "n": 5,
+        "median": 1.103144084607226,
+        "low": 0.9916060145296278,
+        "high": 1.147634783196734,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/typed-decode / new:typed/decode-string) / (old:effect-xml/typed-decode / old:typed/decode-string)": {
+        "n": 5,
+        "median": 0.9504468322173536,
+        "low": 0.8510150562388206,
+        "high": 1.1266498856652747,
+        "coverage": 0.9375
+      },
+      "new:effect-xml/encode-typed / new:typed/encode-string": {
+        "n": 5,
+        "median": 1.232564689693725,
+        "low": 0.8657188874233994,
+        "high": 1.5593382612970839,
+        "coverage": 0.9375
+      },
+      "old:effect-xml/encode-typed / old:typed/encode-string": {
+        "n": 5,
+        "median": 1.0240765881907896,
+        "low": 0.9202303624360889,
+        "high": 1.0636000174055025,
+        "coverage": 0.9375
+      },
+      "(new:effect-xml/encode-typed / new:typed/encode-string) / (old:effect-xml/encode-typed / old:typed/encode-string)": {
+        "n": 5,
+        "median": 1.208236086330767,
+        "low": 0.8453653734559475,
+        "high": 1.485797968763167,
+        "coverage": 0.9375
+      }
+    }
+  }
+}

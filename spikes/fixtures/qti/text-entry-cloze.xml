@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:m="http://www.w3.org/1998/Math/MathML"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+  identifier="cloze-water-states" title="Two blanks about water changing state" adaptive="false" time-dependent="false" xml:lang="en-US">
+  <qti-response-declaration identifier="RESPONSE_FREEZE" cardinality="single" base-type="string">
+    <qti-correct-response><qti-value>0</qti-value></qti-correct-response>
+    <qti-mapping default-value="0">
+      <qti-map-entry map-key="0" mapped-value="1"/>
+      <qti-map-entry map-key="zero" mapped-value="1"/>
+    </qti-mapping>
+  </qti-response-declaration>
+  <qti-response-declaration identifier="RESPONSE_STATE" cardinality="single" base-type="string">
+    <qti-correct-response><qti-value>steam</qti-value></qti-correct-response>
+    <qti-mapping default-value="0">
+      <qti-map-entry map-key="steam" mapped-value="1" case-sensitive="false"/>
+    </qti-mapping>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+    <qti-default-value><qti-value>0</qti-value></qti-default-value>
+  </qti-outcome-declaration>
+  <qti-outcome-declaration identifier="MAXSCORE" cardinality="single" base-type="float">
+    <qti-default-value><qti-value>2</qti-value></qti-default-value>
+  </qti-outcome-declaration>
+  <qti-item-body>
+    <p>At sea level, pure water freezes at <qti-text-entry-interaction response-identifier="RESPONSE_FREEZE" expected-length="3"/> degrees Celsius, and when it
+    boils it turns into <qti-text-entry-interaction response-identifier="RESPONSE_STATE" expected-length="5" placeholder-text="one word"/> that rises from the pot.</p>
+  </qti-item-body>
+  <qti-response-processing>
+    <qti-set-outcome-value identifier="SCORE">
+      <qti-sum>
+        <qti-map-response identifier="RESPONSE_FREEZE"/>
+        <qti-map-response identifier="RESPONSE_STATE"/>
+      </qti-sum>
+    </qti-set-outcome-value>
+  </qti-response-processing>
+</qti-assessment-item>

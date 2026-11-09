@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE root [
+  <!ELEMENT root ANY>
+  <!ATTLIST root note CDATA "a > b">
+]>
+<!-- a comment with < and <fake-tag/> inside -->
+<root attr="a > b" other="x &lt; y">
+  <?pi with <angle> and > inside ?>
+  <a><![CDATA[ 1 < 2 and <not-an-element> ]]></a>
+  <b/><b></b><b
+    k="v"
+  /><b
+  >text</b>
+  <c>text &lt; more &gt; and &#60;</c>
+  <d><!-- < --><e/></d>
+</root>

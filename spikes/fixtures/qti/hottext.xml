@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-item xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:m="http://www.w3.org/1998/Math/MathML"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_asiv3p0p1_v1p0.xsd"
+  identifier="hottext-spelling" title="Find the misspelled word" adaptive="false" time-dependent="false" xml:lang="en-US">
+  <qti-response-declaration identifier="RESPONSE" cardinality="single" base-type="identifier">
+    <qti-correct-response><qti-value>HT_RIVER</qti-value></qti-correct-response>
+  </qti-response-declaration>
+  <qti-outcome-declaration identifier="SCORE" cardinality="single" base-type="float">
+    <qti-default-value><qti-value>0</qti-value></qti-default-value>
+  </qti-outcome-declaration>
+  <qti-item-body>
+    <qti-hottext-interaction response-identifier="RESPONSE" max-choices="1">
+      <qti-prompt>Click the word that is spelled wrongly.</qti-prompt>
+      <p>The <qti-hottext identifier="HT_RIVER">rivver</qti-hottext> bends past the old <qti-hottext identifier="HT_MILL">mill</qti-hottext> before it reaches the sea.</p>
+    </qti-hottext-interaction>
+  </qti-item-body>
+  <qti-response-processing template="https://purl.imsglobal.org/spec/qti/v3p0/rptemplates/match_correct"/>
+</qti-assessment-item>

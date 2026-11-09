@@ -1,0 +1,309 @@
+{
+  "method": "Derived from the committed phase-3 A/B files named in each row (JIT off, NEW side, kept rounds only: rounds whose superseded field is unset). Each value is the median over those rounds of one child-process figure: wallMs.median, wallMs.p95, wallMs.p99 (the child's sampled per-run wall-time quantiles, rank ceil(q*n)), wallMeanMs (sampling-phase elapsed / samples), cpuPerOpMs (sampling-phase user+system CPU / samples). CPU is metered per process over the sampling phase, not per run, so no CPU p95/p99 exists. A child's p99 equals its slowest run when it took fewer than 100 samples, and its p95 when fewer than 20; p99IsMaxInRounds and p95IsMaxInRounds count such rounds. Script: bench/latency.ts.",
+  "rows": [
+    {
+      "runtime": "bun",
+      "input": "bank-16k",
+      "case": "effect-xml/typed-decode",
+      "file": "bun-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 9345,
+        "median": 9975.0,
+        "max": 10087
+      },
+      "wallMedianMs": 0.1881874999999127,
+      "wallP95Ms": 0.2524794999999358,
+      "wallP99Ms": 0.32389599999987695,
+      "wallMeanMs": 0.20052468105681476,
+      "cpuPerOpMs": 0.22584027204989457,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-16k",
+      "case": "effect-xml/encode-typed",
+      "file": "bun-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 15498,
+        "median": 16019.0,
+        "max": 16458
+      },
+      "wallMedianMs": 0.11799949999999626,
+      "wallP95Ms": 0.1442500000000564,
+      "wallP99Ms": 0.18116650000013124,
+      "wallMeanMs": 0.12485907786695191,
+      "cpuPerOpMs": 0.13547242522793157,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-16k",
+      "case": "effect-xml/stream",
+      "file": "bun-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 8260,
+        "median": 8472.0,
+        "max": 8574
+      },
+      "wallMedianMs": 0.22185400000000755,
+      "wallP95Ms": 0.2978335000000243,
+      "wallP99Ms": 0.38602049999997234,
+      "wallMeanMs": 0.23608058205500165,
+      "cpuPerOpMs": 0.28481280218617966,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-16k",
+      "case": "effect-xml/stream/positions",
+      "file": "bun-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 4107,
+        "median": 4244.5,
+        "max": 4338
+      },
+      "wallMedianMs": 0.4463749999999891,
+      "wallP95Ms": 0.542249500000139,
+      "wallP99Ms": 1.458666500000163,
+      "wallMeanMs": 0.47134820115352805,
+      "cpuPerOpMs": 0.5467070603650916,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-4m",
+      "case": "effect-xml/typed-decode",
+      "file": "bun-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 10,
+        "median": 18,
+        "max": 35
+      },
+      "wallMedianMs": 104.41087500000003,
+      "wallP95Ms": 196.97312499999998,
+      "wallP99Ms": 196.97312499999998,
+      "wallMeanMs": 112.19784722222221,
+      "cpuPerOpMs": 93.70771428571427,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 8
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-4m",
+      "case": "effect-xml/encode-typed",
+      "file": "bun-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 16,
+        "median": 42,
+        "max": 55
+      },
+      "wallMedianMs": 42.545500000000175,
+      "wallP95Ms": 71.68495800000028,
+      "wallP99Ms": 122.34116700000004,
+      "wallMeanMs": 48.18834423809523,
+      "cpuPerOpMs": 65.63718367346938,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 2
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-4m",
+      "case": "effect-xml/stream",
+      "file": "bun-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 14,
+        "median": 31,
+        "max": 35
+      },
+      "wallMedianMs": 62.52795900000001,
+      "wallP95Ms": 88.56349999999975,
+      "wallP99Ms": 113.71845799999983,
+      "wallMeanMs": 65.05671503225805,
+      "cpuPerOpMs": 66.85454838709677,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 6
+    },
+    {
+      "runtime": "bun",
+      "input": "bank-4m",
+      "case": "effect-xml/stream/positions",
+      "file": "bun-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 10,
+        "median": 19,
+        "max": 20
+      },
+      "wallMedianMs": 109.4510409999998,
+      "wallP95Ms": 169.06379200000015,
+      "wallP99Ms": 169.06379200000015,
+      "wallMeanMs": 111.29366668421052,
+      "cpuPerOpMs": 113.17210526315789,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 13
+    },
+    {
+      "runtime": "node",
+      "input": "bank-16k",
+      "case": "effect-xml/typed-decode",
+      "file": "node-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 2353,
+        "median": 6832.0,
+        "max": 6954
+      },
+      "wallMedianMs": 0.2829164999998284,
+      "wallP95Ms": 0.3351875000000746,
+      "wallP99Ms": 0.5386670000000322,
+      "wallMeanMs": 0.29276355220561656,
+      "cpuPerOpMs": 0.3032565580676466,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "node",
+      "input": "bank-16k",
+      "case": "effect-xml/encode-typed",
+      "file": "node-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 4059,
+        "median": 11365.0,
+        "max": 11467
+      },
+      "wallMedianMs": 0.16366649999997662,
+      "wallP95Ms": 0.18839600000001155,
+      "wallP99Ms": 0.7124165000000175,
+      "wallMeanMs": 0.1759884780458276,
+      "cpuPerOpMs": 0.21014717039714964,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "node",
+      "input": "bank-16k",
+      "case": "effect-xml/stream",
+      "file": "node-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 2514,
+        "median": 5746.0,
+        "max": 6003
+      },
+      "wallMedianMs": 0.33150000000000546,
+      "wallP95Ms": 0.42162499999994907,
+      "wallP99Ms": 0.7153124999998681,
+      "wallMeanMs": 0.34812947245270065,
+      "cpuPerOpMs": 0.3717457044697126,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "node",
+      "input": "bank-16k",
+      "case": "effect-xml/stream/positions",
+      "file": "node-jit-off-bank-16k.json",
+      "rounds": 20,
+      "samplesPerChild": {
+        "min": 811,
+        "median": 3457.0,
+        "max": 3535
+      },
+      "wallMedianMs": 0.5357705000000124,
+      "wallP95Ms": 0.8497710000000325,
+      "wallP99Ms": 1.3129374999999754,
+      "wallMeanMs": 0.578655099333024,
+      "cpuPerOpMs": 0.6529247705268959,
+      "p99IsMaxInRounds": 0,
+      "p95IsMaxInRounds": 0
+    },
+    {
+      "runtime": "node",
+      "input": "bank-4m",
+      "case": "effect-xml/typed-decode",
+      "file": "node-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 10,
+        "median": 23,
+        "max": 24
+      },
+      "wallMedianMs": 84.49850000000015,
+      "wallP95Ms": 107.2192500000001,
+      "wallP99Ms": 132.4994999999999,
+      "wallMeanMs": 87.58258695652175,
+      "cpuPerOpMs": 132.197375,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 5
+    },
+    {
+      "runtime": "node",
+      "input": "bank-4m",
+      "case": "effect-xml/encode-typed",
+      "file": "node-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 12,
+        "median": 36,
+        "max": 39
+      },
+      "wallMedianMs": 54.577583000000004,
+      "wallP95Ms": 69.0769580000001,
+      "wallP99Ms": 90.40995800000019,
+      "wallMeanMs": 56.46955902777778,
+      "cpuPerOpMs": 80.44991666666667,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 5
+    },
+    {
+      "runtime": "node",
+      "input": "bank-4m",
+      "case": "effect-xml/stream",
+      "file": "node-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 10,
+        "median": 24,
+        "max": 26
+      },
+      "wallMedianMs": 82.63520800000015,
+      "wallP95Ms": 89.82683300000008,
+      "wallP99Ms": 99.95962499999996,
+      "wallMeanMs": 83.74661808333333,
+      "cpuPerOpMs": 84.7615,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 5
+    },
+    {
+      "runtime": "node",
+      "input": "bank-4m",
+      "case": "effect-xml/stream/positions",
+      "file": "node-jit-off-bank-4m.json",
+      "rounds": 15,
+      "samplesPerChild": {
+        "min": 10,
+        "median": 14,
+        "max": 16
+      },
+      "wallMedianMs": 147.2088329999999,
+      "wallP95Ms": 183.59366699999964,
+      "wallP99Ms": 183.59366699999964,
+      "wallMeanMs": 150.5962202142857,
+      "cpuPerOpMs": 158.0595,
+      "p99IsMaxInRounds": 15,
+      "p95IsMaxInRounds": 15
+    }
+  ]
+}

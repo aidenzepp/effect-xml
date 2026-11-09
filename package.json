@@ -1,0 +1,76 @@
+{
+  "name": "@aidenzepp/effect-xml",
+  "version": "0.1.0",
+  "description": "Decode XML into Effect Schema values and encode them back, from one definition per element.",
+  "keywords": [
+    "codec",
+    "effect",
+    "effect-ts",
+    "qti",
+    "schema",
+    "xml",
+    "xml-parser"
+  ],
+  "homepage": "https://github.com/aidenzepp/effect-xml#readme",
+  "bugs": {
+    "url": "https://github.com/aidenzepp/effect-xml/issues"
+  },
+  "license": "MIT",
+  "author": "Aiden Zepp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aidenzepp/effect-xml.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "lint": "vp lint",
+    "format": "vp fmt --check",
+    "fix": "vp check --fix",
+    "check": "vp check --deny-warnings",
+    "test": "bun test tools && vp test",
+    "bench": "bun bench/run.ts",
+    "bench:node": "node bench/run.ts",
+    "prepare": "vp config --no-agent",
+    "prepublishOnly": "bun run check && bun run build && bun run test"
+  },
+  "devDependencies": {
+    "@computis/effect-xml": "0.4.0",
+    "@effect/vitest": "4.1.2",
+    "@rgrove/parse-xml": "5.1.0",
+    "@stylistic/eslint-plugin": "5.10.0",
+    "@types/bun": "1.4.4",
+    "@types/node": "26.6.6",
+    "@types/sax": "1.2.7",
+    "effect": "4.1.2",
+    "fast-xml-parser": "5.12.0",
+    "libxml2-wasm": "0.7.2",
+    "sax": "1.6.1",
+    "saxes": "6.0.0",
+    "txml": "6.0.3",
+    "typescript": "7.0.2",
+    "ultracite": "8.1.1",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0",
+    "vite-plus": "1.5.0"
+  },
+  "peerDependencies": {
+    "effect": "^4.1.2"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.5.0"
+  },
+  "packageManager": "bun@1.4.2"
+}

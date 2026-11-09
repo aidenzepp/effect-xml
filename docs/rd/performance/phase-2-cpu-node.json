@@ -1,0 +1,95 @@
+{
+  "environment": {
+    "arch": "arm64",
+    "commit": "76aa9109e2ff19f8b6b9fbf9eb47ede2223ec148",
+    "cores": 14,
+    "cpuModel": "Apple M4 Pro",
+    "dirty": false,
+    "os": "Darwin 27.2.0",
+    "packages": {
+      "effect": "4.1.2",
+      "fast-xml-parser": "5.12.0",
+      "saxes": "6.0.0",
+      "sax": "1.6.1",
+      "txml": "6.0.3",
+      "@rgrove/parse-xml": "5.1.0",
+      "libxml2-wasm": "0.7.2",
+      "@computis/effect-xml": "0.4.0"
+    },
+    "runtime": "node",
+    "runtimeVersion": "26.13.0",
+    "totalMemoryBytes": 51539607552
+  },
+  "profiles": [
+    {
+      "buckets": {
+        "effect-runtime": 45.309,
+        "harness": 43.781,
+        "other": 951.285,
+        "positions": 0,
+        "resolver-collector": 0,
+        "schema": 6.517,
+        "tokenizer": 3232.962
+      },
+      "caseId": "effect-xml/events",
+      "input": "bank-4m",
+      "totalMs": 4279.854
+    },
+    {
+      "buckets": {
+        "effect-runtime": 226.467,
+        "harness": 8.232,
+        "other": 980.754,
+        "positions": 0,
+        "resolver-collector": 1560.827,
+        "schema": 38.465,
+        "tokenizer": 1580.782
+      },
+      "caseId": "effect-xml/tree",
+      "input": "bank-4m",
+      "totalMs": 4395.527
+    },
+    {
+      "buckets": {
+        "effect-runtime": 1050.181,
+        "harness": 2.982,
+        "other": 896.255,
+        "positions": 0,
+        "resolver-collector": 856.648,
+        "schema": 1169.033,
+        "tokenizer": 785.436
+      },
+      "caseId": "effect-xml/typed-decode",
+      "input": "bank-4m",
+      "totalMs": 4760.535
+    },
+    {
+      "buckets": {
+        "effect-runtime": 1426.595,
+        "harness": 3.67,
+        "other": 661.31,
+        "positions": 0,
+        "resolver-collector": 821.112,
+        "schema": 988.107,
+        "tokenizer": 778.25
+      },
+      "caseId": "effect-xml/stream",
+      "input": "bank-4m",
+      "totalMs": 4679.044
+    },
+    {
+      "buckets": {
+        "effect-runtime": 1952.318,
+        "harness": 6.01,
+        "other": 824.725,
+        "positions": 340.628,
+        "resolver-collector": 964.44,
+        "schema": 975.677,
+        "tokenizer": 1240.009
+      },
+      "caseId": "effect-xml/stream/positions",
+      "input": "bank-4m",
+      "totalMs": 6303.807
+    }
+  ]
+}

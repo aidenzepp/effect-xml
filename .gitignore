@@ -1,0 +1,10 @@
+node_modules/
+.worktrees/
+dist/
+.env*
+!.env.example
+.DS_Store
+work/
+docs/superpowers/
+.claude/settings.local.json
+test/streaming/synthetic-test.xml

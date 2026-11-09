@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<qti-assessment-test xmlns="http://www.imsglobal.org/xsd/imsqtiasi_v3p0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqtiasi_v3p0 https://purl.imsglobal.org/spec/qti/v3p0/schema/xsd/imsqti_testv3p0p1_v1p0.xsd"
+  identifier="tide-pool-review" title="Tide pool field review" xml:lang="en-US">
+  <qti-outcome-declaration identifier="RAW_POINTS" cardinality="single" base-type="float">
+    <qti-default-value><qti-value>0</qti-value></qti-default-value>
+  </qti-outcome-declaration>
+  <qti-outcome-declaration identifier="POSSIBLE_POINTS" cardinality="single" base-type="float">
+    <qti-default-value><qti-value>0</qti-value></qti-default-value>
+  </qti-outcome-declaration>
+  <qti-outcome-declaration identifier="READY" cardinality="single" base-type="boolean"/>
+  <qti-outcome-declaration identifier="CLOSING_NOTE" cardinality="single" base-type="identifier"/>
+  <qti-time-limits max-time="2700" allow-late-submission="true"/>
+  <qti-rubric-block view="candidate" use="instructions">
+    <qti-content-body><p>Work through both parts at your own pace. You can revisit the survey until you submit it.</p></qti-content-body>
+  </qti-rubric-block>
+  <qti-test-part identifier="survey" navigation-mode="nonlinear" submission-mode="individual">
+    <qti-item-session-control max-attempts="2" allow-review="true" show-solution="true" allow-skipping="false"/>
+    <qti-assessment-section identifier="shoreline" title="Shoreline" visible="true">
+      <qti-selection select="2"/>
+      <qti-ordering shuffle="true"/>
+      <qti-rubric-block view="candidate" use="instructions">
+        <qti-content-body><p>Look closely.</p></qti-content-body>
+      </qti-rubric-block>
+      <qti-assessment-item-ref identifier="barnacles" href="items/barnacles.xml" category="field"/>
+      <qti-assessment-item-ref identifier="anemones" href="items/anemones.xml" category="field" fixed="true"/>
+      <qti-assessment-item-ref identifier="sea-stars" href="items/sea-stars.xml" required="true">
+        <qti-weight identifier="EMPHASIS" value="1.5"/>
+      </qti-assessment-item-ref>
+    </qti-assessment-section>
+    <qti-assessment-section-ref identifier="extras" href="sections/extras.xml"/>
+  </qti-test-part>
+  <qti-test-part identifier="synthesis" navigation-mode="linear" submission-mode="simultaneous">
+    <qti-pre-condition>
+      <qti-gt>
+        <qti-variable identifier="RAW_POINTS"/>
+        <qti-base-value base-type="float">2.5</qti-base-value>
+      </qti-gt>
+    </qti-pre-condition>
+    <qti-assessment-section identifier="tide-chart" title="Tides" visible="false">
+      <qti-assessment-item-ref identifier="flood" href="items/flood.xml">
+        <qti-branch-rule target="moon">
+          <qti-match>
+            <qti-variable identifier="flood.RESPONSE"/>
+            <qti-correct identifier="flood.RESPONSE"/>
+          </qti-match>
+        </qti-branch-rule>
+      </qti-assessment-item-ref>
+      <qti-assessment-item-ref identifier="tide-range" href="items/tide-range.xml"/>
+      <qti-assessment-item-ref identifier="moon" href="items/moon.xml"/>
+    </qti-assessment-section>
+  </qti-test-part>
+  <qti-outcome-processing>
+    <qti-set-outcome-value identifier="RAW_POINTS">
+      <qti-sum><qti-test-variables variable-identifier="SCORE" weight-identifier="EMPHASIS"/></qti-sum>
+    </qti-set-outcome-value>
+    <qti-set-outcome-value identifier="POSSIBLE_POINTS">
+      <qti-sum><qti-test-variables variable-identifier="MAXSCORE" weight-identifier="EMPHASIS"/></qti-sum>
+    </qti-set-outcome-value>
+    <qti-outcome-condition>
+      <qti-outcome-if>
+        <qti-gte>
+          <qti-variable identifier="RAW_POINTS"/>
+          <qti-product>
+            <qti-variable identifier="POSSIBLE_POINTS"/>
+            <qti-base-value base-type="float">0.75</qti-base-value>
+          </qti-product>
+        </qti-gte>
+        <qti-set-outcome-value identifier="READY"><qti-base-value base-type="boolean">true</qti-base-value></qti-set-outcome-value>
+        <qti-set-outcome-value identifier="CLOSING_NOTE"><qti-base-value base-type="identifier">ready</qti-base-value></qti-set-outcome-value>
+      </qti-outcome-if>
+      <qti-outcome-else>
+        <qti-set-outcome-value identifier="READY"><qti-base-value base-type="boolean">false</qti-base-value></qti-set-outcome-value>
+        <qti-set-outcome-value identifier="CLOSING_NOTE"><qti-base-value base-type="identifier">revisit</qti-base-value></qti-set-outcome-value>
+      </qti-outcome-else>
+    </qti-outcome-condition>
+  </qti-outcome-processing>
+  <qti-test-feedback access="atEnd" outcome-identifier="CLOSING_NOTE" show-hide="show" identifier="ready">
+    <qti-content-body><p>You read the shoreline closely. You are ready for the next unit.</p></qti-content-body>
+  </qti-test-feedback>
+  <qti-test-feedback access="atEnd" outcome-identifier="CLOSING_NOTE" show-hide="show" identifier="revisit">
+    <qti-content-body><p>Go back over the tide chart notes, then try the synthesis part again.</p></qti-content-body>
+  </qti-test-feedback>
+</qti-assessment-test>
