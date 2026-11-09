@@ -14,7 +14,7 @@ const patchChangeset = `---\n"${name}": patch\n---\n\nFix a decode position.\n`;
  * @param {{
  *   changes: { path: string; status: string }[];
  *   changesets?: Record<string, string>;
- *   pendingAtBase?: string[];
+ *   blobs?: Record<string, string>;
  *   basePackageJson?: string | null;
  *   headPackageJson?: string;
  *   version?: string;
@@ -25,11 +25,11 @@ const patchChangeset = `---\n"${name}": patch\n---\n\nFix a decode position.\n`;
 const verdict = ({
   changes,
   changesets = {},
-  pendingAtBase = [],
+  blobs = {},
   basePackageJson = packageJson(),
   headPackageJson = packageJson(),
   version = "0.1.0",
-}) => evaluate({ basePackageJson, changes, changesets, headPackageJson, pendingAtBase, version });
+}) => evaluate({ basePackageJson, blobs, changes, changesets, headPackageJson, version });
 
 /**
  * Evaluates a src change that adds one changeset with the given text.
@@ -176,6 +176,7 @@ test("fails a changeset without frontmatter and names the file and the fix", () 
   expect(result.ok).toBe(false);
   expect(result.message).toContain(".changeset/c.md: could not parse changeset");
   expect(result.message).toContain(`"${name}": patch`);
+  expect(result.message).not.toContain("..");
 });
 
 test("fails a changeset with unparseable frontmatter", () => {
@@ -209,19 +210,51 @@ test("passes a quoted patch changeset", () => {
   expect(withChangeset(`---\n"${name}": "patch"\n---\n\nFix.\n`)).toEqual({ ok: true });
 });
 
-test("does not count a changeset already pending at the merge base", () => {
+test("does not count a pending changeset renamed in the same diff", () => {
   const result = verdict({
+    blobs: { ".changeset/old.md": "e69de29", ".changeset/renamed.md": "e69de29" },
     changes: [
       { path: "src/a.ts", status: "M" },
       { path: ".changeset/old.md", status: "D" },
       { path: ".changeset/renamed.md", status: "A" },
     ],
-    changesets: { ".changeset/renamed.md": patchChangeset },
-    pendingAtBase: [".changeset/renamed.md"],
+    changesets: { ".changeset/renamed.md": "---\n---\n" },
   });
 
   expect(result.ok).toBe(false);
   expect(result.message).toContain("release-relevant changes without a changeset: src/a.ts");
+});
+
+test("counts a new empty changeset identical to one still pending at the merge base", () => {
+  const result = verdict({
+    blobs: { ".changeset/second.md": "e69de29" },
+    changes: [
+      { path: "src/a.ts", status: "M" },
+      { path: ".changeset/second.md", status: "A" },
+    ],
+    changesets: { ".changeset/second.md": "---\n---\n" },
+  });
+
+  expect(result).toEqual({ ok: true });
+});
+
+test("counts each deleted changeset as at most one rename", () => {
+  const result = verdict({
+    blobs: {
+      ".changeset/a.md": "e69de29",
+      ".changeset/b.md": "e69de29",
+      ".changeset/c.md": "e69de29",
+    },
+    changes: [
+      { path: "src/a.ts", status: "M" },
+      { path: ".changeset/a.md", status: "D" },
+      { path: ".changeset/b.md", status: "A" },
+      { path: ".changeset/c.md", status: "A" },
+    ],
+    changesets: { ".changeset/b.md": "---\n---\n", ".changeset/c.md": "---\n---\n" },
+  });
+
+  expect(result).toEqual({ ok: true });
 });
 
 test("fails a publishConfig change without a changeset", () => {

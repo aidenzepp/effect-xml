@@ -14,12 +14,12 @@ import { Effect } from "effect";
  *   basePackageJson: string | null;
  *   headPackageJson: string;
  *   changesets: Record<string, string>;
- *   pendingAtBase?: string[];
+ *   blobs?: Record<string, string>;
  *   version: string;
  * }} Inputs
  *   Everything the verdict depends on. `changesets` maps each added changeset path to its text.
- *   `pendingAtBase` lists added changeset paths whose path or content already existed at the
- *   merge base, such as a renamed pending changeset; they do not count.
+ *   `blobs` maps each added and deleted changeset path to its git blob id, so a pending
+ *   changeset renamed within the diff can be recognized and not counted.
  */
 
 /**
@@ -138,7 +138,7 @@ const changesetProblems = (path, text, name, version) => {
 
   if (!parsed.ok) {
     return [
-      `${path}: ${parsed.reason}. Start the file with frontmatter: ---, "${name}": patch, ---, then a summary.`,
+      `${path}: ${parsed.reason.replace(/\.$/u, "")}. Start the file with frontmatter: ---, "${name}": patch, ---, then a summary.`,
     ];
   }
 
@@ -184,6 +184,40 @@ const missingChangesetMessage = (reasons, name) =>
   ].join("\n");
 
 /**
+ * Lists the added changesets that are renames of a changeset the same diff deletes: an added
+ * file whose blob matches a deleted one. Each deleted changeset accounts for one rename, so a
+ * genuinely new changeset with the same bytes, such as a second `changeset add --empty`, still
+ * counts.
+ *
+ * @param {Change[]} changes The branch diff.
+ * @param {Record<string, string>} blobs The blob id of each added and deleted changeset path.
+ * @returns {Set<string>} The added changeset paths that are renames.
+ */
+export const renamedChangesets = (changes, blobs) => {
+  const changesetsWith = (status) =>
+    changes.filter((change) => change.status === status && isChangesetPath(change.path));
+
+  const deleted = changesetsWith("D").map((change) => blobs[change.path]);
+
+  /**
+   * @type {Set<string>}
+   */
+  const renamed = new Set();
+
+  for (const change of changesetsWith("A")) {
+    const blob = blobs[change.path];
+    const index = blob === undefined ? -1 : deleted.indexOf(blob);
+
+    if (index !== -1) {
+      deleted.splice(index, 1);
+      renamed.add(change.path);
+    }
+  }
+
+  return renamed;
+};
+
+/**
  * Decides whether a branch carries the changeset its changes require.
  *
  * @param {Inputs} inputs The branch diff, package.json at both ends, and added changeset texts.
@@ -194,7 +228,7 @@ export const evaluate = ({
   basePackageJson,
   headPackageJson,
   changesets,
-  pendingAtBase = [],
+  blobs = {},
   version,
 }) => {
   /**
@@ -202,11 +236,12 @@ export const evaluate = ({
    */
   const head = JSON.parse(headPackageJson);
   const name = head.name ?? "<package>";
+  const renamed = renamedChangesets(changes, blobs);
 
   const added = changes
     .filter((change) => change.status === "A" && isChangesetPath(change.path))
     .map((change) => change.path)
-    .filter((path) => !pendingAtBase.includes(path));
+    .filter((path) => !renamed.has(path));
 
   const problems = added.flatMap((path) =>
     changesetProblems(path, changesets[path] ?? "", name, version),
@@ -272,24 +307,6 @@ const git = (args) => {
 };
 
 /**
- * Lists the blob ids of the changesets pending at a commit, so a renamed changeset can be
- * recognized by its content.
- *
- * @param {string} rev The commit to read.
- * @returns {Set<string>} The blob id of each changeset file at `rev`.
- */
-const changesetBlobs = (rev) => {
-  const entries = git(["ls-tree", "-z", rev, ".changeset/"]).stdout.split("\0");
-
-  return new Set(
-    entries
-      .map((entry) => /^\S+ blob (?<blob>\S+)\t(?<path>.+)$/u.exec(entry)?.groups)
-      .filter((groups) => groups !== undefined && isChangesetPath(groups.path ?? ""))
-      .map((groups) => groups?.blob ?? ""),
-  );
-};
-
-/**
  * Reads the `--base <ref>` argument.
  *
  * @param {string[]} argv Arguments after the script path.
@@ -332,25 +349,23 @@ const main = (argv) => {
 
   const basePackage = git(["show", `${baseRev}:package.json`]);
   const headPackageJson = git(["show", "HEAD:package.json"]).stdout;
-  const baseBlobs = changesetBlobs(baseRev);
   /**
    * @type {Record<string, string>}
    */
   const changesets = {};
   /**
-   * @type {string[]}
+   * @type {Record<string, string>}
    */
-  const pendingAtBase = [];
+  const blobs = {};
 
   for (const change of changes) {
     if (change.status === "A" && isChangesetPath(change.path)) {
       changesets[change.path] = git(["show", `HEAD:${change.path}`]).stdout;
+      blobs[change.path] = git(["rev-parse", `HEAD:${change.path}`]).stdout.trim();
+    }
 
-      const blob = git(["rev-parse", `HEAD:${change.path}`]).stdout.trim();
-
-      if (git(["cat-file", "-e", `${baseRev}:${change.path}`]).ok || baseBlobs.has(blob)) {
-        pendingAtBase.push(change.path);
-      }
+    if (change.status === "D" && isChangesetPath(change.path)) {
+      blobs[change.path] = git(["rev-parse", `${baseRev}:${change.path}`]).stdout.trim();
     }
   }
 
@@ -361,10 +376,10 @@ const main = (argv) => {
 
   const verdict = evaluate({
     basePackageJson: basePackage.ok ? basePackage.stdout : null,
+    blobs,
     changes,
     changesets,
     headPackageJson,
-    pendingAtBase,
     version: head.version ?? "0.0.0",
   });
 
