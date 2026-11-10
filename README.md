@@ -25,7 +25,7 @@ bun run build
 Declare a QTI choice interaction, decode a document, and encode the value back:
 
 ```ts
-import { Effect, Option, Schema } from "effect";
+import { Effect, Schema } from "effect";
 import { XmlSchema } from "@aidenzepp/effect-xml";
 
 const QTI = "http://www.imsglobal.org/xsd/imsqtiasi_v3p0";
@@ -62,17 +62,13 @@ console.log(value);
 const encoded = Schema.encodeSync(Document)(value);
 ```
 
-`Document` is an ordinary Schema codec, so a failed decode fails with `Schema.SchemaError`. `XmlSchema.findDecodeErrorOption` (or `findDecodeError`, which returns a `Result`) reads the positioned `XmlSchema.XmlDecodeError` back out of its `issue`, and `Effect.catchReason` selects it by reason. Decode a copy whose `max-choices` is not a number:
+`Document` is an ordinary Schema codec, so a failed decode fails with `Schema.SchemaError`. `XmlSchema.unwrapDecodeError` moves the positioned `XmlSchema.XmlDecodeError` stored in that error into the error channel, and `Effect.catchReason` selects it by reason. A failure that never reached XML, such as a non-string input, stays the same `SchemaError`. Decode a copy whose `max-choices` is not a number:
 
 ```ts
 const failure = Effect.runSync(
   Schema.decodeUnknownEffect(Document)(xml.replace('max-choices="1"', 'max-choices="x"')).pipe(
     Effect.as(undefined),
-    Effect.catchTag("SchemaError", (schemaError) =>
-      Effect.fail(
-        Option.getOrElse(XmlSchema.findDecodeErrorOption(schemaError.issue), () => schemaError),
-      ),
-    ),
+    XmlSchema.unwrapDecodeError,
     Effect.catchReason("XmlDecodeError", "SchemaFailure", (_reason, error) =>
       Effect.succeed(error),
     ),
@@ -117,6 +113,7 @@ Both blocks are regions of `test/readme.test.ts`, so the test suite runs them.
 | `equivalence`                                    | The round-trip equivalence on resolved elements under a root definition                                                   |
 | `findDecodeError`, `findEncodeError`             | Read the library error out of a failed decode's or encode's Schema issue, as a `Result`                                   |
 | `findDecodeErrorOption`, `findEncodeErrorOption` | The same, as an `Option`                                                                                                  |
+| `unwrapDecodeError` | Replaces a failed decode's `SchemaError` with the `XmlDecodeError` it stores, when it stores one |
 | `XmlDecodeError`, `XmlEncodeError`               | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position`                          |
 | `Tokenizer`                                      | The service that parses and writes XML text, defaulting to `effect/encoding/Xml`                                          |
 

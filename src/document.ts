@@ -322,3 +322,42 @@ export const findEncodeError = (
   issue: SchemaIssue.Issue,
 ): Result.Result<XmlEncodeError, SchemaIssue.Issue> =>
   Result.fromOption(findEncodeErrorOption(issue), () => issue);
+
+/**
+ * Move the XML decode error a failed {@link fromString} or {@link ElementFromString} decode stored
+ * in a `Schema.SchemaError` into the error channel, so `Effect.catchTag("XmlDecodeError")` and
+ * `Effect.catchReason("XmlDecodeError", ...)` apply to the decode in one step.
+ *
+ * Each `SchemaError` whose issue stores an XML decode error, found as
+ * {@link findDecodeErrorOption} finds it, is replaced by that error. A `SchemaError` that stores
+ * none and every other error pass through as the same instance. The channel therefore widens
+ * rather than narrows: it keeps `Schema.SchemaError`, because a failure that never reached XML
+ * decoding, such as a non-string input, is a real failure with no XML error to report. The
+ * argument's error channel must hold `Schema.SchemaError`; applying this to an effect without one
+ * is a type error, since there is nothing to unwrap.
+ *
+ * @example
+ *   const failure = Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(xml).pipe(
+ *     Effect.as(undefined),
+ *     unwrapDecodeError,
+ *     Effect.catchReason("XmlDecodeError", "SchemaFailure", (_reason, error) =>
+ *       Effect.succeed(error),
+ *     ),
+ *   );
+ *
+ * @param self - An effect whose error channel holds `Schema.SchemaError`, typically a `fromString`
+ *   decode, alone or as a field of a larger schema.
+ * @returns The same effect, failing with the stored XML decode error in place of each
+ *   `SchemaError` that carries one.
+ */
+export const unwrapDecodeError = <A, E, R>(
+  self: Effect.Effect<A, E, R> &
+    ([Extract<E, Schema.SchemaError>] extends [never] ? never : unknown),
+): Effect.Effect<A, E | XmlDecodeError, R> =>
+  self.pipe(
+    Effect.mapError((failure) =>
+      Schema.isSchemaError(failure)
+        ? Option.getOrElse(findDecodeErrorOption(failure.issue), () => failure)
+        : failure,
+    ),
+  );
