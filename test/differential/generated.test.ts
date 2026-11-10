@@ -296,7 +296,7 @@ const entriesOf = (value: unknown): readonly (readonly [string, unknown])[] => {
  * Name the features one encoded value exercises.
  *
  * The feature roots fix where each feature sits: `Catalog` holds the plain, `optionalKey`, and
- * `Array` slots and the second-namespace `extra` child, `node.child` is the `suspend` recursion,
+ * `many` slots and the second-namespace `extra` child, `node.child` is the `suspend` recursion,
  * `Bag`'s `*` slot is open `elements`, and `Para` and `Doc` are `mixed` closed and open.
  *
  * @param root - The value's root.

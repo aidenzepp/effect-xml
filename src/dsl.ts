@@ -114,7 +114,7 @@ export declare namespace Element {
       >;
 
   /**
-   * The decoded value of one child slot: an array for an `Array` slot, the element for an
+   * The decoded value of one child slot: an array for a `many` slot, the element for an
    * `optionalKey` slot and for a bare element codec.
    */
   export type Child<C> =
@@ -158,7 +158,7 @@ export declare namespace Element {
           : unknown;
 
   /**
-   * The decoding services one child slot's element codec requires, for a bare codec, an `Array`
+   * The decoding services one child slot's element codec requires, for a bare codec, a `many`
    * slot, or an `optionalKey` slot.
    */
   export type SlotDecodingServices<S> =
@@ -171,7 +171,7 @@ export declare namespace Element {
           : never;
 
   /**
-   * The encoding services one child slot's element codec requires, for a bare codec, an `Array`
+   * The encoding services one child slot's element codec requires, for a bare codec, a `many`
    * slot, or an `optionalKey` slot.
    */
   export type SlotEncodingServices<S> =

@@ -6,7 +6,7 @@
  * The roots cover a default and a prefixed namespace, an attribute in the prefixed namespace, a
  * child element in a second namespace the root's map does not declare (the writer declares it
  * below the root), `suspend` recursion, `text`, `elements` with a plain, an `optionalKey`, and an
- * `Array` slot and with `{ open: true }`, `mixed` closed and open, attributes required and
+ * `many` slot and with `{ open: true }`, `mixed` closed and open, attributes required and
  * optional, the `data-*` rest group, and leaf schemas of four kinds: plain `Schema.String`, the
  * transforming `Schema.Finite`, a checked `Schema.String`, and a `Schema.Literals` enum. This
  * module imports no test runner, so the cases module and child processes reuse it.
@@ -73,7 +73,7 @@ export const makeFeatures = () => {
 
   const Node: X.Element<"node", NodeValue> = feature.Element("node", {
     attributes: { label: Schema.String },
-    content: X.elements({ child: X.Array(feature.suspend("node", () => Node)) }),
+    content: X.elements({ child: X.many(feature.suspend("node", () => Node)) }),
   });
 
   const Catalog = feature.Element("catalog", {
@@ -84,7 +84,7 @@ export const makeFeatures = () => {
       "p:level": Schema.Literals(levels),
     },
     content: X.elements({
-      entry: X.Array(Entry),
+      entry: X.many(Entry),
       extra: Extra,
       node: Node,
       note: X.optionalKey(Note),

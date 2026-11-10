@@ -49,7 +49,7 @@ export const Value = qti.Element("qti-value", { content: XmlSchema.text(Schema.S
  * The correct value or values of a response variable.
  */
 export const CorrectResponse = qti.Element("qti-correct-response", {
-  content: XmlSchema.elements({ values: XmlSchema.Array(Value) }),
+  content: XmlSchema.elements({ values: XmlSchema.many(Value) }),
 });
 
 /**
@@ -72,7 +72,7 @@ export const Mapping = qti.Element("qti-mapping", {
     "lower-bound": Schema.optionalKey(Schema.Number),
     "upper-bound": Schema.optionalKey(Schema.Number),
   },
-  content: XmlSchema.elements({ entries: XmlSchema.Array(MapEntry) }),
+  content: XmlSchema.elements({ entries: XmlSchema.many(MapEntry) }),
 });
 
 /**
@@ -95,7 +95,7 @@ export const ResponseDeclaration = qti.Element("qti-response-declaration", {
  * The default value or values of an outcome variable.
  */
 export const DefaultValue = qti.Element("qti-default-value", {
-  content: XmlSchema.elements({ values: XmlSchema.Array(Value) }),
+  content: XmlSchema.elements({ values: XmlSchema.many(Value) }),
 });
 
 /**
@@ -235,7 +235,7 @@ export const ChoiceInteraction = qti.Element("qti-choice-interaction", {
   // oxlint-disable-next-line sort-keys -- slot order is encode order; QTI puts the prompt first.
   content: XmlSchema.elements({
     prompt: XmlSchema.optionalKey(Prompt),
-    choices: XmlSchema.Array(SimpleChoice),
+    choices: XmlSchema.many(SimpleChoice),
   }),
 });
 
@@ -276,7 +276,7 @@ export const HotspotInteraction = qti.Element("qti-hotspot-interaction", {
   content: XmlSchema.elements({
     prompt: XmlSchema.optionalKey(Prompt),
     image: Img,
-    choices: XmlSchema.Array(HotspotChoice),
+    choices: XmlSchema.many(HotspotChoice),
   }),
   /* oxlint-enable sort-keys */
 });
@@ -373,8 +373,8 @@ export const AssessmentItem = qti.Element("qti-assessment-item", {
   },
   /* oxlint-disable sort-keys -- slot order is encode order, which must follow QTI authoring order. */
   content: XmlSchema.elements({
-    responseDeclarations: XmlSchema.Array(ResponseDeclaration),
-    outcomeDeclarations: XmlSchema.Array(OutcomeDeclaration),
+    responseDeclarations: XmlSchema.many(ResponseDeclaration),
+    outcomeDeclarations: XmlSchema.many(OutcomeDeclaration),
     body: ItemBody,
     responseProcessing: XmlSchema.optionalKey(ResponseProcessing),
   }),

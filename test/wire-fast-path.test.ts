@@ -43,7 +43,7 @@ const V = XmlSchema.Element("v", { content: XmlSchema.text(Schema.Finite) });
  */
 const P = XmlSchema.Element("p", {
   attributes: { id: Schema.String },
-  content: XmlSchema.elements({ e: E, items: XmlSchema.Array(T) }),
+  content: XmlSchema.elements({ e: E, items: XmlSchema.many(T) }),
 });
 
 /**
@@ -74,7 +74,7 @@ const D = XmlSchema.Element("d", { attributes: { "data-*": Schema.Finite, id: Sc
 const R = XmlSchema.Element("r", {
   content: XmlSchema.elements({
     d: XmlSchema.optionalKey(D),
-    e: XmlSchema.Array(E),
+    e: XmlSchema.many(E),
     m: XmlSchema.optionalKey(M),
     om: XmlSchema.optionalKey(OM),
     v: XmlSchema.optionalKey(V),

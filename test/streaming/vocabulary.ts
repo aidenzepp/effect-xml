@@ -73,8 +73,8 @@ export const ItemRef = qti.Element("qti-assessment-item-ref", {
     required: Schema.optionalKey(Schema.Boolean),
   },
   content: XmlSchema.elements({
-    rules: XmlSchema.Array(BranchRule),
-    weights: XmlSchema.Array(Weight),
+    rules: XmlSchema.many(BranchRule),
+    weights: XmlSchema.many(Weight),
   }),
 });
 

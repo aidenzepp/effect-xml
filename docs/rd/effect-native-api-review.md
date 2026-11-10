@@ -458,3 +458,11 @@ Kept, with the reason:
 ### Ruling: the extractors are named `find*` and `find*Option`
 
 Decided for 0.2.0 under issue #1. `decodeErrorOf` and `encodeErrorOf` moved to `findDecodeErrorOption` and `findEncodeErrorOption`, and `findDecodeError` and `findEncodeError` return the `Result` form that fails with the input issue. Why: `Cause` and `Exit` name this kind of extraction `findError` (`Result`) and `findErrorOption` (`Option`), and no Effect `*Of` export searches a failure at runtime. The earlier lines here that name `decodeErrorOf` record what was decided before this ruling.
+
+## Issue #3: `XmlSchema.Array` becomes `XmlSchema.many`
+
+Ruling (2026-11-09): rename `XmlSchema.Array` to `XmlSchema.many`. No alias.
+
+Reason: `many` is already the helper in `src/plan.ts`, its interface, and the marker's `cardinality` value, and the caller-facing message in `src/compile.ts` already says "declare the slot as many", so no other identifier changes. Lowercase follows the casing audit's rule for non-schema content markers (`text`, `elements`, `mixed`; section 8) and clears its `Array` exception. Parser-combinator `many` is zero-or-more (`many1` is one-or-more).
+
+Names weighed in a cold hater pass (Effect 4 developer persona): `zeroOrMore` was least surprising but implies `oneOrMore`/`optional` siblings that do not exist; `many` is moderate, with a 0+ versus 1+ ambiguity; `variadic` is most misleading (a CLI argument term, `effect/src/cli/Param.ts:2090`); `arrayKey` misreads Effect's `*Key` family. The ambiguity is answered in the JSDoc and README: zero or more, the key is always present, and it holds an empty array when none match.

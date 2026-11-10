@@ -20,7 +20,7 @@ const ChoiceInteraction = Element("qti-choice-interaction", {
   attributes: { "max-choices": Schema.Int, "response-identifier": Schema.String },
   content: XmlSchema.elements({
     prompt: XmlSchema.optionalKey(Prompt),
-    choices: XmlSchema.Array(SimpleChoice),
+    choices: XmlSchema.many(SimpleChoice),
   }),
 });
 

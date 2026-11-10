@@ -16,7 +16,7 @@ const bank = XmlSchema.namespaces({ "": QTI });
  * A `qti-item-bank` root whose children are the item-ref records, decoded as one document.
  */
 export const ItemBank = bank.Element("qti-item-bank", {
-  content: XmlSchema.elements({ refs: XmlSchema.Array(ItemRef) }),
+  content: XmlSchema.elements({ refs: XmlSchema.many(ItemRef) }),
 });
 
 /**
