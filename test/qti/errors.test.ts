@@ -1,7 +1,7 @@
 /**
  * The error paths of the QTI vocabulary on `bg007-true-false.xml`: each variant breaks one
- * attribute and the decode fails with one `XmlSchema.XmlDecodeError` whose path, reason, and message
- * name the problem (criteria C2 and T3).
+ * attribute and the decode fails with one `XmlSchema.XmlDecodeError` whose path, reason, and
+ * message name the problem (criteria C2 and T3).
  */
 import { readFileSync } from "node:fs";
 
