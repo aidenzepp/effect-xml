@@ -1,6 +1,6 @@
 {
   "name": "@aidenzepp/effect-xml",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Decode XML into Effect Schema values and encode them back, from one definition per element.",
   "keywords": [
     "codec",

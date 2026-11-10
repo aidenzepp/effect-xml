@@ -1,5 +1,17 @@
 # @aidenzepp/effect-xml
 
+## 0.2.0
+
+### Minor Changes
+
+- b342487: Rename the XmlSchema.DecodeError and XmlSchema.EncodeError exports to XmlDecodeError and XmlEncodeError so each export name equals its tag (breaking)
+- fcaa846: Rename XmlSchema.decodeErrorOf and encodeErrorOf to findDecodeErrorOption and findEncodeErrorOption, and add Result-returning findDecodeError and findEncodeError (breaking)
+- 5952be1: Rename XmlSchema.Array to XmlSchema.many, because it returns a child-slot marker, not a schema (breaking)
+
+### Patch Changes
+
+- fdda9f5: Add XmlSchema.unwrapDecodeError, which moves the XML decode error out of a failed fromString decode into the error channel in one step
+
 ## 0.1.0
 
 ### Minor Changes
