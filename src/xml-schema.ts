@@ -3,10 +3,10 @@
  * `effect/encoding/Xml`.
  *
  * Declare element codecs with {@link Element}, {@link text}, {@link elements}, {@link mixed},
- * {@link many}, and {@link optionalKey}; decode and encode whole documents with the
- * {@link fromString} codec; decode records from a stream with {@link decodeSchemaString} and
- * {@link decodeSchema}. Every caller failure is a {@link XmlDecodeError} or an {@link XmlEncodeError},
- * each carrying a tagged reason.
+ * {@link many}, and {@link optionalKey}; decode and encode whole documents with the {@link fromString}
+ * codec; decode records from a stream with {@link decodeSchemaString} and {@link decodeSchema}. Every
+ * caller failure is a {@link XmlDecodeError} or an {@link XmlEncodeError}, each carrying a tagged
+ * reason.
  *
  * {@link suspend} keeps its leading name argument, unlike `Schema.suspend`: mixed content and
  * child dispatch match members by wire name before the thunk is forced, so the name is known up
