@@ -309,7 +309,7 @@ describe("differential harness", () => {
   });
 
   it("refuses a decode reason it has no summary for", () => {
-    const error = new SrcXml.DecodeError({
+    const error = new SrcXml.XmlDecodeError({
       message: "m",
       path: "/item",
       reason: new SrcXml.Limit({ limit: "maxDepth", max: 1 }),

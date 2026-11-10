@@ -2,13 +2,14 @@ import { describe, expect, it } from "@effect/vitest";
 import * as Arr from "effect/Array";
 import * as Effect from "effect/Effect";
 import * as Xml from "effect/encoding/Xml";
+import * as Option from "effect/Option";
 import * as Order from "effect/Order";
 import * as Schema from "effect/Schema";
 import * as Stream from "effect/Stream";
 import { expectTypeOf } from "vitest";
 
 import type { ResolvedElement } from "../src/element.ts";
-import { XmlDecodeError } from "../src/issue.ts";
+import { XmlDecodeError, XmlEncodeError } from "../src/issue.ts";
 import { XmlSchema } from "../src/index.ts";
 
 /**
@@ -35,8 +36,8 @@ const members = [
   "decodeSchemaString",
   "equivalence",
   "Tokenizer",
-  "DecodeError",
-  "EncodeError",
+  "XmlDecodeError",
+  "XmlEncodeError",
   "isDecodeError",
   "isEncodeError",
   "SchemaFailure",
@@ -63,8 +64,6 @@ const excluded = [
   "defaultMaxElementSize",
   "defaultMaxElementNodes",
   "optional",
-  "XmlDecodeError",
-  "XmlEncodeError",
   "ResolvedElement",
   "defaultTokenizer",
 ];
@@ -107,10 +106,76 @@ describe("XmlSchema", () => {
     }
   });
 
-  it("renames the error types at the namespace boundary", () => {
-    expectTypeOf<typeof XmlSchema.DecodeError>().toEqualTypeOf<typeof XmlDecodeError>();
-    expect(XmlSchema.DecodeError).toBe(XmlDecodeError);
+  it("exports each error under its tag and drops the unprefixed names", () => {
+    expectTypeOf<typeof XmlSchema.XmlDecodeError>().toEqualTypeOf<typeof XmlDecodeError>();
+    expect(XmlSchema.XmlDecodeError).toBe(XmlDecodeError);
+    expect(XmlSchema.XmlEncodeError).toBe(XmlEncodeError);
+    expect("DecodeError" in XmlSchema).toBe(false);
+    expect("EncodeError" in XmlSchema).toBe(false);
   });
+
+  it.effect("names the class of every error after its tag", () =>
+    Effect.gen(function* namesClassAfterTag() {
+      const Doc = XmlSchema.fromString(
+        XmlSchema.Element("p", { content: XmlSchema.text(Schema.Finite) }),
+      );
+
+      const decodeFailure = yield* Schema.decodeUnknownEffect(Doc)("<p>x</p>").pipe(Effect.flip);
+      const decodeError = Option.getOrThrow(XmlSchema.findDecodeErrorOption(decodeFailure.issue));
+
+      const encodeFailure = yield* Schema.encodeEffect(Doc)({ $text: Number.NaN }).pipe(
+        Effect.flip,
+      );
+
+      const encodeError = Option.getOrThrow(XmlSchema.findEncodeErrorOption(encodeFailure.issue));
+
+      expect(decodeError._tag).toBe("XmlDecodeError");
+      expect(encodeError._tag).toBe("XmlEncodeError");
+
+      const exported = {
+        XmlDecodeError: XmlSchema.XmlDecodeError,
+        XmlEncodeError: XmlSchema.XmlEncodeError,
+      };
+
+      for (const error of [decodeError, encodeError]) {
+        expect(exported[error._tag]).toBe(error.constructor);
+        expect(error.constructor.name).toBe(error._tag);
+
+        const caught = yield* Effect.fail(error).pipe(
+          Effect.catchTag(error._tag, () => Effect.succeed("caught")),
+        );
+
+        expect(caught).toBe("caught");
+      }
+    }),
+  );
+
+  it.effect("names the class of a decodeSchemaString channel error after its tag", () =>
+    Effect.gen(function* namesChannelClassAfterTag() {
+      const Item = XmlSchema.Element("item", { content: XmlSchema.text(Schema.String) });
+
+      const error = yield* Stream.make("<r><item>x</r>").pipe(
+        Stream.pipeThroughChannel(XmlSchema.decodeSchemaString(Item, ["r", "item"])()),
+        Stream.runDrain,
+        Effect.flip,
+      );
+
+      const exported = {
+        XmlDecodeError: XmlSchema.XmlDecodeError,
+        XmlEncodeError: XmlSchema.XmlEncodeError,
+      };
+
+      expect(error._tag).toBe("XmlDecodeError");
+      expect(exported[error._tag]).toBe(error.constructor);
+      expect(error.constructor.name).toBe(error._tag);
+
+      const caught = yield* Effect.fail(error).pipe(
+        Effect.catchTag(error._tag, () => Effect.succeed("caught")),
+      );
+
+      expect(caught).toBe("caught");
+    }),
+  );
 
   it("names the element constructor, its codec type, and the resolved tree in Effect casing", () => {
     const P = XmlSchema.Element("p", { content: XmlSchema.text(Schema.String) });

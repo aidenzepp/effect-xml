@@ -455,7 +455,7 @@ const records = <Def extends AnyElement, In, IE, Done>(
  * and `maxDepth`. Each element of an input chunk is parsed on its own pull, so a record is emitted
  * once the input that completes it is parsed. Records decode one at a time with the record codec
  * and `parseOptions`, and records decoded before a failure are emitted before it. Every caller
- * failure is an `DecodeError`: malformed input has reason `WellFormedness` at the parser's
+ * failure is an `XmlDecodeError`: malformed input has reason `WellFormedness` at the parser's
  * position, an unbound prefix reason `UndeclaredPrefix`, a record over a budget or an input over a
  * tokenizer limit reason `Limit`, and a value the codec rejects reason `SchemaFailure` with
  * `record` its one-based ordinal. Under `errors: "all"` the error's `path`, `message`, and

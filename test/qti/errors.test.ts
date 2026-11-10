@@ -1,7 +1,7 @@
 /**
  * The error paths of the QTI vocabulary on `bg007-true-false.xml`: each variant breaks one
- * attribute and the decode fails with one `XmlSchema.DecodeError` whose path, reason, and message
- * name the problem (criteria C2 and T3).
+ * attribute and the decode fails with one `XmlSchema.XmlDecodeError` whose path, reason, and
+ * message name the problem (criteria C2 and T3).
  */
 import { readFileSync } from "node:fs";
 
@@ -40,10 +40,10 @@ const variant = (from: string, to: string): string => {
  * carries.
  *
  * @param xml - The XML text expected to fail decoding.
- * @returns An effect yielding the `XmlSchema.DecodeError`, dying when the decode succeeds or the
+ * @returns An effect yielding the `XmlSchema.XmlDecodeError`, dying when the decode succeeds or the
  *   failure carries no XML decode error.
  */
-const failureOf = (xml: string): Effect.Effect<XmlSchema.DecodeError> =>
+const failureOf = (xml: string): Effect.Effect<XmlSchema.XmlDecodeError> =>
   Schema.decodeUnknownEffect(XmlSchema.fromString(AssessmentItem))(xml).pipe(
     Effect.flip,
     Effect.flatMap((failure) => Effect.fromOption(XmlSchema.findDecodeErrorOption(failure.issue))),

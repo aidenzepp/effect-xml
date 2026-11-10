@@ -466,3 +466,11 @@ Ruling (2026-11-09): rename `XmlSchema.Array` to `XmlSchema.many`. No alias.
 Reason: `many` is already the helper in `src/plan.ts`, its interface, and the marker's `cardinality` value, and the caller-facing message in `src/compile.ts` already says "declare the slot as many", so no other identifier changes. Lowercase follows the casing audit's rule for non-schema content markers (`text`, `elements`, `mixed`; section 8) and clears its `Array` exception. Parser-combinator `many` is zero-or-more (`many1` is one-or-more).
 
 Names weighed in a cold hater pass (Effect 4 developer persona): `zeroOrMore` was least surprising but implies `oneOrMore`/`optional` siblings that do not exist; `many` is moderate, with a 0+ versus 1+ ambiguity; `variadic` is most misleading (a CLI argument term, `effect/src/cli/Param.ts:2090`); `arrayKey` misreads Effect's `*Key` family. The ambiguity is answered in the JSDoc and README: zero or more, the key is always present, and it holds an empty array when none match.
+
+### Ruling: export names of the channel errors (issue #5, 2026-11-09)
+
+Option (b): `XmlSchema.XmlDecodeError` and `XmlSchema.XmlEncodeError` are the exports. The classes, the tags `"XmlDecodeError"` and `"XmlEncodeError"`, and every serialized `_tag` stay. This supersedes the earlier `DecodeError`/`EncodeError` export names above, which stay as history.
+
+Why: a tag is the runtime dispatch key in the caller's merged error union and no namespace scopes it, while the export name is already scoped by `XmlSchema`. Every reason-carrying `TaggedError` in effect 4.1.2 has a module-qualified tag and repeats the module name in its export (`Xml.XmlError` at `effect/src/encoding/Xml.ts:51`, `Schema.SchemaError` at `Schema.ts:1219`, `Sse.SseError`, `Ndjson.NdjsonError`); short tags appear only on reason classes. Option (a) would give a channel-level error the `"DecodeError"`/`"EncodeError"` tags effect already uses for `HttpClientError` and `GraphQLClientError` reasons (`http/HttpClientError.ts:148`, `:262`; `graphql/GraphQLClientError.ts:329`, `:363`), so a caller that lifts a reason would match both with one `catchTag`. Option (b) changes no tag literal; option (a) changes 93.
+
+Guards (`isDecodeError`, `isEncodeError`), reason types and `src/issue.ts` are unchanged and tracked separately.
