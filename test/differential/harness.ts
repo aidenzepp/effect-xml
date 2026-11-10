@@ -40,8 +40,8 @@ import { structuralPlan } from "../../src/structural-slot.ts";
  */
 export interface Side {
   readonly name: "src" | "standard";
-  readonly findDecodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.DecodeError>;
-  readonly findEncodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.EncodeError>;
+  readonly findDecodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.XmlDecodeError>;
+  readonly findEncodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.XmlEncodeError>;
   readonly Tokenizer: typeof SrcXml.Tokenizer;
 }
 
@@ -462,7 +462,7 @@ const decodeReasonOf = (reason: SrcXml.DecodeErrorReason): DecodeReasonSummary =
  * @returns The error's summary.
  * @throws {Error} When the reason's `_tag` has no summary.
  */
-export const decodeErrorSummary = (error: SrcXml.DecodeError): DecodeErrorSummary => ({
+export const decodeErrorSummary = (error: SrcXml.XmlDecodeError): DecodeErrorSummary => ({
   _tag: error._tag,
   message: error.message,
   path: error.path,
@@ -511,7 +511,7 @@ const encodeReasonOf = (reason: SrcXml.EncodeErrorReason): EncodeReasonSummary =
  * @returns The error's summary.
  * @throws {Error} When the reason's `_tag` has no summary.
  */
-export const encodeErrorSummary = (error: SrcXml.EncodeError): EncodeErrorSummary => ({
+export const encodeErrorSummary = (error: SrcXml.XmlEncodeError): EncodeErrorSummary => ({
   _tag: error._tag,
   message: error.message,
   path: error.path,
@@ -653,7 +653,7 @@ export const stringEncode = <A, R>(
   encode: (
     value: A,
     parseOptions?: SchemaAST.ParseOptions,
-  ) => Effect.Effect<string, SrcXml.EncodeError, R>,
+  ) => Effect.Effect<string, SrcXml.XmlEncodeError, R>,
   value: A,
   parseOptions?: SchemaAST.ParseOptions,
 ): Effect.Effect<StringEncodeOutcome, never, R> =>
@@ -695,7 +695,7 @@ export const channelDecode = <A, In, R>(
     parseOptions?: SchemaAST.ParseOptions,
   ) => Channel.Channel<
     Arr.NonEmptyReadonlyArray<A>,
-    SrcXml.DecodeError,
+    SrcXml.XmlDecodeError,
     unknown,
     Arr.NonEmptyReadonlyArray<In>,
     never,

@@ -101,11 +101,11 @@ const rootLookup =
  * when it opens a new text child. When absent, `maxElementSize` defaults to 16 MiB of UTF-16 code
  * units and `maxElementNodes` to one million per record; `Infinity` disables either, and a value
  * that is not a positive number is a defect. A record over a budget
- * fails with `DecodeError` reason `Limit`.
+ * fails with `XmlDecodeError` reason `Limit`.
  *
  * `maxTokenSize` and `maxDepth` pass to the tokenizer as its decode options of the same name: the
  * longest token in UTF-16 code units and the deepest element nesting. Each takes the tokenizer's
- * default when absent, and an input over either fails with `DecodeError` reason `Limit` whose
+ * default when absent, and an input over either fails with `XmlDecodeError` reason `Limit` whose
  * `limit` names the option and whose `max` is its value, positioned at the parser's line and
  * column. They are declared here rather than inherited from `Xml.DecodeOptions`, so a field added
  * upstream does not appear in this signature without being forwarded.

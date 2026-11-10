@@ -305,7 +305,7 @@ interface ErrorSummary {
  * @param error - The XML decode error.
  * @returns Its tag, reason tag, path, message, and position.
  */
-const errorOf = (error: XmlSchema.DecodeError): ErrorSummary => ({
+const errorOf = (error: XmlSchema.XmlDecodeError): ErrorSummary => ({
   _tag: error._tag,
   message: error.message,
   path: error.path,
@@ -3962,7 +3962,7 @@ describe("wire fast path: whole documents", () => {
  * @returns The outcome.
  */
 const channelOutcomeOf = (
-  exit: Exit.Exit<readonly (typeof R)["Type"][], XmlSchema.DecodeError>,
+  exit: Exit.Exit<readonly (typeof R)["Type"][], XmlSchema.XmlDecodeError>,
 ): ChannelOutcome =>
   Exit.match(exit, {
     onFailure: (cause): ChannelOutcome => {

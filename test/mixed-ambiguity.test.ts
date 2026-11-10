@@ -310,7 +310,7 @@ const banked = (row: Row) => ({
  * @returns The decoded value, the error's tags and path, or `undefined` for a defect or an
  *   interruption.
  */
-const decodedOf = (exit: Exit.Exit<unknown, SrcXml.DecodeError>): Decoded | undefined =>
+const decodedOf = (exit: Exit.Exit<unknown, SrcXml.XmlDecodeError>): Decoded | undefined =>
   Exit.isSuccess(exit)
     ? { value: exit.value }
     : Cause.findErrorOption(exit.cause).pipe(
@@ -330,7 +330,7 @@ const decodedOf = (exit: Exit.Exit<unknown, SrcXml.DecodeError>): Decoded | unde
  * @param exit - The `decodeString` run's exit.
  * @returns The `fromString` outcome summary, or `undefined` for a defect or an interruption.
  */
-const documentOutcomeOf = (exit: Exit.Exit<unknown, SrcXml.DecodeError>) =>
+const documentOutcomeOf = (exit: Exit.Exit<unknown, SrcXml.XmlDecodeError>) =>
   Exit.isSuccess(exit)
     ? valueSummary(exit.value)
     : Cause.findErrorOption(exit.cause).pipe(
@@ -365,7 +365,7 @@ const sharedChannelOutcome = (outcome: ChannelOutcome) => ({
  * @param exit - The `decodeString` run's exit.
  * @returns The comparable channel outcome, or `undefined` for a defect or an interruption.
  */
-const channelOutcomeOf = (exit: Exit.Exit<unknown, SrcXml.DecodeError>) =>
+const channelOutcomeOf = (exit: Exit.Exit<unknown, SrcXml.XmlDecodeError>) =>
   Exit.isSuccess(exit)
     ? sharedChannelOutcome({ end: "done", records: [valueSummary(exit.value)] })
     : Cause.findErrorOption(exit.cause).pipe(

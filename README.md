@@ -62,7 +62,7 @@ console.log(value);
 const encoded = Schema.encodeSync(Document)(value);
 ```
 
-`Document` is an ordinary Schema codec, so a failed decode fails with `Schema.SchemaError`. `XmlSchema.findDecodeErrorOption` (or `findDecodeError`, which returns a `Result`) reads the positioned `XmlSchema.DecodeError` back out of its `issue`, and `Effect.catchReason` selects it by reason. Decode a copy whose `max-choices` is not a number:
+`Document` is an ordinary Schema codec, so a failed decode fails with `Schema.SchemaError`. `XmlSchema.findDecodeErrorOption` (or `findDecodeError`, which returns a `Result`) reads the positioned `XmlSchema.XmlDecodeError` back out of its `issue`, and `Effect.catchReason` selects it by reason. Decode a copy whose `max-choices` is not a number:
 
 ```ts
 const failure = Effect.runSync(
@@ -117,7 +117,7 @@ Both blocks are regions of `test/readme.test.ts`, so the test suite runs them.
 | `equivalence`                                    | The round-trip equivalence on resolved elements under a root definition                                                   |
 | `findDecodeError`, `findEncodeError`             | Read the library error out of a failed decode's or encode's Schema issue, as a `Result`                                   |
 | `findDecodeErrorOption`, `findEncodeErrorOption` | The same, as an `Option`                                                                                                  |
-| `DecodeError`, `EncodeError`                     | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position`                          |
+| `XmlDecodeError`, `XmlEncodeError`               | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position`                          |
 | `Tokenizer`                                      | The service that parses and writes XML text, defaulting to `effect/encoding/Xml`                                          |
 
 A record path is a root-anchored list of steps. Each step is `"*"` for any element, a bare `local` name for no namespace, or `{uri}local` for a namespaced one. The path `["order", "item"]` selects each `item` directly inside the root `order`. `clark` builds a `{uri}local` step from a separate URI.
