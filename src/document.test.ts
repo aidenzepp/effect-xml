@@ -141,6 +141,7 @@ describe("fromString", () => {
       const stored = yield* Effect.flip(
         Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml),
       );
+
       const missing = yield* Effect.flip(
         Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(42),
       );
@@ -148,6 +149,7 @@ describe("fromString", () => {
       expect(findDecodeError(stored.issue)).toEqual(
         Result.succeed(Option.getOrThrow(findDecodeErrorOption(stored.issue))),
       );
+
       const failed = findDecodeError(missing.issue);
 
       expect(Result.isFailure(failed)).toBe(true);
@@ -185,7 +187,9 @@ describe("fromString", () => {
           id: Schema.String.check(Schema.isNonEmpty()).pipe(Schema.decodeTo(Schema.String)),
         },
       });
+
       const stored = yield* Effect.flip(Schema.encodeEffect(fromString(Label))({ id: "" }));
+
       const missing = yield* Effect.flip(
         Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml),
       );
@@ -193,6 +197,7 @@ describe("fromString", () => {
       expect(findEncodeError(stored.issue)).toEqual(
         Result.succeed(Option.getOrThrow(findEncodeErrorOption(stored.issue))),
       );
+
       const failed = findEncodeError(missing.issue);
 
       expect(Result.isFailure(failed)).toBe(true);
