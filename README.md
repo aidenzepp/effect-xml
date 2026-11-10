@@ -113,7 +113,7 @@ Both blocks are regions of `test/readme.test.ts`, so the test suite runs them.
 | `equivalence`                                    | The round-trip equivalence on resolved elements under a root definition                                                   |
 | `findDecodeError`, `findEncodeError`             | Read the library error out of a failed decode's or encode's Schema issue, as a `Result`                                   |
 | `findDecodeErrorOption`, `findEncodeErrorOption` | The same, as an `Option`                                                                                                  |
-| `unwrapDecodeError` | Replaces a failed decode's `SchemaError` with the `XmlDecodeError` it stores, when it stores one |
+| `unwrapDecodeError`                              | Replaces a failed decode's `SchemaError` with the `XmlDecodeError` it stores, when it stores one                          |
 | `XmlDecodeError`, `XmlEncodeError`               | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position`                          |
 | `Tokenizer`                                      | The service that parses and writes XML text, defaulting to `effect/encoding/Xml`                                          |
 
