@@ -150,6 +150,33 @@ describe("XmlSchema", () => {
     }),
   );
 
+  it.effect("names the class of a decodeSchemaString channel error after its tag", () =>
+    Effect.gen(function* namesChannelClassAfterTag() {
+      const Item = XmlSchema.Element("item", { content: XmlSchema.text(Schema.String) });
+
+      const error = yield* Stream.make("<r><item>x</r>").pipe(
+        Stream.pipeThroughChannel(XmlSchema.decodeSchemaString(Item, ["r", "item"])()),
+        Stream.runDrain,
+        Effect.flip,
+      );
+
+      const exported = {
+        XmlDecodeError: XmlSchema.XmlDecodeError,
+        XmlEncodeError: XmlSchema.XmlEncodeError,
+      };
+
+      expect(error._tag).toBe("XmlDecodeError");
+      expect(exported[error._tag]).toBe(error.constructor);
+      expect(error.constructor.name).toBe(error._tag);
+
+      const caught = yield* Effect.fail(error).pipe(
+        Effect.catchTag(error._tag, () => Effect.succeed("caught")),
+      );
+
+      expect(caught).toBe("caught");
+    }),
+  );
+
   it("names the element constructor, its codec type, and the resolved tree in Effect casing", () => {
     const P = XmlSchema.Element("p", { content: XmlSchema.text(Schema.String) });
 
