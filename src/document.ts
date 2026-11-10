@@ -1,6 +1,7 @@
 import * as Arr from "effect/Array";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
+import * as Result from "effect/Result";
 import * as Schema from "effect/Schema";
 import * as SchemaIssue from "effect/SchemaIssue";
 import * as SchemaTransformation from "effect/SchemaTransformation";
@@ -25,8 +26,8 @@ const XmlText = Schema.String.annotate({ expected: "a string that will be decode
  * a codec.
  *
  * The `message` annotation is the error's own message, so a formatted `Schema.SchemaError` reads
- * the same as the error, and the `xml` annotation is the error itself, which {@link decodeErrorOf}
- * or {@link encodeErrorOf} reads back.
+ * the same as the error, and the `xml` annotation is the error itself, which
+ * {@link findDecodeErrorOption} or {@link findEncodeErrorOption} reads back.
  *
  * @param error - The library error of the failed decode or encode.
  * @returns The annotations of the `InvalidValue` issue that carries `error`.
@@ -104,8 +105,8 @@ export interface fromString<Def extends AnyElement> extends Schema.decodeTo<
  * encoding writes the value with the prefixes of `def`'s namespaces map. The parse options of the
  * run reach `def`, so under `errors: "all"` every issue `def` finds is kept.
  *
- * Every failure is a `Schema.SchemaError`. When the text or value was rejected by the XML layer
- * or by `def`, {@link decodeErrorOf} reads the XML decode error, with its path, message, and
+ * Every failure is a `Schema.SchemaError`. When the text or value was rejected by the XML layer or
+ * by `def`, {@link findDecodeErrorOption} reads the XML decode error, with its path, message, and
  * position, from the error's `issue`; a non-string input fails before any XML is read.
  *
  * `options` holds the parser limits and budgets of the document's one record, the root, and
@@ -161,10 +162,10 @@ export const fromString = <Def extends AnyElement>(
  * Build a codec from one XML document's text to its root as a resolved element, with no element
  * codec applied.
  *
- * Decoding resolves the document's namespaces to Clark names and fails as {@link fromString}
- * does short of a value check: malformed text, an unbound prefix, or a document over a limit.
- * Encoding writes the tree with `prefixes`, the prefix of each namespace the text spells (`""`
- * for the default namespace). {@link decodeErrorOf} reads the XML decode error from a failure's
+ * Decoding resolves the document's namespaces to Clark names and fails as {@link fromString} does
+ * short of a value check: malformed text, an unbound prefix, or a document over a limit. Encoding
+ * writes the tree with `prefixes`, the prefix of each namespace the text spells (`""` for the
+ * default namespace). {@link findDecodeErrorOption} reads the XML decode error from a failure's
  * `issue`.
  *
  * @param prefixes - The prefix of each namespace the encoded text spells.
@@ -233,37 +234,91 @@ const carriedErrorOf = <E>(
  *
  * The search walks the whole issue tree, so the error is found when the codec is a field of a
  * struct, an element of an array, or behind `Schema.fromJsonString`; the first stored error wins.
- * An encode failure's issue holds no decode error; {@link encodeErrorOf} reads that one.
+ * An encode failure's issue holds no decode error; {@link findEncodeErrorOption} reads that one.
+ * {@link findDecodeError} is the `Result` form.
  *
  * @example
  *   const located = Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(xml).pipe(
  *     Effect.map(() => Option.none()),
- *     Effect.catchTag("SchemaError", (error) => Effect.succeed(decodeErrorOf(error.issue))),
+ *     Effect.catchTag("SchemaError", (error) =>
+ *       Effect.succeed(findDecodeErrorOption(error.issue)),
+ *     ),
  *   );
  *
  * @param issue - The issue of a `Schema.SchemaError`.
  * @returns The stored XML decode error, or `None` when the failure never reached XML decoding,
  *   for example a non-string input.
  */
-export const decodeErrorOf = (issue: SchemaIssue.Issue): Option.Option<XmlDecodeError> =>
+export const findDecodeErrorOption = (issue: SchemaIssue.Issue): Option.Option<XmlDecodeError> =>
   carriedErrorOf(issue, isDecodeError);
 
 /**
  * Read the XML encode error a failed {@link fromString} or {@link ElementFromString} encode
  * stored in a schema issue.
  *
- * The search walks the whole issue tree as {@link decodeErrorOf} does; the first stored error
- * wins. A decode failure's issue holds no encode error, so this returns `None` for it.
+ * The search walks the whole issue tree as {@link findDecodeErrorOption} does; the first stored
+ * error wins. A decode failure's issue holds no encode error, so this returns `None` for it.
+ * {@link findEncodeError} is the `Result` form.
  *
  * @example
  *   const located = Schema.encodeEffect(fromString(ChoiceInteraction))(value).pipe(
  *     Effect.map(() => Option.none()),
- *     Effect.catchTag("SchemaError", (error) => Effect.succeed(encodeErrorOf(error.issue))),
+ *     Effect.catchTag("SchemaError", (error) =>
+ *       Effect.succeed(findEncodeErrorOption(error.issue)),
+ *     ),
  *   );
  *
  * @param issue - The issue of a `Schema.SchemaError`.
  * @returns The stored XML encode error, or `None` when the failure never reached XML encoding,
  *   for example a value the root schema rejects before it is written.
  */
-export const encodeErrorOf = (issue: SchemaIssue.Issue): Option.Option<XmlEncodeError> =>
+export const findEncodeErrorOption = (issue: SchemaIssue.Issue): Option.Option<XmlEncodeError> =>
   carriedErrorOf(issue, isEncodeError);
+
+/**
+ * Read the XML decode error a failed {@link fromString} or {@link ElementFromString} decode
+ * stored in a schema issue, as a `Result`.
+ *
+ * It is {@link findDecodeErrorOption} with the input issue kept on failure, the same shape as
+ * `Cause.findError`, so it fits `Filter` pipelines.
+ *
+ * @example
+ *   const located = Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(xml).pipe(
+ *     Effect.map(() => undefined),
+ *     Effect.catchTag("SchemaError", (error) =>
+ *       Effect.succeed(Result.getOrUndefined(findDecodeError(error.issue))),
+ *     ),
+ *   );
+ *
+ * @param issue - The issue of a `Schema.SchemaError`.
+ * @returns `Success` with the stored XML decode error, or `Failure` with `issue` itself when the
+ *   failure never reached XML decoding.
+ */
+export const findDecodeError = (
+  issue: SchemaIssue.Issue,
+): Result.Result<XmlDecodeError, SchemaIssue.Issue> =>
+  Result.fromOption(findDecodeErrorOption(issue), () => issue);
+
+/**
+ * Read the XML encode error a failed {@link fromString} or {@link ElementFromString} encode
+ * stored in a schema issue, as a `Result`.
+ *
+ * It is {@link findEncodeErrorOption} with the input issue kept on failure, the same shape as
+ * `Cause.findError`.
+ *
+ * @example
+ *   const located = Schema.encodeEffect(fromString(ChoiceInteraction))(value).pipe(
+ *     Effect.map(() => undefined),
+ *     Effect.catchTag("SchemaError", (error) =>
+ *       Effect.succeed(Result.getOrUndefined(findEncodeError(error.issue))),
+ *     ),
+ *   );
+ *
+ * @param issue - The issue of a `Schema.SchemaError`.
+ * @returns `Success` with the stored XML encode error, or `Failure` with `issue` itself when the
+ *   failure never reached XML encoding.
+ */
+export const findEncodeError = (
+  issue: SchemaIssue.Issue,
+): Result.Result<XmlEncodeError, SchemaIssue.Issue> =>
+  Result.fromOption(findEncodeErrorOption(issue), () => issue);

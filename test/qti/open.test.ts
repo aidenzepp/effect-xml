@@ -269,7 +269,7 @@ describe("the closed contrast on bg011-media.xml", () => {
         Effect.flip,
       );
 
-      const error = yield* Effect.fromOption(XmlSchema.decodeErrorOf(failure.issue));
+      const error = yield* Effect.fromOption(XmlSchema.findDecodeErrorOption(failure.issue));
 
       expect(failure._tag).toBe("SchemaError");
       expect(error._tag).toBe("XmlDecodeError");

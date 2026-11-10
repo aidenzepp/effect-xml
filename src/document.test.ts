@@ -2,6 +2,7 @@
 import { describe, expect, it } from "@effect/vitest";
 import * as Effect from "effect/Effect";
 import * as Option from "effect/Option";
+import * as Result from "effect/Result";
 import * as Schema from "effect/Schema";
 import * as SchemaGetter from "effect/SchemaGetter";
 import * as SchemaIssue from "effect/SchemaIssue";
@@ -9,7 +10,14 @@ import { expectTypeOf } from "vitest";
 
 import { QTI, spanNames } from "../test/support.ts";
 import { decodeString, decodeTree, encodeString } from "./codec.ts";
-import { ElementFromString, decodeErrorOf, encodeErrorOf, fromString } from "./document.ts";
+import {
+  ElementFromString,
+  findDecodeError,
+  findDecodeErrorOption,
+  findEncodeError,
+  findEncodeErrorOption,
+  fromString,
+} from "./document.ts";
 import { Element as plainElement, namespaces } from "./dsl.ts";
 import { elements, many, mixed, optional, text } from "./plan.ts";
 
@@ -83,7 +91,7 @@ describe("fromString", () => {
         Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml),
       );
 
-      const found = decodeErrorOf(error.issue);
+      const found = findDecodeErrorOption(error.issue);
 
       expect(error._tag).toBe("SchemaError");
       expect(found.pipe(Option.map((decode) => decode.path))).toEqual(
@@ -109,10 +117,10 @@ describe("fromString", () => {
         Schema.decodeUnknownEffect(Schema.fromJsonString(Envelope))(JSON.stringify(envelope)),
       );
 
-      expect(decodeErrorOf(nested.issue).pipe(Option.map((decode) => decode.path))).toEqual(
+      expect(findDecodeErrorOption(nested.issue).pipe(Option.map((decode) => decode.path))).toEqual(
         Option.some("/qti-choice-interaction/@max-choices"),
       );
-      expect(decodeErrorOf(json.issue).pipe(Option.map((decode) => decode.path))).toEqual(
+      expect(findDecodeErrorOption(json.issue).pipe(Option.map((decode) => decode.path))).toEqual(
         Option.some("/qti-choice-interaction/@max-choices"),
       );
     }),
@@ -124,7 +132,26 @@ describe("fromString", () => {
         Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(42),
       );
 
-      expect(Option.isNone(decodeErrorOf(error.issue))).toBe(true);
+      expect(Option.isNone(findDecodeErrorOption(error.issue))).toBe(true);
+    }),
+  );
+
+  it.effect("returns the stored decode error as a Result, and the input issue when none", () =>
+    Effect.gen(function* findsDecodeResult() {
+      const stored = yield* Effect.flip(
+        Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml),
+      );
+      const missing = yield* Effect.flip(
+        Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(42),
+      );
+
+      expect(findDecodeError(stored.issue)).toEqual(
+        Result.succeed(Option.getOrThrow(findDecodeErrorOption(stored.issue))),
+      );
+      const failed = findDecodeError(missing.issue);
+
+      expect(Result.isFailure(failed)).toBe(true);
+      expect(Result.isFailure(failed) && failed.failure === missing.issue).toBe(true);
     }),
   );
 
@@ -138,7 +165,7 @@ describe("fromString", () => {
 
       const error = yield* Effect.flip(Schema.encodeEffect(fromString(Label))({ id: "" }));
 
-      const found = encodeErrorOf(error.issue);
+      const found = findEncodeErrorOption(error.issue);
 
       expect(found.pipe(Option.map((encode) => encode._tag))).toEqual(
         Option.some("XmlEncodeError"),
@@ -147,7 +174,29 @@ describe("fromString", () => {
         Option.some("EncodeSchemaFailure"),
       );
       expect(found.pipe(Option.map((encode) => encode.path))).toEqual(Option.some("/label/@id"));
-      expect(Option.isNone(decodeErrorOf(error.issue))).toBe(true);
+      expect(Option.isNone(findDecodeErrorOption(error.issue))).toBe(true);
+    }),
+  );
+
+  it.effect("returns the stored encode error as a Result, and the input issue when none", () =>
+    Effect.gen(function* findsEncodeResult() {
+      const Label = plainElement("label", {
+        attributes: {
+          id: Schema.String.check(Schema.isNonEmpty()).pipe(Schema.decodeTo(Schema.String)),
+        },
+      });
+      const stored = yield* Effect.flip(Schema.encodeEffect(fromString(Label))({ id: "" }));
+      const missing = yield* Effect.flip(
+        Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml),
+      );
+
+      expect(findEncodeError(stored.issue)).toEqual(
+        Result.succeed(Option.getOrThrow(findEncodeErrorOption(stored.issue))),
+      );
+      const failed = findEncodeError(missing.issue);
+
+      expect(Result.isFailure(failed)).toBe(true);
+      expect(Result.isFailure(failed) && failed.failure === missing.issue).toBe(true);
     }),
   );
 
@@ -157,8 +206,8 @@ describe("fromString", () => {
         Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml),
       );
 
-      expect(Option.isSome(decodeErrorOf(error.issue))).toBe(true);
-      expect(Option.isNone(encodeErrorOf(error.issue))).toBe(true);
+      expect(Option.isSome(findDecodeErrorOption(error.issue))).toBe(true);
+      expect(Option.isNone(findEncodeErrorOption(error.issue))).toBe(true);
     }),
   );
 
@@ -187,7 +236,7 @@ describe("fromString", () => {
         Schema.decodeUnknownEffect(fromString(Pair), { errors: "all" })(pairXml),
       );
 
-      const issues = decodeErrorOf(error.issue).pipe(
+      const issues = findDecodeErrorOption(error.issue).pipe(
         Option.map((decode) =>
           decode.reason._tag === "SchemaFailure"
             ? SchemaIssue.makeFormatterStandardSchemaV1()(decode.reason.cause.issue).issues.length
@@ -369,9 +418,9 @@ describe("ElementFromString", () => {
     Effect.gen(function* carriesWellFormedness() {
       const error = yield* Effect.flip(Schema.decodeUnknownEffect(Tree)("<qti-prompt>"));
 
-      expect(decodeErrorOf(error.issue).pipe(Option.map((decode) => decode.reason._tag))).toEqual(
-        Option.some("WellFormedness"),
-      );
+      expect(
+        findDecodeErrorOption(error.issue).pipe(Option.map((decode) => decode.reason._tag)),
+      ).toEqual(Option.some("WellFormedness"));
     }),
   );
 });

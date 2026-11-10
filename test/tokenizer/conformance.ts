@@ -9,7 +9,7 @@ import * as Stream from "effect/Stream";
 import { Xml } from "effect/encoding";
 
 import { decodeSchema, decodeSchemaString } from "../../src/channel.ts";
-import { ElementFromString, decodeErrorOf, fromString } from "../../src/document.ts";
+import { ElementFromString, findDecodeErrorOption, fromString } from "../../src/document.ts";
 import { namespaces } from "../../src/dsl.ts";
 import { equivalence } from "../../src/equivalence.ts";
 import { elements, many, optional, text as textContent } from "../../src/plan.ts";
@@ -447,7 +447,7 @@ export const conformance = (name: string, tokenizer: Tokenizer): void => {
           ),
         );
 
-        const found = Option.getOrUndefined(decodeErrorOf(error.issue));
+        const found = Option.getOrUndefined(findDecodeErrorOption(error.issue));
 
         expect(found?.reason._tag).toBe("WellFormedness");
         expect(Number.isInteger(found?.position?.line)).toBe(true);
@@ -461,7 +461,7 @@ export const conformance = (name: string, tokenizer: Tokenizer): void => {
           Schema.decodeUnknownEffect(fromString(ChoiceInteraction, { maxDepth: 1 }))(readmeXml),
         );
 
-        const found = Option.getOrUndefined(decodeErrorOf(error.issue));
+        const found = Option.getOrUndefined(findDecodeErrorOption(error.issue));
 
         expect(found?.reason).toMatchObject({ _tag: "Limit", limit: "maxDepth", max: 1 });
       }).pipe(Effect.provideService(Tokenizer, tokenizer)),

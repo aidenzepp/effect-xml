@@ -3937,7 +3937,9 @@ describe("wire fast path: whole documents", () => {
             const failure = cause.reasons.find((reason) => reason._tag === "Fail");
 
             const error =
-              failure === undefined ? Option.none() : XmlSchema.decodeErrorOf(failure.error.issue);
+              failure === undefined
+                ? Option.none()
+                : XmlSchema.findDecodeErrorOption(failure.error.issue);
 
             return Option.match(error, {
               onNone: (): DocumentOutcome => "no decode error",

@@ -44,7 +44,9 @@ const failure = Effect.runSync(
   Schema.decodeUnknownEffect(Document)(xml.replace('max-choices="1"', 'max-choices="x"')).pipe(
     Effect.as(undefined),
     Effect.catchTag("SchemaError", (schemaError) =>
-      Effect.fail(Option.getOrElse(XmlSchema.decodeErrorOf(schemaError.issue), () => schemaError)),
+      Effect.fail(
+        Option.getOrElse(XmlSchema.findDecodeErrorOption(schemaError.issue), () => schemaError),
+      ),
     ),
     Effect.catchReason("XmlDecodeError", "SchemaFailure", (_reason, error) =>
       Effect.succeed(error),
@@ -60,7 +62,9 @@ const encodeFailure = Effect.runSync(
   Schema.encodeEffect(Document)({ ...value, "response-identifier": "RESPONSE\u0000" }).pipe(
     Effect.as(undefined),
     Effect.catchTag("SchemaError", (schemaError) =>
-      Effect.fail(Option.getOrElse(XmlSchema.encodeErrorOf(schemaError.issue), () => schemaError)),
+      Effect.fail(
+        Option.getOrElse(XmlSchema.findEncodeErrorOption(schemaError.issue), () => schemaError),
+      ),
     ),
     Effect.catchReason("XmlEncodeError", "InvalidEvent", (_reason, error) => Effect.succeed(error)),
   ),
