@@ -21,7 +21,7 @@ const members = [
   "text",
   "elements",
   "mixed",
-  "Array",
+  "many",
   "optionalKey",
   "DefinitionError",
   "clark",
@@ -62,7 +62,6 @@ const excluded = [
   "CanonicalOptions",
   "defaultMaxElementSize",
   "defaultMaxElementNodes",
-  "many",
   "optional",
   "XmlDecodeError",
   "XmlEncodeError",
@@ -91,6 +90,13 @@ describe("index", () => {
 describe("XmlSchema", () => {
   it("exports exactly the namespace's value members", () => {
     expect(sorted(Object.keys(XmlSchema))).toStrictEqual(sorted(members));
+  });
+
+  it("publishes the zero-or-more child slot as many, not Array", () => {
+    const Item = XmlSchema.Element("item", { content: XmlSchema.text(Schema.String) });
+
+    expect("Array" in XmlSchema).toBe(false);
+    expect(XmlSchema.many(Item).cardinality).toBe("many");
   });
 
   it("leaves out every flat name the namespace replaces or keeps internal", () => {

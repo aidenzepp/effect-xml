@@ -81,7 +81,7 @@ const interaction = (prompt: Schema.Codec<string, string>) => {
     attributes: { "max-choices": Schema.Int, "response-identifier": Schema.String },
     content: XmlSchema.elements({
       prompt: XmlSchema.optionalKey(Element("qti-prompt", { content: XmlSchema.text(prompt) })),
-      choices: XmlSchema.Array(SimpleChoice),
+      choices: XmlSchema.many(SimpleChoice),
     }),
   });
 };

@@ -52,7 +52,7 @@ const srcInteraction = (prompt: Schema.Codec<string, string>) => {
     attributes: { "max-choices": Schema.Int, "response-identifier": Schema.String },
     content: SrcXml.elements({
       prompt: SrcXml.optionalKey(Element("qti-prompt", { content: SrcXml.text(prompt) })),
-      choices: SrcXml.Array(SimpleChoice),
+      choices: SrcXml.many(SimpleChoice),
     }),
   });
 };

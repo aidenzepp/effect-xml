@@ -73,8 +73,8 @@ const OpenAssessmentItem = qti.Element("qti-assessment-item", {
   },
   /* oxlint-disable sort-keys -- slot order is encode order, which must follow QTI authoring order. */
   content: XmlSchema.elements({
-    responseDeclarations: XmlSchema.Array(ResponseDeclaration),
-    outcomeDeclarations: XmlSchema.Array(OutcomeDeclaration),
+    responseDeclarations: XmlSchema.many(ResponseDeclaration),
+    outcomeDeclarations: XmlSchema.many(OutcomeDeclaration),
     body: XmlSchema.optionalKey(OpenItemBody),
     responseProcessing: XmlSchema.optionalKey(OpenResponseProcessing),
   }),

@@ -43,7 +43,7 @@ const ChoiceInteraction = Element("qti-choice-interaction", {
   attributes: { "max-choices": Schema.Int, "response-identifier": Schema.String },
   content: XmlSchema.elements({
     prompt: XmlSchema.optionalKey(Prompt),
-    choices: XmlSchema.Array(SimpleChoice),
+    choices: XmlSchema.many(SimpleChoice),
   }),
 });
 
@@ -103,22 +103,22 @@ Both blocks are regions of `test/readme.test.ts`, so the test suite runs them.
 
 `XmlSchema` is the package's only export.
 
-| Member                                           | Does                                                                                             |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `Element`                                        | Declares an element codec from its name, attributes and content                                  |
-| `namespaces`                                     | Binds a prefix map (`""` is the default namespace) and returns `Element` and `suspend` for it    |
-| `suspend`                                        | Refers to an element declared later, for recursive vocabularies                                  |
-| `text`, `elements`, `mixed`                      | Content: one text value; child elements in named slots; text and elements in document order      |
-| `Array`, `optionalKey`                           | An `elements` slot for zero or more, or at most one, of a child element                          |
-| `fromString`                                     | A codec from a document's text to the value of its root element                                  |
-| `ElementFromString`                              | A codec from a document's text to its resolved root element, with no element codec applied       |
-| `decodeSchemaString`, `decodeSchema`             | Channels from text or UTF-8 byte chunks to one value per record at a path                        |
-| `clark`                                          | Builds a `{uri}local` name for a record path step                                                |
-| `equivalence`                                    | The round-trip equivalence on resolved elements under a root definition                          |
-| `findDecodeError`, `findEncodeError`             | Read the library error out of a failed decode's or encode's Schema issue, as a `Result`          |
-| `findDecodeErrorOption`, `findEncodeErrorOption` | The same, as an `Option`                                                                         |
-| `DecodeError`, `EncodeError`                     | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position` |
-| `Tokenizer`                                      | The service that parses and writes XML text, defaulting to `effect/encoding/Xml`                 |
+| Member                                           | Does                                                                                                                      |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| `Element`                                        | Declares an element codec from its name, attributes and content                                                           |
+| `namespaces`                                     | Binds a prefix map (`""` is the default namespace) and returns `Element` and `suspend` for it                             |
+| `suspend`                                        | Refers to an element declared later, for recursive vocabularies                                                           |
+| `text`, `elements`, `mixed`                      | Content: one text value; child elements in named slots; text and elements in document order                               |
+| `many`, `optionalKey`                            | An `elements` slot for zero or more (key always present, empty array when none match), or at most one, of a child element |
+| `fromString`                                     | A codec from a document's text to the value of its root element                                                           |
+| `ElementFromString`                              | A codec from a document's text to its resolved root element, with no element codec applied                                |
+| `decodeSchemaString`, `decodeSchema`             | Channels from text or UTF-8 byte chunks to one value per record at a path                                                 |
+| `clark`                                          | Builds a `{uri}local` name for a record path step                                                                         |
+| `equivalence`                                    | The round-trip equivalence on resolved elements under a root definition                                                   |
+| `findDecodeError`, `findEncodeError`             | Read the library error out of a failed decode's or encode's Schema issue, as a `Result`                                   |
+| `findDecodeErrorOption`, `findEncodeErrorOption` | The same, as an `Option`                                                                                                  |
+| `DecodeError`, `EncodeError`                     | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position`                          |
+| `Tokenizer`                                      | The service that parses and writes XML text, defaulting to `effect/encoding/Xml`                                          |
 
 A record path is a root-anchored list of steps. Each step is `"*"` for any element, a bare `local` name for no namespace, or `{uri}local` for a namespaced one. The path `["order", "item"]` selects each `item` directly inside the root `order`. `clark` builds a `{uri}local` step from a separate URI.
 

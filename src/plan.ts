@@ -337,7 +337,8 @@ export interface text<S extends Schema.Top> {
 }
 
 /**
- * A child slot that accepts any number of the element `element`.
+ * A child slot that accepts zero or more of the element `element`. The decoded key is always
+ * present: an empty array when no child matches.
  */
 // oxlint-disable-next-line eslint/no-redeclare -- the declaration type takes its constructor's name across TypeScript's type and value spaces, as `Schema.optionalKey` does (`effect/Schema.ts:2358`).
 export interface many<E extends AnyElement> {
@@ -355,7 +356,7 @@ export interface optional<E extends AnyElement> {
 }
 
 /**
- * One child slot: a bare element codec means exactly one, otherwise an `Array` or an
+ * One child slot: a bare element codec means exactly one, otherwise a `many` or an
  * `optionalKey` slot.
  */
 export type ChildSpec = AnyElement | many<AnyElement> | optional<AnyElement>;
@@ -459,10 +460,11 @@ export const mixed = <const M extends readonly AnyElement[], const O extends boo
 ): mixed<M, O> => ({ members, mode: "mixed", open: openOf(options) });
 
 /**
- * Mark a child slot as accepting any number of `element`.
+ * Mark a child slot as accepting zero or more of `element`. The decoded key is always present,
+ * and holds an empty array when no child matches.
  *
  * @param element - The child element codec.
- * @returns An `Array` child slot.
+ * @returns A `many` child slot.
  */
 export const many = <E extends AnyElement>(element: E): many<E> => ({
   cardinality: "many",
