@@ -31,6 +31,7 @@ const members = [
   "findDecodeErrorOption",
   "findEncodeError",
   "findEncodeErrorOption",
+  "unwrapDecodeError",
   "decodeSchema",
   "decodeSchemaString",
   "equivalence",

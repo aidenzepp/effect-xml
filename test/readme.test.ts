@@ -43,11 +43,7 @@ const encoded = Schema.encodeSync(Document)(value);
 const failure = Effect.runSync(
   Schema.decodeUnknownEffect(Document)(xml.replace('max-choices="1"', 'max-choices="x"')).pipe(
     Effect.as(undefined),
-    Effect.catchTag("SchemaError", (schemaError) =>
-      Effect.fail(
-        Option.getOrElse(XmlSchema.findDecodeErrorOption(schemaError.issue), () => schemaError),
-      ),
-    ),
+    XmlSchema.unwrapDecodeError,
     Effect.catchReason("XmlDecodeError", "SchemaFailure", (_reason, error) =>
       Effect.succeed(error),
     ),
@@ -90,9 +86,22 @@ describe("README example", () => {
     expect(Schema.decodeUnknownSync(Document)(encoded)).toEqual(value);
   });
 
-  it("selects the located schema failure from the SchemaError", () => {
+  it("selects the located schema failure in one step after unwrapDecodeError", () => {
+    expect(failure?._tag).toBe("XmlDecodeError");
+    expect(failure?.reason._tag).toBe("SchemaFailure");
     expect(failure?.path).toBe("/qti-choice-interaction/@max-choices");
     expect(failure?.message).toMatch(/finite/iu);
+  });
+
+  it("keeps the SchemaError of a non-string input as the same instance", () => {
+    const nonString = Effect.runSync(Effect.flip(Schema.decodeUnknownEffect(Document)(42)));
+
+    const unwrapped = Effect.runSync(
+      Effect.flip(Effect.fail(nonString).pipe(XmlSchema.unwrapDecodeError)),
+    );
+
+    expect(nonString._tag).toBe("SchemaError");
+    expect(unwrapped).toBe(nonString);
   });
 
   it("selects the encode failure from the SchemaError", () => {
