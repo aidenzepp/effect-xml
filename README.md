@@ -117,6 +117,8 @@ Both blocks are regions of `test/readme.test.ts`, so the test suite runs them.
 | `DecodeError`, `EncodeError`         | The failure of each direction: `path`, `message`, `reason`, and on decode an optional `position` |
 | `Tokenizer`                          | The service that parses and writes XML text, defaulting to `effect/encoding/Xml`                 |
 
+A record path is a root-anchored list of steps. Each step is `"*"` for any element, a bare `local` name for no namespace, or `{uri}local` for a namespaced one. The path `["order", "item"]` selects each `item` directly inside the root `order`. `clark` builds a `{uri}local` step from a separate URI.
+
 Every definition keeps these:
 
 - Attributes decode under their names as written, such as `"max-choices"`. `"data-*"` declares one schema for every `data-` attribute.
