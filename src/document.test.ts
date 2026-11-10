@@ -172,6 +172,11 @@ describe("fromString", () => {
       const error = yield* Effect.flip(unwrapped);
 
       expect(error).toEqual(Option.getOrThrow(findDecodeErrorOption(stored.issue)));
+
+      const instance = Option.getOrThrow(findDecodeErrorOption(stored.issue));
+      const sameRun = yield* Effect.flip(Effect.fail(stored).pipe(unwrapDecodeError));
+
+      expect(sameRun).toBe(instance);
     }),
   );
 

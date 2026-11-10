@@ -334,7 +334,13 @@ export const findEncodeError = (
  * rather than narrows: it keeps `Schema.SchemaError`, because a failure that never reached XML
  * decoding, such as a non-string input, is a real failure with no XML error to report. The
  * argument's error channel must hold `Schema.SchemaError`; applying this to an effect without one
- * is a type error, since there is nothing to unwrap.
+ * is a type error, since there is nothing to unwrap. A channel typed `unknown` or `Error` is
+ * rejected at the type level by design, because it does not name `Schema.SchemaError`.
+ *
+ * Replacing the `SchemaError` drops the rest of its issue: other failures collected with
+ * `errors: "all"`, and the outer path when `fromString` is nested as a struct field, are not kept.
+ * Callers that need them should keep the `SchemaError` and read the XML error with
+ * {@link findDecodeError} or {@link findDecodeErrorOption}.
  *
  * @example
  *   const failure = Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(xml).pipe(

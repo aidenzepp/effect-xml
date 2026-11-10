@@ -62,7 +62,7 @@ console.log(value);
 const encoded = Schema.encodeSync(Document)(value);
 ```
 
-`Document` is an ordinary Schema codec, so a failed decode fails with `Schema.SchemaError`. `XmlSchema.unwrapDecodeError` moves the positioned `XmlSchema.XmlDecodeError` stored in that error into the error channel, and `Effect.catchReason` selects it by reason. A failure that never reached XML, such as a non-string input, stays the same `SchemaError`. Decode a copy whose `max-choices` is not a number:
+`Document` is an ordinary Schema codec, so a failed decode fails with `Schema.SchemaError`. `XmlSchema.unwrapDecodeError` moves the positioned `XmlSchema.XmlDecodeError` stored in that error into the error channel, and `Effect.catchReason` selects it by reason. A failure that never reached XML, such as a non-string input, stays the same `SchemaError`. Unwrapping replaces the `SchemaError`, so the rest of its issue is dropped: other failures (`errors: "all"`) and the outer path when `fromString` is nested as a struct field. Callers that need them should keep the `SchemaError` and use `XmlSchema.findDecodeError` or `XmlSchema.findDecodeErrorOption`. Decode a copy whose `max-choices` is not a number:
 
 ```ts
 const failure = Effect.runSync(
