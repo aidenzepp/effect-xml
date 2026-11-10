@@ -225,7 +225,7 @@ const schemaFailureOf = (output: unknown): number =>
   Result.isFailure(output) &&
   Schema.isSchemaError(output.failure) &&
   Option.exists(
-    XmlSchema.decodeErrorOf(output.failure.issue),
+    XmlSchema.findDecodeErrorOption(output.failure.issue),
     (found) => found.reason._tag === "SchemaFailure",
   )
     ? 1

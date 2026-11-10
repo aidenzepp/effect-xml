@@ -5,7 +5,7 @@ import * as Schema from "effect/Schema";
 import * as Stream from "effect/Stream";
 
 import { decodeSchema, decodeSchemaString } from "../../src/channel.ts";
-import { decodeErrorOf, fromString } from "../../src/document.ts";
+import { findDecodeErrorOption, fromString } from "../../src/document.ts";
 import { namespaces } from "../../src/dsl.ts";
 import { elements, many, text } from "../../src/plan.ts";
 import { Tokenizer } from "../../src/tokenizer.ts";
@@ -64,7 +64,7 @@ describe("a native-position Tokenizer", () => {
         Schema.decodeUnknownEffect(fromString(Bank))(badSecondChoice),
       );
 
-      const found = Option.getOrUndefined(decodeErrorOf(error.issue));
+      const found = Option.getOrUndefined(findDecodeErrorOption(error.issue));
 
       expect(found?.position?.line).toBeGreaterThanOrEqual(shift);
     }).pipe(Effect.provideService(Tokenizer, shiftedNativeTokenizer)),

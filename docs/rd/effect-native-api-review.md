@@ -454,3 +454,7 @@ Kept, with the reason:
 - `WellFormedness` (hater 11): an existing reason name outside this batch's scope.
 - The positional record path in `decodeSchemaString(def, path)` (hater 12): it follows `Xml.elements(path)` (`encoding/Xml.ts:438`) and the R3 spike.
 - `suspend(name, thunk)` (hater 14) and `clark` (hater 17) are section 5 keeps. `$text`/`$children` (hater 15) are the owner's ruling 3. `namespaces` (hater 16) and `DefinitionError` (hater 18, O10) stay.
+
+### Ruling: the extractors are named `find*` and `find*Option`
+
+Decided for 0.2.0 under issue #1. `decodeErrorOf` and `encodeErrorOf` moved to `findDecodeErrorOption` and `findEncodeErrorOption`, and `findDecodeError` and `findEncodeError` return the `Result` form that fails with the input issue. Why: `Cause` and `Exit` name this kind of extraction `findError` (`Result`) and `findErrorOption` (`Option`), and no Effect `*Of` export searches a failure at runtime. The earlier lines here that name `decodeErrorOf` record what was decided before this ruling.

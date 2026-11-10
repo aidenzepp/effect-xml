@@ -471,7 +471,7 @@ const prepareFailure = Effect.fnUntraced(function* prepareFailure(
             onFailure: (error) =>
               count(
                 Option.exists(
-                  XmlSchema.decodeErrorOf(error.issue),
+                  XmlSchema.findDecodeErrorOption(error.issue),
                   (found) => found.reason._tag === "SchemaFailure",
                 ),
               ),

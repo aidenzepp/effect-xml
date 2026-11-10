@@ -46,7 +46,7 @@ const variant = (from: string, to: string): string => {
 const failureOf = (xml: string): Effect.Effect<XmlSchema.DecodeError> =>
   Schema.decodeUnknownEffect(XmlSchema.fromString(AssessmentItem))(xml).pipe(
     Effect.flip,
-    Effect.flatMap((failure) => Effect.fromOption(XmlSchema.decodeErrorOf(failure.issue))),
+    Effect.flatMap((failure) => Effect.fromOption(XmlSchema.findDecodeErrorOption(failure.issue))),
     Effect.orDie,
   );
 

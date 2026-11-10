@@ -89,7 +89,7 @@ describe("synthetic item bank", () => {
     Effect.gen(function* failsBadLast() {
       const { text } = yield* loadText("bank-256k-bad-last");
       const failure = yield* Effect.flip(decodeBank(text));
-      const error = yield* Effect.fromOption(XmlSchema.decodeErrorOf(failure.issue));
+      const error = yield* Effect.fromOption(XmlSchema.findDecodeErrorOption(failure.issue));
 
       expect(error.reason._tag).toBe("SchemaFailure");
     }),

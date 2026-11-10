@@ -27,7 +27,14 @@ export { clark } from "./element.ts";
 
 export type { ResolvedElement } from "./element.ts";
 
-export { ElementFromString, decodeErrorOf, encodeErrorOf, fromString } from "./document.ts";
+export {
+  ElementFromString,
+  findDecodeError,
+  findDecodeErrorOption,
+  findEncodeError,
+  findEncodeErrorOption,
+  fromString,
+} from "./document.ts";
 
 export { decodeSchema, decodeSchemaString } from "./channel.ts";
 

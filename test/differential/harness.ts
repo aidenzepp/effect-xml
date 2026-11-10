@@ -40,8 +40,8 @@ import { structuralPlan } from "../../src/structural-slot.ts";
  */
 export interface Side {
   readonly name: "src" | "standard";
-  readonly decodeErrorOf: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.DecodeError>;
-  readonly encodeErrorOf: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.EncodeError>;
+  readonly findDecodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.DecodeError>;
+  readonly findEncodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.EncodeError>;
   readonly Tokenizer: typeof SrcXml.Tokenizer;
 }
 
@@ -50,8 +50,8 @@ export interface Side {
  */
 export const src: Side = {
   Tokenizer: SrcXml.Tokenizer,
-  decodeErrorOf: SrcXml.decodeErrorOf,
-  encodeErrorOf: SrcXml.encodeErrorOf,
+  findDecodeErrorOption: SrcXml.findDecodeErrorOption,
+  findEncodeErrorOption: SrcXml.findEncodeErrorOption,
   name: "src",
 };
 
@@ -63,8 +63,8 @@ export const src: Side = {
  */
 export const standard: Side = {
   Tokenizer: SrcXml.Tokenizer,
-  decodeErrorOf: SrcXml.decodeErrorOf,
-  encodeErrorOf: SrcXml.encodeErrorOf,
+  findDecodeErrorOption: SrcXml.findDecodeErrorOption,
+  findEncodeErrorOption: SrcXml.findEncodeErrorOption,
   name: "standard",
 };
 
@@ -599,7 +599,7 @@ export const documentDecode = <T, RD, RE>(
   Effect.exit(Schema.decodeUnknownEffect(codec)(text, parseOptions)).pipe(
     Effect.map((exit) =>
       documentOutcome(exit, valueSummary, (issue) =>
-        side.decodeErrorOf(issue).pipe(Option.map(decodeErrorSummary)),
+        side.findDecodeErrorOption(issue).pipe(Option.map(decodeErrorSummary)),
       ),
     ),
   );
@@ -628,7 +628,7 @@ export const documentEncode = <T, RD, RE>(
       documentOutcome(
         exit,
         (text) => ({ text }),
-        (issue) => side.encodeErrorOf(issue).pipe(Option.map(encodeErrorSummary)),
+        (issue) => side.findEncodeErrorOption(issue).pipe(Option.map(encodeErrorSummary)),
       ),
     ),
   );
