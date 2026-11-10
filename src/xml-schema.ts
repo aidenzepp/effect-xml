@@ -34,6 +34,7 @@ export {
   findEncodeError,
   findEncodeErrorOption,
   fromString,
+  unwrapDecodeError,
 } from "./document.ts";
 
 export { decodeSchema, decodeSchemaString } from "./channel.ts";
