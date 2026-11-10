@@ -17,8 +17,10 @@ import {
   findEncodeError,
   findEncodeErrorOption,
   fromString,
+  unwrapDecodeError,
 } from "./document.ts";
 import { Element as plainElement, namespaces } from "./dsl.ts";
+import type { XmlDecodeError } from "./issue.ts";
 import { elements, many, mixed, optional, text } from "./plan.ts";
 
 const { Element } = namespaces({ "": QTI });
@@ -156,6 +158,59 @@ describe("fromString", () => {
       expect(Result.isFailure(failed) && failed.failure === missing.issue).toBe(true);
     }),
   );
+
+  it.effect("moves the stored decode error into the error channel", () =>
+    Effect.gen(function* unwrapsDecodeError() {
+      const decode = Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(badXml);
+      const stored = yield* Effect.flip(decode);
+      const unwrapped = decode.pipe(unwrapDecodeError);
+
+      expectTypeOf<Effect.Error<typeof unwrapped>>().toEqualTypeOf<
+        Schema.SchemaError | XmlDecodeError
+      >();
+
+      const error = yield* Effect.flip(unwrapped);
+
+      expect(error).toEqual(Option.getOrThrow(findDecodeErrorOption(stored.issue)));
+
+      const instance = Option.getOrThrow(findDecodeErrorOption(stored.issue));
+      const sameRun = yield* Effect.flip(Effect.fail(stored).pipe(unwrapDecodeError));
+
+      expect(sameRun).toBe(instance);
+    }),
+  );
+
+  it.effect("keeps a SchemaError with no stored decode error as the same instance", () =>
+    Effect.gen(function* keepsSchemaError() {
+      const original = yield* Effect.flip(
+        Schema.decodeUnknownEffect(fromString(ChoiceInteraction))(42),
+      );
+
+      const error = yield* Effect.flip(Effect.fail(original).pipe(unwrapDecodeError));
+
+      expect(Option.isNone(findDecodeErrorOption(original.issue))).toBe(true);
+      expect(error).toBe(original);
+    }),
+  );
+
+  it.effect("passes every other error through as the same instance", () =>
+    Effect.gen(function* passesOtherErrors() {
+      const other = new Error("not a decode failure");
+
+      const failing: Effect.Effect<never, Error | Schema.SchemaError> = Effect.fail(other);
+
+      const error = yield* Effect.flip(failing.pipe(unwrapDecodeError));
+
+      expect(error).toBe(other);
+    }),
+  );
+
+  it("rejects an effect whose error channel holds no SchemaError", () => {
+    const plain: Effect.Effect<number, Error> = Effect.succeed(1);
+
+    // @ts-expect-error unwrapDecodeError needs a Schema.SchemaError in the error channel
+    expect(Effect.isEffect(unwrapDecodeError(plain))).toBe(true);
+  });
 
   it.effect("carries the encode error of a rejected value in the schema issue", () =>
     Effect.gen(function* carriesEncodeError() {
