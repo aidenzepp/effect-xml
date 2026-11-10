@@ -121,13 +121,13 @@ describe("XmlSchema", () => {
       );
 
       const decodeFailure = yield* Schema.decodeUnknownEffect(Doc)("<p>x</p>").pipe(Effect.flip);
-      const decodeError = Option.getOrThrow(XmlSchema.decodeErrorOf(decodeFailure.issue));
+      const decodeError = Option.getOrThrow(XmlSchema.findDecodeErrorOption(decodeFailure.issue));
 
       const encodeFailure = yield* Schema.encodeEffect(Doc)({ $text: Number.NaN }).pipe(
         Effect.flip,
       );
 
-      const encodeError = Option.getOrThrow(XmlSchema.encodeErrorOf(encodeFailure.issue));
+      const encodeError = Option.getOrThrow(XmlSchema.findEncodeErrorOption(encodeFailure.issue));
 
       expect(decodeError._tag).toBe("XmlDecodeError");
       expect(encodeError._tag).toBe("XmlEncodeError");

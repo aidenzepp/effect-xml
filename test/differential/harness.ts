@@ -40,8 +40,12 @@ import { structuralPlan } from "../../src/structural-slot.ts";
  */
 export interface Side {
   readonly name: "src" | "standard";
-  readonly findDecodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.XmlDecodeError>;
-  readonly findEncodeErrorOption: (issue: SchemaIssue.Issue) => Option.Option<SrcXml.XmlEncodeError>;
+  readonly findDecodeErrorOption: (
+    issue: SchemaIssue.Issue,
+  ) => Option.Option<SrcXml.XmlDecodeError>;
+  readonly findEncodeErrorOption: (
+    issue: SchemaIssue.Issue,
+  ) => Option.Option<SrcXml.XmlEncodeError>;
   readonly Tokenizer: typeof SrcXml.Tokenizer;
 }
 
